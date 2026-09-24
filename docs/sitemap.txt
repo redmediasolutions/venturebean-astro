@@ -1,0 +1,99 @@
+VENTUREBEAN — WEBSITE MIND MAP
+Source: live site https://venturebean.com (header menu, links on each navbar page, and the Yoast XML sitemaps), checked 24 Sept 2026.
+
+VentureBean (https://venturebean.com)
+│
+├── Home  —  /
+│
+├── About Us  —  /about-us/
+│   ├── Clients  —  /clients/
+│   ├── Testimonials  —  /testimonials/
+│   └── Case Studies  —  /case-studies/
+│       ├── Consulting Case Studies  —  /consulting-case-studies/
+│       │     (20 case studies, shown on this page; stored as posts under /consulting-cs/…)
+│       └── Coaching Case Studies  —  /coaching-case-studies/
+│             (36 case studies, shown on this page; stored as posts under
+│              /coaching-cs-corporate/… (9), /coaching-cs-individual/… (18), /coaching-cs-organisational/… (9))
+│
+├── Consulting  —  /business-consulting/
+│
+├── Coaching  —  /coaching/   (menu links to /coaching-page/, which redirects here)
+│   ├── Crisis  —  /crisis/
+│   ├── Angels 18  —  /angels-18/
+│   └── 36 Hours  —  /36-hours/
+│
+├── Solutions  —  /venturebean-solutions-page/
+│   ├── Launch Right  —  /solutions-launch-right/
+│   ├── ScaleWise  —  /solutions-page-scalewise/
+│   ├── LegacyNext  —  /solutions-legacynext/   (page links to the typo /soltuions-legacynext/, which redirects)
+│   ├── LeadershipEdge  —  /solutions-leadershipedge/
+│   ├── Impact360  —  /solutions-impact360/
+│   └── GCC  —  /gcc/
+│
+├── Knowledge Hub  —  /knowledge-hub/   (button in header)
+│   ├── Media Spotlight  —  /knowledge-hub/media-spotlight/
+│   ├── Industry Perspectives  —  /knowledge-hub/industry-perspectives/
+│   ├── Toolkit  —  /knowledge-hub/toolkit/
+│   └── Insights (blog)  —  /knowledge-hub/insights/
+│         Articles are posts, grouped by category:
+│         /consulting/… (61), /coaching/… (41), /videos/… (12), /media-spotlight/… (8),
+│         /industry-perspectives/… (7), /framework/… (2), /venturebean/… (2), /uncategorized/… (2)
+│
+└── Reach Us  —  /contact-us/   (button in header)
+
+
+ANSWERS
+1. Main (navbar) pages: 7, counting Home (reached through the logo)
+   Home, About Us, Consulting, Coaching, Solutions, Knowledge Hub, Reach Us.
+   About Us is the only item with a dropdown.
+
+2. URLs / slugs of the main pages
+   Home ................ /
+   About Us ............ /about-us/
+   Consulting .......... /business-consulting/
+   Coaching ............ /coaching/   (menu URL /coaching-page/ redirects)
+   Solutions ........... /venturebean-solutions-page/
+   Knowledge Hub ....... /knowledge-hub/
+   Reach Us ............ /contact-us/
+
+3. Inside / child pages linked from the navigation structure: 20
+   About Us (3): Clients, Testimonials, Case Studies
+   Case Studies (2): Consulting Case Studies, Coaching Case Studies
+   Coaching (3): Crisis, Angels 18, 36 Hours
+   Solutions (6): Launch Right, ScaleWise, LegacyNext, LeadershipEdge, Impact360, GCC
+   Knowledge Hub (4): Media Spotlight, Industry Perspectives, Toolkit, Insights
+   Consulting, Reach Us: no child pages
+   Plus content entries: 191 posts (articles, videos, 56 case studies, frameworks).
+
+4. Which pages belong where: see the tree above.
+
+
+PAGES THAT EXIST BUT ARE NOT LINKED FROM THE NAVIGATION
+(published in the page sitemap; confirm with the client whether they should be migrated)
+   /expertise/
+   /family-business/
+   /family-business-continuity-pack-future-proof-the-legacy/
+   /impact360/
+   /impact360-2/
+   /impact360-integrated-business-people-transformation/
+   /leadership-development/
+   /leadership-development-programs-lead-with-impact/
+   /leadership-edge/
+   /legacynext/
+   /digital-readiness/
+   /culture-capability/
+   /enterprise-transformation/
+   /assets-inside-page/
+   /smb-growth-readiness-score/
+   /how-coachable-am-i/
+   /venturebean-z-framework/
+   /pptg-framework/
+   /scalability-assessment-framework-new/
+   /venturebean-3cs-framework-new/
+
+
+ISSUES FOUND ON THE LIVE SITE
+   - The off-canvas (hamburger) menu links "Solutions" to /business-solutions/, which returns 404.
+   - The footer phone number links to "http://mail/" instead of a phone link.
+   - The Solutions page links LegacyNext through a misspelt URL (/soltuions-legacynext/).
+   - Several testimonial job titles end with a repeated "CEO, Xmplar ERP Solutions".

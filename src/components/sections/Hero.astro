@@ -1,0 +1,345 @@
+---
+import Img from '../ui/Img.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { hero } from '../../data/home.js';
+
+const { slides } = hero;
+---
+
+<section class="hero" aria-roledescription="carousel" aria-label="Highlights" data-hero>
+  <div class="hero__frame">
+    <div class="hero__slides" aria-live="off">
+      {
+        slides.map((s, i) => (
+          <div
+            class:list={['hero__slide', { 'is-active': i === 0 }]}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${i + 1} of ${slides.length}: ${s.title}`}
+            aria-hidden={i === 0 ? undefined : 'true'}
+            data-slide
+            style={`--overlay:${s.overlay}`}
+          >
+            <div class="hero__media" data-parallax>
+              <Img
+                src={s.image}
+                alt={s.alt}
+                sizes="100vw"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : undefined}
+                class="hero__img"
+              />
+            </div>
+            <div class="hero__shade" aria-hidden="true" />
+            <div class="hero__content container">
+              <p class="hero__title">
+                <span class="hero__mask">
+                  <span class="hero__line">{s.title}</span>
+                </span>
+              </p>
+              <p class="hero__text">{s.text}</p>
+              <div class="hero__cta">
+                <Button href={s.cta.href} variant="light" size="lg" tabindex={i === 0 ? undefined : '-1'}>
+                  {s.cta.label}
+                </Button>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="hero__controls container">
+      <ol class="hero__tabs" role="list">
+        {
+          slides.map((s, i) => (
+            <li>
+              <button
+                class:list={['hero__tab', { 'is-active': i === 0 }]}
+                type="button"
+                data-goto={i}
+                aria-label={`Go to slide ${i + 1}: ${s.title}`}
+                aria-current={i === 0 ? 'true' : undefined}
+              >
+                <span class="hero__tab-meta">
+                  <span class="hero__tab-num">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="hero__tab-title">{s.title}</span>
+                </span>
+                <span class="hero__progress" aria-hidden="true">
+                  <span />
+                </span>
+              </button>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="hero__arrows">
+        <button type="button" class="hero__arrow" data-prev>
+          <Icon name="chevron-left" size={20} />
+          <span class="visually-hidden">Previous slide</span>
+        </button>
+        <button type="button" class="hero__arrow" data-next>
+          <Icon name="chevron-right" size={20} />
+          <span class="visually-hidden">Next slide</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: var(--header-h) 0 0;
+  }
+  .hero__frame {
+    position: relative;
+    height: min(760px, calc(100svh - var(--header-h)));
+    min-height: 540px;
+    border-radius: 0;
+    overflow: hidden;
+    background: var(--vb-navy-950);
+    isolation: isolate;
+  }
+  .hero__slides {
+    position: absolute;
+    inset: 0;
+  }
+  .hero__slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    visibility: hidden;
+    transition: visibility 0s linear 260ms;
+  }
+  .hero__slide.is-active {
+    visibility: visible;
+    transition-delay: 0s;
+    z-index: 1;
+  }
+
+  /* Media: clip-path wipe in + slow ken-burns */
+  .hero__media {
+    position: absolute;
+    inset: -4% 0;
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease-out);
+    will-change: transform;
+  }
+  .hero__slide.is-active .hero__media {
+    opacity: 1;
+  }
+  .hero__slide.is-leaving {
+    visibility: visible;
+    z-index: 0;
+  }
+  .hero__slide.is-leaving .hero__media {
+    opacity: 1;
+  }
+  .hero__media :global(.hero__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: none;
+  }
+  .hero__slide.is-active .hero__media :global(.hero__img) {
+    transform: none;
+  }
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgb(11 0 54 / 0.35) 0%, transparent 30%),
+      linear-gradient(0deg, rgb(11 0 54 / 0.7) 0%, transparent 55%),
+      var(--overlay);
+    opacity: 0;
+    transition: opacity var(--dur) var(--ease-out);
+  }
+  .hero__slide.is-active .hero__shade,
+  .hero__slide.is-leaving .hero__shade {
+    opacity: 1;
+  }
+
+  /* Copy */
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    padding-bottom: clamp(8rem, 14vh, 10rem);
+    color: #fff;
+  }
+  .hero__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+  .hero__mask { display: block; }
+  .hero__line {
+    display: block;
+    transform: none;
+  }
+  .hero__text {
+    margin-top: clamp(1rem, 2vw, 1.75rem);
+    max-width: 44ch;
+    font-size: var(--fs-lg);
+    font-weight: 500;
+    line-height: 1.45;
+    color: rgb(255 255 255 / 0.88);
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+  }
+  .hero__cta {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+  }
+  .hero__slide.is-active .hero__line {
+    transform: none;
+    transition-delay: 0s;
+  }
+  .hero__slide.is-active .hero__text {
+    opacity: 1;
+    transform: none;
+    transition-delay: 80ms;
+  }
+  .hero__slide.is-active .hero__cta {
+    opacity: 1;
+    transform: none;
+    transition-delay: 130ms;
+  }
+
+  /* Controls */
+  .hero__controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: clamp(1.25rem, 3vh, 2.25rem);
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+  }
+  .hero__tabs {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.75rem, 2vw, 2rem);
+  }
+  .hero__tab {
+    width: 100%;
+    display: grid;
+    gap: 0.85rem;
+    text-align: left;
+    color: rgb(255 255 255 / 0.55);
+    transition: color var(--dur) var(--ease-out);
+  }
+  .hero__tab:hover,
+  .hero__tab.is-active {
+    color: #fff;
+  }
+  .hero__tab-meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .hero__tab-num {
+    font-variant-numeric: tabular-nums;
+    color: var(--vb-brown-300);
+  }
+  .hero__tab-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hero__progress {
+    position: relative;
+    height: 2px;
+    background: rgb(255 255 255 / 0.22);
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  .hero__progress span {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .hero__tab.is-active .hero__progress span { transform: scaleX(1); }
+  .hero__tab.is-done .hero__progress span {
+    transform: scaleX(1);
+  }
+  .hero__arrows {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .hero__arrow {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-sm);
+    color: #fff;
+    border: 1px solid rgb(255 255 255 / 0.35);
+    backdrop-filter: blur(8px);
+    transition:
+      background-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .hero__arrow:hover {
+    background: #fff;
+    color: var(--vb-navy-800);
+  }
+
+  @media (max-width: 1100px) {
+    .hero__tab-title {
+      display: none;
+    }
+  }
+  @media (max-width: 767px) {
+    .hero__frame {
+      height: calc(100svh - var(--header-h) - 0.75rem);
+      min-height: 560px;
+    }
+    .hero__content {
+      padding-bottom: 7.5rem;
+    }
+    .hero__title {
+      font-size: clamp(2.6rem, 12.5vw, 3.75rem);
+    }
+    .hero__tab-meta {
+      display: none;
+    }
+    .hero__tabs {
+      gap: 0.5rem;
+    }
+    .hero__progress {
+      height: 3px;
+    }
+    .hero__controls {
+      align-items: center;
+    }
+    .hero__arrow {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+  }
+</style>
+
+<script>
+  import { initHero } from '../../scripts/hero.js';
+  document.querySelectorAll('[data-hero]').forEach(initHero);
+</script>

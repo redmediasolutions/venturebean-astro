@@ -1,0 +1,173 @@
+---
+import Img from '../ui/Img.astro';
+import Button from '../ui/Button.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { why } from '../../data/home.js';
+
+const [pre, accent, post] = why.titleParts;
+const titleParts = [{ text: pre }, { text: accent, class: 'brand-brown' }, { text: post }];
+---
+
+<section class="why section" id="why-venturebean" aria-labelledby="why-title">
+  <div class="why__grid container">
+    <div class="why__visual">
+      <div class="why__portrait" data-reveal="mask">
+        <Img
+          src={why.portrait}
+          alt=""
+          sizes="(max-width: 900px) 92vw, 40vw"
+          widths={[480, 800, 1200]}
+          class="why__portrait-img"
+        />
+      </div>
+    </div>
+
+    <div class="why__content">
+      <SectionHeading title={titleParts} subtitle={why.subtitle} id="why-title" />
+
+      <ol role="list" class="why__list">
+        {
+          why.items.map((item, i) => (
+            <li class="why__item" data-reveal style={`--i:${i % 2}`}>
+              <div class="why__thumb">
+                <Img src={item.image} alt={item.alt} sizes="180px" widths={[240, 360]} class="why__thumb-img" />
+              </div>
+              <div class="why__text">
+                <h3 class="why__item-title">{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+              <span class="why__index" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div data-reveal>
+        <Button href={why.cta.href}>{why.cta.label}</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(2.5rem, 6vw, 6.5rem);
+    align-items: start;
+  }
+  .why__visual {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+  }
+  .why__portrait {
+    aspect-ratio: 3 / 4;
+    max-height: calc(100vh - var(--header-h) - 4rem);
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #686868;
+  }
+  .why__portrait :global(.why__portrait-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .why__content {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+  .why__list {
+    border-top: 1px solid var(--color-border);
+  }
+  .why__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: clamp(96px, 13vw, 168px) 1fr auto;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    align-items: center;
+    padding-block: clamp(1.25rem, 2vw, 1.75rem);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .why__item::before {
+    content: '';
+    position: absolute;
+    inset: -1px auto -1px 0;
+    width: 100%;
+    border-bottom: 1px solid var(--vb-brown-700);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 700ms var(--ease-out);
+    pointer-events: none;
+  }
+  .why__item:hover::before {
+    transform: scaleX(1);
+  }
+  .why__thumb {
+    aspect-ratio: 3 / 2;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-surface-3);
+  }
+  .why__thumb :global(.why__thumb-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 900ms var(--ease-out);
+  }
+  .why__item:hover :global(.why__thumb-img) {
+    transform: scale(1.08);
+  }
+  .why__item-title {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.35rem;
+    transition: color var(--dur-fast);
+  }
+  .why__item:hover .why__item-title {
+    color: var(--vb-brown-700);
+  }
+  .why__text p {
+    color: var(--color-muted);
+    font-size: 0.9875rem;
+    max-width: 46ch;
+  }
+  .why__index {
+    align-self: start;
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    transition: color var(--dur-fast);
+  }
+  .why__item:hover .why__index {
+    color: var(--vb-brown-700);
+  }
+
+  @media (max-width: 900px) {
+    .why__grid {
+      grid-template-columns: 1fr;
+    }
+    .why__visual {
+      position: relative;
+      top: 0;
+    }
+    .why__portrait {
+      aspect-ratio: 4 / 3;
+      max-height: none;
+    }
+  }
+  @media (max-width: 560px) {
+    .why__item {
+      grid-template-columns: 88px 1fr;
+      align-items: start;
+    }
+    .why__index {
+      display: none;
+    }
+  }
+</style>

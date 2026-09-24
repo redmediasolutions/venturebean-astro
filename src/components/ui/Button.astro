@@ -1,0 +1,157 @@
+---
+import Icon from './Icon.astro';
+import { link, isExternal } from '../../utils/links.js';
+
+/**
+ * variant: "primary" (navy) | "accent" (blue) | "brown" | "light" (on dark) | "outline" | "ghost-light"
+ * size: "md" | "sm" | "lg"
+ */
+const { href, variant = 'primary', size = 'md', icon = 'arrow-right', class: className, ...rest } = Astro.props;
+const url = link(href);
+const external = isExternal(url);
+---
+
+<a
+  href={url}
+  class:list={['btn', `btn--${variant}`, `btn--${size}`, className]}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  {...rest}
+>
+  <span class="btn__label"><slot /></span>
+  {
+    icon && (
+      <span class="btn__icon" aria-hidden="true">
+        <Icon name={icon} size={16} stroke={2} class="btn__i btn__i--a" />
+        <Icon name={icon} size={16} stroke={2} class="btn__i btn__i--b" />
+      </span>
+    )
+  }
+</a>
+
+<style>
+  .btn {
+    --btn-bg: var(--vb-navy-800);
+    --btn-fg: #fff;
+    --btn-fill: var(--vb-brown-700);
+    --btn-fill-fg: #fff;
+    --btn-border: transparent;
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-height: 3.25rem;
+    padding: 0.5rem 0.6rem 0.5rem 1.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 1px solid var(--btn-border);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 1.1;
+    transition:
+      color var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .btn:hover,
+  .btn:focus-visible {
+    color: var(--btn-fill-fg);
+    background: var(--btn-fill);
+    border-color: var(--btn-fill);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn__icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    border-radius: 2px;
+    background: rgb(255 255 255 / 0.14);
+    overflow: hidden;
+  }
+  .btn__icon :global(.btn__i) {
+    grid-area: 1 / 1;
+    transition: transform 520ms var(--ease-out);
+  }
+  .btn__icon :global(.btn__i--b) {
+    transform: translateX(-160%);
+  }
+  .btn:hover .btn__icon :global(.btn__i--a),
+  .btn:focus-visible .btn__icon :global(.btn__i--a) {
+    transform: translateX(160%);
+  }
+  .btn:hover .btn__icon :global(.btn__i--b),
+  .btn:focus-visible .btn__icon :global(.btn__i--b) {
+    transform: translateX(0);
+  }
+
+  .btn--accent {
+    --btn-bg: var(--vb-blue-700);
+    --btn-fill: var(--vb-navy-800);
+  }
+  .btn--brown {
+    --btn-bg: var(--vb-brown-800);
+    --btn-fill: var(--vb-navy-800);
+  }
+  .btn--light {
+    --btn-bg: #fff;
+    --btn-fg: var(--vb-navy-800);
+    --btn-fill: var(--vb-brown-700);
+  }
+  .btn--light .btn__icon {
+    background: rgb(16 0 87 / 0.08);
+  }
+  .btn--light:hover .btn__icon {
+    background: rgb(255 255 255 / 0.16);
+  }
+  .btn--outline {
+    --btn-bg: transparent;
+    --btn-fg: var(--vb-navy-800);
+    --btn-border: var(--color-border-strong);
+    --btn-fill: var(--vb-navy-800);
+  }
+  .btn--outline .btn__icon {
+    background: rgb(16 0 87 / 0.07);
+  }
+  .btn--outline:hover .btn__icon {
+    background: rgb(255 255 255 / 0.16);
+  }
+  .btn--ghost-light {
+    --btn-bg: rgb(255 255 255 / 0.08);
+    --btn-fg: #fff;
+    --btn-border: rgb(255 255 255 / 0.35);
+    --btn-fill: #fff;
+    --btn-fill-fg: var(--vb-navy-800);
+    backdrop-filter: blur(8px);
+  }
+  .btn--ghost-light:hover .btn__icon {
+    background: rgb(16 0 87 / 0.08);
+  }
+
+  .btn--sm {
+    min-height: 2.5rem;
+    padding: 0.35rem 1.1rem;
+    font-size: 0.8125rem;
+    gap: 0.5rem;
+  }
+  .btn--sm .btn__icon {
+    display: none;
+  }
+  .btn--lg {
+    min-height: 3.75rem;
+    padding-left: 1.85rem;
+    font-size: 1rem;
+  }
+  .btn--lg .btn__icon {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+</style>

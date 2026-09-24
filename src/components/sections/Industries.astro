@@ -1,0 +1,173 @@
+---
+import Img from '../ui/Img.astro';
+import Icon from '../ui/Icon.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { industries } from '../../data/home.js';
+---
+
+<section class="ind section surface-2" aria-labelledby="ind-title">
+  <div class="container">
+    <div class="ind__head">
+      <SectionHeading title={industries.title} subtitle={industries.subtitle} id="ind-title" />
+      <p class="ind__text" data-reveal>{industries.text}</p>
+    </div>
+
+    <ul role="list" class="ind__grid" tabindex="0" aria-labelledby="ind-title">
+      {
+        industries.items.map((item, i) => (
+          <li class="icard" data-reveal style={`--i:${i % 4}`}>
+            <div class="icard__media">
+              <Img
+                src={item.image}
+                alt=""
+                sizes="(max-width: 560px) 92vw, (max-width: 1023px) 46vw, 24vw"
+                widths={[400, 640, 900]}
+                class="icard__img"
+              />
+            </div>
+            <div class="icard__shade" aria-hidden="true" />
+            <div class="icard__body">
+              <span class="icard__icon">
+                <Icon name={item.icon} size={24} />
+              </span>
+              <h3 class="icard__title">{item.title}</h3>
+              <p class="icard__text">{item.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .ind__head {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 2rem 4rem;
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  .ind__text {
+    font-size: var(--fs-md);
+    color: var(--color-text-soft);
+    max-width: 44ch;
+  }
+  .ind__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.75rem, 1.2vw, 1rem);
+  }
+  .icard {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    isolation: isolate;
+    color: #fff;
+    background: var(--vb-navy-800);
+  }
+  .icard__media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+  .icard__media :global(.icard__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: none;
+    filter: saturate(0.85);
+    transition:
+      filter var(--dur) var(--ease-out);
+  }
+  .icard__shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    /* Original: navy gradient overlay at ~82% */
+    background: linear-gradient(180deg, rgb(16 0 87 / 0.35) 0%, rgb(16 0 87 / 0.55) 45%, rgb(11 0 54 / 0.92) 100%);
+    transition: background-color 600ms;
+  }
+  .icard__body {
+    position: absolute;
+    inset: auto 0 0;
+    display: grid;
+    gap: 0.5rem;
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+  }
+  .icard__icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgb(255 255 255 / 0.35);
+    backdrop-filter: blur(6px);
+    transition:
+      background-color 500ms,
+      color 500ms,
+      transform 700ms var(--ease-out);
+  }
+  .icard__title {
+    color: #fff;
+    font-size: var(--fs-xl);
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .icard__text {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: rgb(255 255 255 / 0.78);
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: color 500ms;
+  }
+  .icard:hover :global(.icard__img) {
+    transform: none;
+    filter: saturate(1);
+  }
+  .icard:hover .icard__icon {
+    background: #fff;
+    color: var(--vb-navy-800);
+    transform: none;
+  }
+  .icard:hover .icard__text {
+    color: #fff;
+  }
+
+  @media (max-width: 1023px) {
+    .ind__head {
+      grid-template-columns: 1fr;
+    }
+    .ind__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .icard {
+      aspect-ratio: 4 / 5;
+    }
+  }
+  /* Mobile: swipeable rail instead of eight stacked cards */
+  @media (max-width: 640px) {
+    .ind__grid {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      gap: 0.75rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      scroll-padding-inline: var(--gutter);
+      scrollbar-width: none;
+    }
+    .ind__grid::-webkit-scrollbar {
+      display: none;
+    }
+    .icard {
+      aspect-ratio: 4 / 5;
+      scroll-snap-align: start;
+    }
+  }
+</style>

@@ -1,0 +1,420 @@
+---
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+import MobileMenu from './MobileMenu.astro';
+import { mainNav, headerCtas, site } from '../../data/site.js';
+import { link, LIVE_ORIGIN } from '../../utils/links.js';
+
+const current = Astro.url.pathname;
+const isActive = (href) => current === href || (href !== '/' && current.startsWith(href));
+---
+
+<header class="hdr" data-header>
+  <div class="hdr__bar container">
+    <a href="/" class="hdr__logo" aria-label={`${site.name} — home`}>
+      <img src="/images/logo.svg" alt="VentureBean" width="160" height="45" fetchpriority="high" />
+    </a>
+
+    <nav class="hdr__nav" aria-label="Primary">
+      <ul role="list" class="hdr__list">
+        {
+          mainNav.map((item) => (
+            <li class:list={['hdr__item', { 'has-sub': item.children }]}>
+              <a href={link(item.href)} class="hdr__link" aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+              {item.children && (
+                <>
+                  <button class="hdr__subtoggle" aria-expanded="false" aria-controls="sub-about" data-subtoggle>
+                    <span class="visually-hidden">Show {item.label} submenu</span>
+                    <Icon name="chevron-down" size={14} stroke={2} />
+                  </button>
+                  <div class="hdr__sub" id="sub-about">
+                    <ul role="list">
+                      {item.children.map((child, i) => (
+                        <li style={`--i:${i}`}>
+                          <a href={link(child.href)}>
+                            <span>{child.label}</span>
+                            <Icon name="arrow-up-right" size={16} />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="hdr__actions">
+      <button class="hdr__iconbtn" type="button" data-search-open aria-controls="site-search" aria-expanded="false">
+        <Icon name="search" size={20} />
+        <span class="visually-hidden">Search</span>
+      </button>
+      <Button href={headerCtas.secondary.href} variant="brown" size="sm" class="hdr__cta hdr__cta--kh">
+        {headerCtas.secondary.label}
+      </Button>
+      <Button href={headerCtas.primary.href} variant="accent" size="sm" class="hdr__cta">
+        {headerCtas.primary.label}
+      </Button>
+      <button class="hdr__burger" type="button" data-menu-open aria-controls="mobile-menu" aria-expanded="false">
+        <span class="hdr__burger-lines" aria-hidden="true"><span></span><span></span></span>
+        <span class="visually-hidden">Open menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="hdr__search" id="site-search" hidden data-search>
+    <form class="container hdr__search-form" action={`${LIVE_ORIGIN}/`} method="get" role="search">
+      <label for="search-input" class="visually-hidden">Search</label>
+      <Icon name="search" size={22} />
+      <input id="search-input" type="search" name="s" placeholder="Type to start searching..." autocomplete="off" />
+      <button type="button" class="hdr__iconbtn" data-search-close>
+        <Icon name="close" size={20} />
+        <span class="visually-hidden">Close search</span>
+      </button>
+    </form>
+  </div>
+</header>
+
+<MobileMenu />
+
+<style>
+  .hdr {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 100;
+    height: var(--header-h);
+    transition:
+      transform 500ms var(--ease-out),
+      background-color 400ms var(--ease-out),
+      box-shadow 400ms var(--ease-out);
+  }
+  .hdr.is-scrolled {
+    background: rgb(250 247 247 / 0.86);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 var(--color-border);
+  }
+  .hdr.is-hidden {
+    transform: translateY(-100%);
+  }
+  .hdr__bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .hdr__logo {
+    flex: none;
+    display: block;
+    width: clamp(128px, 11vw, 160px);
+  }
+  .hdr__logo img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Nav */
+  .hdr__nav {
+    margin-inline: auto;
+  }
+  .hdr__list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .hdr__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .hdr__link {
+    position: relative;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--vb-brown-700);
+    transition: color var(--dur-fast);
+  }
+  .hdr__link::after {
+    content: '';
+    position: absolute;
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.3rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 450ms var(--ease-out);
+  }
+  .hdr__link:hover,
+  .hdr__link[aria-current='page'] {
+    color: var(--vb-navy-800);
+  }
+  .hdr__link:hover::after,
+  .hdr__link[aria-current='page']::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .has-sub .hdr__link {
+    padding-right: 0.2rem;
+  }
+  .hdr__subtoggle {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    color: var(--vb-brown-700);
+    border-radius: var(--radius-sm);
+    transition: transform 350ms var(--ease-out);
+  }
+  .has-sub:hover .hdr__subtoggle,
+  .hdr__subtoggle[aria-expanded='true'] {
+    transform: rotate(180deg);
+  }
+  .hdr__sub {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: -0.25rem;
+    min-width: 240px;
+    padding: 0.5rem;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition:
+      opacity 300ms var(--ease-out),
+      transform 400ms var(--ease-out),
+      visibility 0s linear 300ms;
+  }
+  .hdr__sub::before {
+    /* hover bridge */
+    content: '';
+    position: absolute;
+    inset: -0.8rem 0 auto;
+    height: 0.8rem;
+  }
+  .has-sub:hover .hdr__sub,
+  .has-sub:focus-within .hdr__sub,
+  .has-sub.is-open .hdr__sub {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .hdr__sub a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--vb-navy-800);
+    transition:
+      background-color var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .hdr__sub a :global(svg) {
+    opacity: 0;
+    transform: translate(-6px, 6px);
+    transition:
+      opacity 300ms var(--ease-out),
+      transform 300ms var(--ease-out);
+    color: var(--vb-brown-700);
+  }
+  .hdr__sub a:hover {
+    background: var(--color-bg);
+  }
+  .hdr__sub a:hover :global(svg) {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Actions */
+  .hdr__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex: none;
+  }
+  .hdr__iconbtn {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    color: var(--vb-navy-800);
+    transition: background-color var(--dur-fast);
+  }
+  .hdr__iconbtn:hover {
+    background: rgb(16 0 87 / 0.07);
+  }
+  .hdr__actions :global(.hdr__cta) {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Search */
+  .hdr__search {
+    position: absolute;
+    inset: 100% 0 auto;
+    background: #fff;
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    animation: drop 400ms var(--ease-out);
+  }
+  .hdr__search-form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 5rem;
+    color: var(--vb-navy-800);
+  }
+  .hdr__search-form input {
+    flex: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: var(--font-display);
+    font-size: var(--fs-xl);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--vb-navy-800);
+  }
+  .hdr__search-form input::placeholder {
+    color: rgb(16 0 87 / 0.35);
+  }
+  @keyframes drop {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Burger */
+  .hdr__burger {
+    display: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--vb-navy-800);
+    place-items: center;
+  }
+  .hdr__burger-lines {
+    display: grid;
+    gap: 5px;
+    width: 18px;
+  }
+  .hdr__burger-lines span {
+    display: block;
+    height: 1.5px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform 400ms var(--ease-out);
+  }
+  .hdr__burger-lines span:last-child {
+    width: 70%;
+    justify-self: end;
+  }
+  .hdr__burger:hover .hdr__burger-lines span:last-child {
+    transform: scaleX(1.43);
+    transform-origin: right;
+  }
+
+  @media (max-width: 1180px) {
+    .hdr__actions :global(.hdr__cta--kh) {
+      display: none;
+    }
+  }
+  @media (max-width: 1023px) {
+    .hdr__nav,
+    .hdr__actions :global(.hdr__cta) {
+      display: none;
+    }
+    .hdr__burger {
+      display: grid;
+    }
+    .hdr__bar {
+      justify-content: space-between;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector('[data-header]');
+
+  // Scrolled state + hide on scroll down / show on scroll up
+  let lastY = window.scrollY;
+  let ticking = false;
+  const onScroll = () => {
+    const y = window.scrollY;
+    header.classList.toggle('is-scrolled', y > 12);
+    const searchOpen = !header.querySelector('[data-search]').hidden;
+    if (!searchOpen && !header.matches(':focus-within')) {
+      header.classList.toggle('is-hidden', y > lastY && y > 480);
+    }
+    lastY = y;
+    ticking = false;
+  };
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    },
+    { passive: true },
+  );
+  onScroll();
+
+  // Submenu toggle for keyboard / touch
+  header.querySelectorAll('[data-subtoggle]').forEach((btn) => {
+    const item = btn.closest('.hdr__item');
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      item.classList.toggle('is-open', open);
+    });
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        btn.setAttribute('aria-expanded', 'false');
+        item.classList.remove('is-open');
+        btn.focus();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!item.contains(e.target)) {
+        btn.setAttribute('aria-expanded', 'false');
+        item.classList.remove('is-open');
+      }
+    });
+  });
+
+  // Search panel
+  const panel = header.querySelector('[data-search]');
+  const openBtn = header.querySelector('[data-search-open]');
+  const input = panel.querySelector('input');
+  const setSearch = (open) => {
+    panel.hidden = !open;
+    openBtn.setAttribute('aria-expanded', String(open));
+    if (open) input.focus();
+    else openBtn.focus();
+  };
+  openBtn.addEventListener('click', () => setSearch(panel.hidden));
+  panel.querySelector('[data-search-close]').addEventListener('click', () => setSearch(false));
+  panel.addEventListener('keydown', (e) => e.key === 'Escape' && setSearch(false));
+</script>

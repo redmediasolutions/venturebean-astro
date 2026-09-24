@@ -1,0 +1,60 @@
+---
+/**
+ * Responsive image.
+ * - When the original WordPress image has been downloaded to src/assets/wp/
+ *   (npm run assets), it is resized + converted to WebP at build time by astro:assets.
+ * - Otherwise it falls back to the original URL so the build never breaks.
+ */
+import { Image } from 'astro:assets';
+import { resolveLocal } from '../../utils/images.js';
+
+const {
+  src,
+  alt = '',
+  widths = [400, 640, 960, 1280, 1600, 2000],
+  sizes = '100vw',
+  loading = 'lazy',
+  fetchpriority,
+  class: className,
+  width,
+  height,
+  ...rest
+} = Astro.props;
+
+const local = await resolveLocal(src);
+let usableWidths = [];
+if (local && local.format !== 'svg') {
+  usableWidths = widths.filter((w: number) => w <= local.width);
+  if (!usableWidths.length) usableWidths = [local.width];
+}
+---
+
+{
+  local && local.format !== 'svg' ? (
+    <Image
+      src={local}
+      alt={alt}
+      widths={usableWidths}
+      sizes={sizes}
+      format="webp"
+      quality={78}
+      loading={loading}
+      decoding="async"
+      fetchpriority={fetchpriority}
+      class={className}
+      {...rest}
+    />
+  ) : (
+    <img
+      src={local ? local.src : src}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      fetchpriority={fetchpriority}
+      class={className}
+      width={width}
+      height={height}
+      {...rest}
+    />
+  )
+}

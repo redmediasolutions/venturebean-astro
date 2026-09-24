@@ -1,0 +1,41 @@
+---
+/**
+ * Renders a heading whose words slide up from a mask when revealed.
+ * Split happens at build time — zero runtime cost. Screen readers get the
+ * plain text through aria-label.
+ *
+ * parts: string | Array<{ text: string, class?: string }>
+ */
+const { as: Tag = 'h2', parts, class: className, delay = 0, ...rest } = Astro.props;
+
+const segments = typeof parts === 'string' ? [{ text: parts }] : parts;
+const plain = segments.map((s) => s.text).join('');
+
+let w = 0;
+const tokens = [];
+for (const seg of segments) {
+  // keep leading/trailing spaces as separators, split into words
+  const bits = seg.text.split(/(\s+)/);
+  for (const bit of bits) {
+    if (!bit) continue;
+    if (/^\s+$/.test(bit)) tokens.push({ space: true });
+    else tokens.push({ word: bit, cls: seg.class, i: w++ });
+  }
+}
+---
+
+<Tag class={className} aria-label={plain} data-split style={`--delay:${delay}ms`} {...rest}>
+  {
+    tokens.map((t) =>
+      t.space ? (
+        ' '
+      ) : (
+        <span class="split-word" aria-hidden="true">
+          <span class:list={['split-inner', t.cls]} style={`--w:${t.i}`}>
+            {t.word}
+          </span>
+        </span>
+      ),
+    )
+  }
+</Tag>

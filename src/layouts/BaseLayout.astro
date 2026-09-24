@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+
+import Seo from '../components/common/Seo.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import BackToTop from '../components/layout/BackToTop.astro';
+
+const props = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Flag JS early so reveal styles never flash hidden content for no-JS users -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <Seo {...props} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <BackToTop />
+
+    <script>
+      import '../scripts/reveal.js';
+    </script>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+---
+import Img from '../ui/Img.astro';
+import Button from '../ui/Button.astro';
+import SplitText from '../ui/SplitText.astro';
+import { about } from '../../data/home.js';
+---
+
+<section class="about section" aria-labelledby="about-title">
+  <div class="about__grid container">
+    <figure class="about__figure">
+      <div class="about__frame" data-reveal="mask">
+        <Img
+          src={about.image}
+          alt={about.imageAlt}
+          sizes="(max-width: 900px) 90vw, 36vw"
+          widths={[480, 720, 1024]}
+          class="about__img"
+          width="1024"
+          height="1536"
+        />
+      </div>
+    </figure>
+
+    <div class="about__body">
+      <SplitText as="h1" parts={about.title} id="about-title" class="about__title" />
+
+      <div class="about__intro prose" data-reveal>
+        {about.intro.map((p) => <p>{p}</p>)}
+      </div>
+
+      <div class="about__help" data-reveal>
+        <p class="about__help-lead">{about.listLead}</p>
+        <ol role="list" class="about__list">
+          {
+            about.list.map((item, i) => (
+              <li style={`--i:${i}`}>
+                <span class="about__num" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <p class="about__outro" data-reveal>{about.outro}</p>
+
+      <div data-reveal>
+        <Button href={about.cta.href}>{about.cta.label}</Button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(2.5rem, 7vw, 7.5rem);
+    align-items: start;
+  }
+  .about__figure {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+  }
+  .about__frame {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-surface-3);
+    box-shadow: var(--shadow-lg);
+  }
+  .about__frame :global(.about__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .about__body {
+    display: grid;
+    gap: clamp(1.5rem, 2.5vw, 2.25rem);
+    padding-top: clamp(0rem, 3vw, 3rem);
+  }
+  .about__title {
+    font-size: var(--fs-3xl);
+    line-height: var(--lh-tight);
+  }
+  .about__intro {
+    font-size: var(--fs-lg);
+    line-height: 1.55;
+    color: var(--color-text);
+  }
+  .about__help {
+    padding-block: 0.5rem;
+  }
+  .about__help-lead {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--fs-xl);
+    color: var(--vb-brown-700);
+    margin-bottom: 0.5rem;
+  }
+  .about__list li {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    padding-block: 1.25rem;
+    border-top: 1px solid var(--color-border);
+    font-size: var(--fs-md);
+    color: var(--color-text-soft);
+  }
+  .about__list li:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .about__num {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--vb-brown-700);
+    padding-top: 0.2rem;
+  }
+  .about__outro {
+    font-size: var(--fs-md);
+    color: var(--color-text-soft);
+  }
+
+  @media (max-width: 900px) {
+    .about__grid {
+      grid-template-columns: 1fr;
+    }
+    .about__figure {
+      position: relative;
+      top: 0;
+      order: 2;
+      width: min(100%, 380px);
+    }
+    .about__body {
+      padding-top: 0;
+    }
+  }
+</style>

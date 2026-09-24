@@ -1,0 +1,85 @@
+---
+import Img from '../ui/Img.astro';
+import Button from '../ui/Button.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { clients } from '../../data/home.js';
+
+---
+
+<section class="clients section" aria-labelledby="clients-title">
+  <div class="container clients__head">
+    <SectionHeading title={clients.title} subtitle={clients.subtitle} id="clients-title" />
+    <div data-reveal>
+      <Button href={clients.cta.href} variant="outline">{clients.cta.label}</Button>
+    </div>
+  </div>
+
+  <ul role="list" class="marquee" data-reveal="fade">
+    {clients.logos.map((src) => (
+      <li class="marquee__item">
+        <Img src={src} alt="Client logo" sizes="160px" widths={[160, 320]} class="marquee__logo" />
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .clients {
+    overflow: hidden;
+  }
+  .clients__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .marquee {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(0.65rem, 1.2vw, 1rem);
+  }
+  .marquee__item {
+    display: grid;
+    place-items: center;
+    width: clamp(150px, 15vw, 210px);
+    aspect-ratio: 3 / 2;
+    padding: 1rem 1.5rem;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    transition:
+      border-color var(--dur-fast),
+      box-shadow var(--dur);
+  }
+  .marquee__item :global(.marquee__logo) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.75;
+    mix-blend-mode: multiply;
+    transition:
+      filter 500ms,
+      opacity 500ms,
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .marquee__item:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-sm);
+  }
+  .marquee__item:hover :global(.marquee__logo) {
+    filter: none;
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  @media (max-width: 800px) { .marquee { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 480px) { .marquee { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (hover: none) {
+    .marquee__item :global(.marquee__logo) {
+      filter: none;
+      opacity: 1;
+    }
+  }
+</style>
