@@ -1,32 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/sections/Hero.astro';
-import About from '../components/sections/About.astro';
-import Stats from '../components/sections/Stats.astro';
-import Why from '../components/sections/Why.astro';
-import Videos from '../components/sections/Videos.astro';
-import Expertise from '../components/sections/Expertise.astro';
-import Practice from '../components/sections/Practice.astro';
-import Industries from '../components/sections/Industries.astro';
-import Clients from '../components/sections/Clients.astro';
-import KnowledgeHub from '../components/sections/KnowledgeHub.astro';
-import Testimonials from '../components/sections/Testimonials.astro';
-import { consulting, coaching } from '../data/home.js';
-
-// Section order mirrors the live homepage exactly.
+import Layout from '../layouts/Layout.astro';
 ---
 
-<BaseLayout path="/">
-  <Hero />
-  <About />
-  <Stats />
-  <Why />
-  <Videos />
-  <Expertise />
-  <Practice data={consulting} surface="surface" />
-  <Practice data={coaching} reverse />
-  <Industries />
-  <Clients />
-  <KnowledgeHub />
-  <Testimonials />
-</BaseLayout>
+<Layout id="home" />

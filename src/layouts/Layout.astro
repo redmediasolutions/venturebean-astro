@@ -1,0 +1,49 @@
+---
+/**
+ * Shared page shell: SEO tags and stylesheets, header, page body, footer,
+ * and the small runtime that replaces jQuery and Elementor's JavaScript.
+ */
+import manifest from '../content/pages.json';
+import header from '../content/header.html?raw';
+import footer from '../content/footer.html?raw';
+import popups from '../content/popups.html?raw';
+import ChatWidget from '../components/ChatWidget.astro';
+
+const bodies = import.meta.glob('../content/pages/*.html', { query: '?raw', import: 'default', eager: true });
+
+const { id } = Astro.props;
+const page = manifest[id];
+if (!page) throw new Error(`No content for page "${id}".`);
+const main = bodies[`../content/pages/${id}.html`];
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Fragment set:html={page.head} />
+    {page.stylesheets.map((href) => <link rel="stylesheet" href={href} media="all" />)}
+    <Fragment set:html={page.headStyles} />
+    <link rel="stylesheet" href="/site/overrides.css" />
+    <link rel="stylesheet" href="/site/chaty.css" />
+    <noscript><style>.elementor-invisible{visibility:visible!important}</style></noscript>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=GT-NFBZ386N"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('set', 'linker', { domains: ['venturebean.com'] });
+      gtag('js', new Date());
+      gtag('config', 'GT-NFBZ386N');
+    </script>
+  </head>
+  <body class={page.bodyClass}>
+    <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+    <Fragment set:html={header} />
+    <Fragment set:html={main} />
+    <Fragment set:html={footer} />
+    <template id="vb-popups" set:html={popups} />
+    <ChatWidget />
+    <script src="../scripts/site.js"></script>
+  </body>
+</html>

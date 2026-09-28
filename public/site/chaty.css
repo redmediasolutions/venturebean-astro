@@ -1,0 +1,30 @@
+/* Settings the Chaty plugin used to inject with JavaScript (copied from the live site). */
+#chaty-widget-0 .Phone-channel .color-element,#chaty-widget-0 .channel-icon-Phone .color-element{fill:#03E78B;color:#03E78B}
+#chaty-widget-0 .Phone-channel .chaty-custom-icon,#chaty-widget-0 .Phone-channel .chaty-svg,#chaty-widget-0 .channel-icon-Phone .chaty-svg{background-color:#03E78B}
+#chaty-widget-0 .Whatsapp-channel .color-element,#chaty-widget-0 .channel-icon-Whatsapp .color-element{fill:#49E670;color:#49E670}
+#chaty-widget-0 .Whatsapp-channel .chaty-custom-icon,#chaty-widget-0 .Whatsapp-channel .chaty-svg,#chaty-widget-0 .channel-icon-Whatsapp .chaty-svg{background-color:#49E670}
+#chaty-widget-0 .chaty-channel-list .chaty-channel{width:54px;height:54px}
+#chaty-widget-0 .chaty-channel-list .chaty-channel>a{width:54px;height:54px}
+#chaty-widget-0 .chaty-channel-list .chaty-channel button{width:54px;height:54px;margin:0;padding:0;outline:none;border-radius:50%}
+#chaty-widget-0 .chaty-channel-list .chaty-channel .chaty-svg{width:54px;height:54px}
+#chaty-widget-0 .chaty-channel-list .chaty-channel span.chaty-icon{width:54px;height:54px}
+#chaty-widget-0 .chaty-channel-list .chaty-channel a{width:54px;height:54px}
+#chaty-widget-0 .chaty-i-trigger .chaty-cta-button{background-color:#4F6ACA}
+#chaty-widget-0 .chaty-i-trigger .chaty-cta-button button{background-color:#4F6ACA}
+#chaty-widget-0 .chaty-i-trigger .chaty-channel{width:54px;height:54px}
+#chaty-widget-0 .chaty-i-trigger .chaty-channel>a{width:54px;height:54px}
+#chaty-widget-0 .chaty-i-trigger .chaty-channel button{width:54px;height:54px;margin:0;padding:0;outline:none;border-radius:50%}
+#chaty-widget-0 .chaty-i-trigger .chaty-channel .chaty-svg{width:54px;height:54px}
+#chaty-widget-0 .chaty-i-trigger .chaty-channel span.chaty-icon{width:54px;height:54px}
+#chaty-widget-0 .chaty-i-trigger .chaty-channel a{width:54px;height:54px}
+#chaty-widget-0 .chaty-channel-list{height:124px;width:62px}
+#chaty-widget-0 .chaty-open .chaty-channel-list .chaty-channel:nth-child(1){transform:translateY(-124px)}
+#chaty-widget-0 .chaty-open .chaty-channel-list .chaty-channel:nth-child(2){transform:translateY(-62px)}
+#chaty-widget-0 .chaty-open .chaty-channel-list .chaty-channel:nth-child(3){transform:translateY(0)}
+#chaty-widget-0 .chaty-widget{bottom:25px;left:25px;right:auto}
+#chaty-widget-0 .chaty-tooltip:after{background-color:#fff;color:#333}
+#chaty-widget-0 .chaty-tooltip.pos-top:before{border-top-color:#fff}
+#chaty-widget-0 .chaty-tooltip.pos-left:before{border-left-color:#fff}
+#chaty-widget-0 .chaty-tooltip.pos-right:before{border-right-color:#fff}
+#chaty-widget-0 .on-hover-text,#chaty-widget-0 .on-hover-text p{background-color:#fff;color:#333}
+#chaty-widget-0,#chaty-widget-0 .chaty-tooltip:after{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif}

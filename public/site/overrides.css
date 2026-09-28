@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Loaded after all Elementor CSS. Only replaces behaviour that used to come
+   from jQuery/Elementor JS, plus a few subtle animations. No design changes.
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---- Nav dropdowns (SmartMenus replacement) ---- */
+.elementor-nav-menu--main .elementor-nav-menu li.menu-item-has-children {
+  position: relative;
+}
+/* same inline values SmartMenus applied on the live site */
+.elementor-nav-menu--main .elementor-nav-menu li.menu-item-has-children > ul {
+  z-index: 3;
+  width: auto;
+  min-width: 10em;
+  max-width: 1000px;
+  top: auto;
+  left: 0;
+  margin-left: 0;
+  margin-top: 0;
+}
+.elementor-nav-menu--main .elementor-nav-menu li.vb-open > ul,
+.elementor-nav-menu--main .elementor-nav-menu li:hover > ul,
+.elementor-nav-menu--main .elementor-nav-menu li:focus-within > ul {
+  display: block;
+  animation: vb-drop 0.22s ease-out;
+}
+@keyframes vb-drop {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* ---- Subtle reveal (added by the runtime to content below the fold) ---- */
+.vb-reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--vb-delay, 0ms);
+}
+.vb-reveal.vb-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Tab panels fade in when switched ---- */
+.e-n-tabs-content > .e-active.vb-tab-in {
+  animation: vb-fade 0.4s ease-out;
+}
+@keyframes vb-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---- Off-canvas close ---- */
+.e-off-canvas__main.vb-leaving {
+  animation: vb-slide-out-left 0.28s ease-in forwards !important;
+}
+@keyframes vb-slide-out-left {
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+/* ---- Lightbox ---- */
+.vb-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483640;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.87);
+}
+.vb-lightbox.is-open {
+  display: flex;
+  animation: vb-fade 0.25s ease-out;
+}
+.vb-lightbox__figure {
+  margin: 0;
+  max-width: 90vw;
+  max-height: 88vh;
+  text-align: center;
+}
+.vb-lightbox__figure img {
+  max-width: 90vw;
+  max-height: 82vh;
+  object-fit: contain;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+.vb-lightbox__figure figcaption {
+  color: #fff;
+  font-size: 14px;
+  padding-top: 12px;
+  opacity: 0.85;
+}
+.vb-lightbox button {
+  position: absolute;
+  background: none;
+  border: 0;
+  color: rgba(238, 238, 238, 0.9);
+  font-size: 28px;
+  cursor: pointer;
+  padding: 16px;
+}
+.vb-lightbox button:hover {
+  color: #fff;
+}
+.vb-lightbox__close {
+  top: 8px;
+  right: 8px;
+}
+.vb-lightbox__prev,
+.vb-lightbox__next {
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+}
+.vb-lightbox.has-nav .vb-lightbox__prev,
+.vb-lightbox.has-nav .vb-lightbox__next {
+  display: block;
+}
+.vb-lightbox__prev {
+  left: 8px;
+}
+.vb-lightbox__next {
+  right: 8px;
+}
+
+/* ---- Chaty: its own JS used to un-hide the widget ---- */
+#chaty-widget-0 {
+  display: block !important;
+}
+
+/* ---- Scroll-to-top fade ---- */
+#scroll-top-container {
+  transition: opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .vb-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://venturebean.com/sitemap-index.xml
