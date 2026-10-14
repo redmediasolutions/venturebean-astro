@@ -1,5 +1,5 @@
 // Swiper-based widgets: Slides, Testimonial Carousel, Image Carousel.
-// Options mirror what Elementor's own handlers pass to Swiper.
+// Options mirror what the original carousel handlers pass to Swiper.
 import { $$, settingsOf } from './utils.js';
 
 const yes = (v) => v === 'yes';
@@ -16,8 +16,8 @@ function autoplay(s, delayKey = 'autoplay_speed') {
 
 function nav(widget, show) {
   if (!show) return {};
-  const nextEl = widget.querySelector('.elementor-swiper-button-next');
-  const prevEl = widget.querySelector('.elementor-swiper-button-prev');
+  const nextEl = widget.querySelector('.vb-swiper-button-next');
+  const prevEl = widget.querySelector('.vb-swiper-button-prev');
   return nextEl && prevEl ? { navigation: { nextEl, prevEl } } : {};
 }
 
@@ -27,7 +27,7 @@ function dots(widget, type = 'bullets') {
 }
 
 /**
- * Per-device values, as Elementor's carousel handlers read them: a device without its own
+ * Per-device values, as the carousel handlers read them: a device without its own
  * value uses the widget default for that device (it does not inherit the desktop value).
  */
 function responsive(s, key, fallbacks, map = (v) => v) {
@@ -41,7 +41,7 @@ function responsive(s, key, fallbacks, map = (v) => v) {
   return { mobile: m, tablet: t, desktop: d };
 }
 
-// Elementor passes its breakpoint values straight to Swiper as min-width keys.
+// Breakpoint values are passed straight to Swiper as min-width keys.
 const BP_TABLET = 767;
 const BP_DESKTOP = 1024;
 
@@ -49,8 +49,8 @@ export function initCarousels(Swiper) {
   if (!Swiper) return;
 
   // --- Slides (hero sliders) ---
-  $$('.elementor-widget-slides').forEach((widget) => {
-    const container = widget.querySelector('.elementor-slides-wrapper.swiper, .elementor-slides-wrapper');
+  $$('.vb-widget-slides').forEach((widget) => {
+    const container = widget.querySelector('.vb-slides-wrapper.swiper, .vb-slides-wrapper');
     if (!container) return;
     const s = settingsOf(widget);
     const count = container.querySelectorAll('.swiper-slide').length;
@@ -98,8 +98,8 @@ export function initCarousels(Swiper) {
   });
 
   // --- Testimonial carousel ---
-  $$('.elementor-widget-testimonial-carousel').forEach((widget) => {
-    const container = widget.querySelector('.elementor-main-swiper');
+  $$('.vb-widget-testimonial-carousel').forEach((widget) => {
+    const container = widget.querySelector('.vb-main-swiper');
     if (!container) return;
     const s = settingsOf(widget);
     const per = responsive(s, 'slides_per_view', { desktop: 1, tablet: 1, mobile: 1 }, Number);
@@ -124,8 +124,8 @@ export function initCarousels(Swiper) {
   });
 
   // --- Image carousel ---
-  $$('.elementor-widget-image-carousel').forEach((widget) => {
-    const container = widget.querySelector('.elementor-image-carousel-wrapper');
+  $$('.vb-widget-image-carousel').forEach((widget) => {
+    const container = widget.querySelector('.vb-image-carousel-wrapper');
     if (!container) return;
     const s = settingsOf(widget);
     const desktopShow = Number(s.slides_to_show) || 3;
@@ -155,7 +155,7 @@ export function initCarousels(Swiper) {
 
 function kenBurns(sw) {
   sw.slides.forEach((sl, i) => {
-    const bg = sl.querySelector('.elementor-ken-burns');
-    if (bg) bg.classList.toggle('elementor-ken-burns--active', i === sw.activeIndex);
+    const bg = sl.querySelector('.vb-ken-burns');
+    if (bg) bg.classList.toggle('vb-ken-burns--active', i === sw.activeIndex);
   });
 }

@@ -6,6 +6,7 @@ export default defineConfig({
   trailingSlash: 'always',
   redirects: {
     '/coaching-page/': '/coaching/',
+    '/insights/': '/knowledge-hub/insights/',
   },
   build: {
     inlineStylesheets: 'never',

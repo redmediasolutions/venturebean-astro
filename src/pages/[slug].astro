@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getBlogPosts, postPath, type BlogPost } from '../lib/posts';
+import { renderPostPage } from '../lib/render-posts';
+
+export async function getStaticPaths() {
+  const reserved = new Set([
+    'about-us',
+    'business-consulting',
+    'case-studies',
+    'clients',
+    'coaching',
+    'coaching-case-studies',
+    'consulting-case-studies',
+    'contact-us',
+    'knowledge-hub',
+    'testimonials',
+    'venturebean-solutions-page',
+    'insights',
+  ]);
+  const posts = (await getBlogPosts()) ?? [];
+  return posts
+    .filter((post) => !reserved.has(post.slug))
+    .map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const posts = (await getBlogPosts()) ?? [];
+const html = renderPostPage(post, posts);
+const canonical = `https://venturebean.com${postPath(post.slug)}`;
+---
+
+<Layout
+  id="post"
+  html={html}
+  title={post.seoTitle || post.title}
+  description={post.seoDescription || post.excerpt}
+  canonical={canonical}
+  image={post.featuredImage?.url}
+/>

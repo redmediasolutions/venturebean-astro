@@ -1,4 +1,4 @@
-// Replaces jQuery + Elementor's frontend JS with small vanilla modules.
+// Replaces the old page scripts with small vanilla modules.
 import { initAnimations } from './animations.js';
 import { initNavigation } from './navigation.js';
 import { initCarousels } from './carousels.js';

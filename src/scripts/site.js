@@ -1,4 +1,4 @@
-// Site entry: Swiper v8 (the version Elementor's CSS targets) + the runtime.
+// Site entry: Swiper v8 (the version the page CSS targets) + the runtime.
 import Swiper, { Navigation, Pagination, Autoplay, EffectFade } from 'swiper';
 import { boot } from './runtime/index.js';
 

@@ -8,6 +8,24 @@ export function initWidgets() {
   initMarquees();
   initGalleries();
   initLightbox();
+  initToc();
+}
+
+/* The article sidebar's table of contents opens and closes on its own. */
+function initToc() {
+  $$('.vb-widget-table-of-contents').forEach((widget) => {
+    const body = widget.querySelector('.vb-toc__body');
+    widget.querySelectorAll('.vb-toc__toggle-button').forEach((button) => {
+      button.addEventListener('click', () => {
+        const collapse = button.classList.contains('vb-toc__toggle-button--collapse');
+        widget.classList.toggle('vb-toc--collapsed', collapse);
+        body?.toggleAttribute('hidden', collapse);
+        widget.querySelectorAll('.vb-toc__toggle-button').forEach((b) => {
+          b.setAttribute('aria-expanded', String(!collapse));
+        });
+      });
+    });
+  });
 }
 
 /* ---------------- Nested tabs ---------------- */
@@ -51,7 +69,7 @@ function initTabs() {
 /* ---------------- Nested accordion (<details>) ---------------- */
 function initAccordions() {
   $$('.e-n-accordion').forEach((acc) => {
-    const widget = acc.closest('.elementor-widget-n-accordion');
+    const widget = acc.closest('.vb-widget-n-accordion');
     const s = settingsOf(widget);
     const onlyOne = s.max_items_expended === 'one';
     const duration = reducedMotion() ? 0 : Number(s.n_accordion_animation_duration?.size) || 400;
@@ -90,7 +108,7 @@ function initAccordions() {
 
 /* ---------------- Counters ---------------- */
 function initCounters() {
-  const els = $$('.elementor-counter-number');
+  const els = $$('.vb-counter-number');
   const format = (n, delim) => (delim ? String(n).replace(/\B(?=(\d{3})+(?!\d))/g, delim) : String(n));
   onVisible(
     els,
@@ -117,7 +135,7 @@ function initCounters() {
   );
 }
 
-/* ---------------- Image marquee (Marquee Addons for Elementor) ---------------- */
+/* ---------------- Image marquee ---------------- */
 function initMarquees() {
   $$('.deensimc-marquee').forEach((marquee) => {
     const groups = $$(':scope > .deensimc-marquee-group', marquee);
@@ -155,8 +173,8 @@ function initMarquees() {
 
 /* ---------------- Masonry gallery (E-Gallery) ---------------- */
 function initGalleries() {
-  $$('.elementor-widget-gallery').forEach((widget) => {
-    const container = widget.querySelector('.elementor-gallery__container');
+  $$('.vb-widget-gallery').forEach((widget) => {
+    const container = widget.querySelector('.vb-gallery__container');
     if (!container) return;
     const s = settingsOf(widget);
     const items = $$('.e-gallery-item', container);
@@ -271,7 +289,7 @@ function initLightbox() {
     const a = list[index];
     imgEl.src = a.href;
     imgEl.alt = a.querySelector('img')?.alt || '';
-    captionEl.textContent = a.dataset.elementorLightboxTitle || '';
+    captionEl.textContent = a.dataset.vbLightboxTitle || '';
     box.classList.toggle('has-nav', list.length > 1);
   };
   const close = () => {
@@ -281,11 +299,11 @@ function initLightbox() {
 
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href]');
-    if (!a || a.dataset.elementorOpenLightbox === 'no' || !IMAGE_LINK.test(a.getAttribute('href'))) return;
+    if (!a || a.dataset.vbOpenLightbox === 'no' || !IMAGE_LINK.test(a.getAttribute('href'))) return;
     e.preventDefault();
     if (!box) build();
-    const group = a.dataset.elementorLightboxSlideshow;
-    list = group ? $$(`a[data-elementor-lightbox-slideshow="${group}"]`).filter((x) => !x.closest('.swiper-slide-duplicate')) : [a];
+    const group = a.dataset.vbLightboxSlideshow;
+    list = group ? $$(`a[data-vb-lightbox-slideshow="${group}"]`).filter((x) => !x.closest('.swiper-slide-duplicate')) : [a];
     show(Math.max(list.indexOf(a), 0));
     box.classList.add('is-open');
     document.documentElement.style.overflow = 'hidden';

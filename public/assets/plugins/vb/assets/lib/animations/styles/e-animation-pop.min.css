@@ -1,0 +1,1 @@
+@keyframes vb-animation-pop{50%{transform:scale(1.2)}}.vb-animation-pop:active,.vb-animation-pop:focus,.vb-animation-pop:hover{animation-name:vb-animation-pop;animation-duration:.3s;animation-timing-function:linear;animation-iteration-count:1}

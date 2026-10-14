@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Loaded after all Elementor CSS. Only replaces behaviour that used to come
-   from jQuery/Elementor JS, plus a few subtle animations. No design changes.
+   Loaded after the page CSS. Only replaces behaviour that used to come
+   from the old page scripts, plus a few subtle animations. No design changes.
    ========================================================================== */
 
 html {
@@ -8,11 +8,11 @@ html {
 }
 
 /* ---- Nav dropdowns (SmartMenus replacement) ---- */
-.elementor-nav-menu--main .elementor-nav-menu li.menu-item-has-children {
+.vb-nav-menu--main .vb-nav-menu li.menu-item-has-children {
   position: relative;
 }
 /* same inline values SmartMenus applied on the live site */
-.elementor-nav-menu--main .elementor-nav-menu li.menu-item-has-children > ul {
+.vb-nav-menu--main .vb-nav-menu li.menu-item-has-children > ul {
   z-index: 3;
   width: auto;
   min-width: 10em;
@@ -22,9 +22,9 @@ html {
   margin-left: 0;
   margin-top: 0;
 }
-.elementor-nav-menu--main .elementor-nav-menu li.vb-open > ul,
-.elementor-nav-menu--main .elementor-nav-menu li:hover > ul,
-.elementor-nav-menu--main .elementor-nav-menu li:focus-within > ul {
+.vb-nav-menu--main .vb-nav-menu li.vb-open > ul,
+.vb-nav-menu--main .vb-nav-menu li:hover > ul,
+.vb-nav-menu--main .vb-nav-menu li:focus-within > ul {
   display: block;
   animation: vb-drop 0.22s ease-out;
 }
@@ -152,4 +152,52 @@ html {
     opacity: 1;
     transform: none;
   }
+}
+
+/* ---- Article sidebar: table of contents + Calendly stay in view ---- */
+#side-bar .vb-toc__list-wrapper {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 12px;
+}
+#side-bar .vb-toc__list-item a {
+  display: block;
+  padding: 7px 16px;
+  color: #1b1b1b;
+  text-decoration: none;
+  font-family: Barlow, sans-serif;
+  font-size: 15px;
+  line-height: 1.35;
+}
+#side-bar .vb-toc__list-item a:hover {
+  color: #06329c;
+}
+#side-bar .vb-toc__list-item-text-level-1 a {
+  padding-left: 28px;
+  font-size: 14px;
+}
+#side-bar .calendly-inline-widget {
+  margin-top: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+}
+@media (max-width: 1024px) {
+  #side-bar {
+    width: 100% !important;
+    position: static;
+    padding-right: 0;
+  }
+}
+
+/* ---- Client logos from the Content Manager (Clients page grid) ---- */
+.vb-widget-image.vb-client-logo {
+  align-self: center;
+  text-align: center;
+}
+.vb-widget-image.vb-client-logo img {
+  width: 60%;
+  max-width: 93%;
+  height: auto;
 }

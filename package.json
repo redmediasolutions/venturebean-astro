@@ -6,13 +6,19 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "import:clients": "node scripts/import-clients.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
     "astro": "^7.3.5",
-    "swiper": "^8.4.7"
+    "swiper": "^8.4.7",
+    "firebase": "^12.19.0"
+  },
+  "overrides": {
+    "@firebase/app": "0.16.2",
+    "@firebase/app-compat": "0.5.18"
   }
 }
