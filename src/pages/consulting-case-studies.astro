@@ -1,5 +1,16 @@
 ---
+/**
+ * Consulting Case Studies page → /consulting-case-studies/
+ * Each section lives in src/components/case-studies/consulting/.
+ */
 import Layout from '../layouts/Layout.astro';
+import HeroSlider from '../components/case-studies/consulting/HeroSlider.astro';
+import CaseStudyList from '../components/case-studies/consulting/CaseStudyList.astro';
 ---
 
-<Layout id="consulting-case-studies" />
+<Layout page="consulting-case-studies">
+  <div data-vb-type="site-page" data-vb-id="26662" class="vb vb-26662" data-vb-post-type="page">
+    <HeroSlider />
+    <CaseStudyList />
+  </div>
+</Layout>

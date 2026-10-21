@@ -1,0 +1,32 @@
+---
+/**
+ * Site header: logo, desktop menu and the mobile menu.
+ * Menu links are in header/DesktopNav.astro and header/MobileNav.astro.
+ */
+import SiteLogo from './header/SiteLogo.astro';
+import DesktopNav from './header/DesktopNav.astro';
+import MobileNav from './header/MobileNav.astro';
+---
+
+<header data-vb-type="header" data-vb-id="19568" class="vb vb-19568 vb-location-header" data-vb-post-type="vb_library">
+  <div
+    class="vb-element vb-element-4d1c16f e-flex e-con-boxed e-con e-parent"
+    data-id="4d1c16f"
+    data-element_type="container"
+    data-e-type="container"
+    data-settings={'{"background_background":"classic","background_motion_fx_motion_fx_scrolling":"yes","background_motion_fx_opacity_effect":"yes","background_motion_fx_opacity_level":{"unit":"px","size":9,"sizes":[]},"background_motion_fx_blur_effect":"yes","background_motion_fx_blur_level":{"unit":"px","size":8,"sizes":[]},"sticky":"top","background_motion_fx_opacity_direction":"out-in","background_motion_fx_opacity_range":{"unit":"%","size":"","sizes":{"start":20,"end":80}},"background_motion_fx_blur_direction":"out-in","background_motion_fx_blur_range":{"unit":"%","size":"","sizes":{"start":20,"end":80}},"background_motion_fx_devices":["desktop","tablet","mobile"],"sticky_on":["desktop","tablet","mobile"],"sticky_offset":0,"sticky_effects_offset":0,"sticky_anchor_link_offset":0}'}
+  >
+    <div class="e-con-inner">
+      <SiteLogo />
+      <div
+        class="vb-element vb-element-fccc482 e-con-full e-flex e-con e-child"
+        data-id="fccc482"
+        data-element_type="container"
+        data-e-type="container"
+      >
+        <DesktopNav />
+        <MobileNav />
+      </div>
+    </div>
+  </div>
+</header>

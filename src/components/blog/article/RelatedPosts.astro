@@ -1,0 +1,57 @@
+---
+/**
+ * "Continue reading": up to 4 more articles from the same category.
+ */
+import type { BlogPost } from '../../../lib/posts';
+import PostCard from '../PostCard.astro';
+
+interface Props {
+  related: BlogPost[];
+  category: string;
+}
+
+const { related, category } = Astro.props;
+---
+
+<div
+  class="vb-element vb-element-9daf635 e-flex e-con-boxed e-con e-parent"
+  data-id="9daf635"
+  data-element_type="container"
+  data-e-type="container"
+  data-settings={'{"background_background":"classic"}'}
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-76e9a09 e-con-full e-flex e-con e-child"
+      data-id="76e9a09"
+      data-element_type="container"
+      data-e-type="container"
+    >
+      <div
+        class="vb-element vb-element-8b4a259 vb-widget vb-widget-heading"
+        data-id="8b4a259"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="heading.default"
+      >
+        <div class="vb-widget-container">
+          <h2 class="vb-heading-title vb-size-default">Continue reading</h2>
+        </div>
+      </div>
+    </div>
+    <div
+      class="vb-element vb-element-6941b30 vb-grid-4 vb-grid-tablet-2 vb-grid-mobile-1 vb-posts--thumbnail-top vb-card-shadow-yes vb-posts__hover-gradient vb-widget vb-widget-posts"
+      data-id="6941b30"
+      data-element_type="widget"
+      data-e-type="widget"
+      data-settings={'{"cards_columns":"4","cards_row_gap":{"unit":"px","size":40,"sizes":[]},"cards_columns_tablet":"2","cards_columns_mobile":"1","cards_row_gap_tablet":{"unit":"px","size":"","sizes":[]},"cards_row_gap_mobile":{"unit":"px","size":"","sizes":[]}}'}
+      data-widget_type="posts.cards"
+    >
+      <div class="vb-widget-container">
+        <div class="vb-posts-container vb-posts vb-posts--skin-cards vb-grid" role="list">
+          {related.map((p) => <PostCard post={p} category={category} />)}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

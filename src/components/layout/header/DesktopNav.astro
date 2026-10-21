@@ -1,0 +1,149 @@
+---
+/**
+ * Desktop header: search box and the main menu.
+ * Hidden on tablet and mobile.
+ */
+---
+
+<div
+  class="vb-element vb-element-99fb249 e-con-full vb-hidden-tablet vb-hidden-mobile e-flex e-con e-child"
+  data-id="99fb249"
+  data-element_type="container"
+  data-e-type="container"
+>
+  <div
+    class="vb-element vb-element-9c1ee08 vb-widget__width-initial vb-hidden-tablet vb-hidden-mobile vb-widget vb-widget-search"
+    data-id="9c1ee08"
+    data-element_type="widget"
+    data-e-type="widget"
+    data-settings={'{"submit_trigger":"key_enter","pagination_type_options":"none"}'}
+    data-widget_type="search.default"
+  >
+    <div class="vb-widget-container">
+      <search class="e-search hidden" role="search">
+        <form class="e-search-form" action="/" method="get">
+          <label class="e-search-label" for="search-9c1ee08"> <span class="vb-screen-only"> Search </span> </label>
+          <div class="e-search-input-wrapper">
+            <input
+              id="search-9c1ee08"
+              placeholder="Type to start searching..."
+              class="e-search-input"
+              type="search"
+              name="s"
+              value=""
+              autocomplete="on"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-controls="results-9c1ee08"
+              aria-haspopup="listbox"
+            />
+            <i aria-hidden="true" class="fas fa-times"></i>
+            <output
+              id="results-9c1ee08"
+              class="e-search-results-container hide-loader"
+              aria-live="polite"
+              aria-atomic="true"
+              aria-label="Results for search"
+              tabindex="0"
+            >
+              <div class="e-search-results"></div>
+            </output>
+          </div>
+          <button class="e-search-submit vb-screen-only" type="submit" aria-label="Search"> </button>
+          <input type="hidden" name="e_search_props" value="9c1ee08-19568" />
+        </form>
+      </search>
+    </div>
+  </div>
+  <div
+    class="vb-element vb-element-36794c7 vb-nav-menu__align-end vb-hidden-tablet vb-hidden-mobile vb-widget__width-auto vb-nav-menu--dropdown-tablet vb-nav-menu__text-align-aside vb-nav-menu--toggle vb-nav-menu--burger vb-widget vb-widget-nav-menu"
+    data-id="36794c7"
+    data-element_type="widget"
+    data-e-type="widget"
+    data-settings={'{"layout":"horizontal","submenu_icon":{"value":"<i class=\\"fas fa-caret-down\\" aria-hidden=\\"true\\"><\\/i>","library":"fa-solid"},"toggle":"burger"}'}
+    data-widget_type="nav-menu.default"
+  >
+    <div class="vb-widget-container">
+      <nav
+        aria-label="Menu"
+        class="vb-nav-menu--main vb-nav-menu__container vb-nav-menu--layout-horizontal e--pointer-none"
+      >
+        <ul id="menu-1-36794c7" class="vb-nav-menu">
+          <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-8666">
+            <a aria-expanded="false" aria-haspopup="true" href="/about-us/" class="vb-item has-submenu"
+              >About Us<span class="sub-arrow"><i class="fas fa-caret-down" aria-hidden="true"></i></span></a
+            >
+            <ul class="sub-menu vb-nav-menu--dropdown">
+              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19730">
+                <a href="/clients/" class="vb-sub-item">Clients</a>
+              </li>
+              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19729">
+                <a href="/testimonials/" class="vb-sub-item">Testimonials</a>
+              </li>
+              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26776">
+                <a href="/case-studies/" class="vb-sub-item">Case Studies</a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19903">
+            <a href="/business-consulting/" class="vb-item">Consulting</a>
+          </li>
+          <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9788">
+            <a href="/coaching/" class="vb-item">Coaching</a>
+          </li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26461">
+            <a href="/venturebean-solutions-page/" class="vb-item">Solutions</a>
+          </li>
+          <li class="glow menu-item menu-item-type-custom menu-item-object-custom menu-item-9791">
+            <a href="/knowledge-hub/" class="vb-item">Knowledge Hub</a>
+          </li>
+          <li class="contact menu-item menu-item-type-post_type menu-item-object-page menu-item-11996">
+            <a href="/contact-us/" class="vb-item">Reach us</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="vb-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
+        <i aria-hidden="true" role="presentation" class="vb-menu-toggle__icon--open eicon-menu-bar"></i><i
+          aria-hidden="true"
+          role="presentation"
+          class="vb-menu-toggle__icon--close eicon-close"></i>
+      </div>
+      <nav class="vb-nav-menu--dropdown vb-nav-menu__container" aria-hidden="true">
+        <ul id="menu-2-36794c7" class="vb-nav-menu">
+          <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-8666">
+            <a aria-expanded="false" aria-haspopup="true" href="/about-us/" class="vb-item has-submenu" tabindex="-1"
+              >About Us<span class="sub-arrow"><i class="fas fa-caret-down" aria-hidden="true"></i></span></a
+            >
+            <ul class="sub-menu vb-nav-menu--dropdown">
+              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19730">
+                <a href="/clients/" class="vb-sub-item" tabindex="-1">Clients</a>
+              </li>
+              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19729">
+                <a href="/testimonials/" class="vb-sub-item" tabindex="-1">Testimonials</a>
+              </li>
+              <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26776">
+                <a href="/case-studies/" class="vb-sub-item" tabindex="-1">Case Studies</a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19903">
+            <a href="/business-consulting/" class="vb-item" tabindex="-1">Consulting</a>
+          </li>
+          <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9788">
+            <a href="/coaching/" class="vb-item" tabindex="-1">Coaching</a>
+          </li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26461">
+            <a href="/venturebean-solutions-page/" class="vb-item" tabindex="-1">Solutions</a>
+          </li>
+          <li class="glow menu-item menu-item-type-custom menu-item-object-custom menu-item-9791">
+            <a href="/knowledge-hub/" class="vb-item" tabindex="-1">Knowledge Hub</a>
+          </li>
+          <li class="contact menu-item menu-item-type-post_type menu-item-object-page menu-item-11996">
+            <a href="/contact-us/" class="vb-item" tabindex="-1">Reach us</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

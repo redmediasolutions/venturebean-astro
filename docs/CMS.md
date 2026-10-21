@@ -49,9 +49,10 @@ keeps the original logos that are saved in the page HTML — the site never brea
 ## Code
 
 - `src/lib/clients.ts` — loads clients from Firebase (once per build)
-- `src/lib/render-clients.ts` — writes them into the page HTML
-- `src/content/pages/home.html`, `clients.html` — the logo sections are marked with
-  `<!--cms:…-->` comments; everything between the markers is replaced
+- `src/components/client-logos/ClientLogoMarquee.astro`: home page logo strip
+- `src/components/client-logos/ClientLogoTabs.astro` + `ClientLogo.astro`: Clients page tabs
+- `src/components/client-logos/saved/`: the logos saved from WordPress, shown when the
+  Content Manager has none (they're passed into the components above as children)
 - `scripts/import-clients.mjs` — the one-time import
 
 # Articles (Knowledge Hub → Insights)
@@ -70,12 +71,14 @@ Coaching and consulting articles come from the same Content Manager.
   from WordPress with **Import from WordPress** (one post, or a whole category by ID).
 - Drafts and posts scheduled for later are not shown.
 - The Calendly booking box sits under the table of contents and stays on screen while reading
-  (desktop). Its code is in `src/content/post-template.html`.
+  (desktop). Its code is in `src/components/blog/CalendlyWidget.astro`.
 
 ## Code
 
 - `src/lib/posts.ts`: loads published coaching and consulting posts (once per build)
-- `src/lib/render-posts.ts`: insights cards, article page, table of contents, link clean-up
-- `src/content/pages/insights.html`: the card lists sit between `<!--cms:insights-…-->` markers
-- `src/content/post-template.html`: the article page layout
+- `src/lib/article.ts`: link clean-up, table-of-contents headings, card text and dates
+- `src/components/blog/PostCardList.astro` + `PostCard.astro`: the Insights tab cards
+  (`blog/saved/` holds the cards saved from WordPress, shown when there are no posts yet)
+- `src/components/blog/article/`: the article page pieces (header, body + sidebar, "Continue reading")
+- `src/components/blog/TableOfContents.astro`, `CalendlyWidget.astro`: the sidebar
 - `src/pages/[slug].astro`: one page per article

@@ -247,3 +247,21 @@ html {
     top: 24px;
   }
 }
+
+/* ---- Article cards (Insights tabs, "Continue reading") ----
+   The saved CSS gives each card image an empty box (padding-bottom: 10–66% of
+   the width, depending on screen size) that WordPress filled with a script.
+   Without it the empty box showed as a grey block under the image. Every card
+   image now sits in the same 16:9 frame and is cropped to fill it. */
+.vb-posts-container .vb-post__thumbnail {
+  padding-bottom: 0 !important;
+  aspect-ratio: 16 / 9;
+}
+.vb-posts-container .vb-post__thumbnail img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+}

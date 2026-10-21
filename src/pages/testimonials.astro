@@ -1,5 +1,16 @@
 ---
+/**
+ * Testimonials page → /testimonials/
+ * Each section lives in src/components/testimonials/.
+ */
 import Layout from '../layouts/Layout.astro';
+import HeroSlider from '../components/testimonials/HeroSlider.astro';
+import TestimonialCarousels from '../components/testimonials/TestimonialCarousels.astro';
 ---
 
-<Layout id="testimonials" />
+<Layout page="testimonials">
+  <div data-vb-type="site-page" data-vb-id="13201" class="vb vb-13201" data-vb-post-type="page">
+    <HeroSlider />
+    <TestimonialCarousels />
+  </div>
+</Layout>

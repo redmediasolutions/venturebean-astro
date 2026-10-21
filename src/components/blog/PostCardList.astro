@@ -1,0 +1,21 @@
+---
+/**
+ * Cards for every published article in one category (Insights page tabs).
+ * Articles come from the Content Manager (see src/lib/posts.ts).
+ *
+ * If the Content Manager has no articles yet, the cards saved from the
+ * WordPress site (passed in as children) are shown instead.
+ */
+import { getBlogPosts } from '../../lib/posts';
+import PostCard from './PostCard.astro';
+
+interface Props {
+  category: 'consulting' | 'coaching';
+}
+
+const { category } = Astro.props;
+const all = await getBlogPosts();
+const posts = all?.filter((p) => p.categorySlugs.includes(category)) ?? [];
+---
+
+{all ? posts.map((post) => <PostCard post={post} category={category} />) : <slot />}

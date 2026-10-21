@@ -1,5 +1,30 @@
 ---
+/**
+ * About Us page → /about-us/
+ * Each section lives in src/components/about/.
+ */
 import Layout from '../layouts/Layout.astro';
+import HeroSlider from '../components/about/HeroSlider.astro';
+import BoutiqueExpertise from '../components/about/BoutiqueExpertise.astro';
+import OurPurpose from '../components/about/OurPurpose.astro';
+import GuidingPrinciples from '../components/about/GuidingPrinciples.astro';
+import ValuesHeading from '../components/about/ValuesHeading.astro';
+import ValuesRowOne from '../components/about/ValuesRowOne.astro';
+import ValuesRowTwo from '../components/about/ValuesRowTwo.astro';
+import CoreTeam from '../components/about/CoreTeam.astro';
+import Advisors from '../components/about/Advisors.astro';
 ---
 
-<Layout id="about-us" />
+<Layout page="about-us">
+  <div data-vb-type="site-page" data-vb-id="12026" class="vb vb-12026" data-vb-post-type="page">
+    <HeroSlider />
+    <BoutiqueExpertise />
+    <OurPurpose />
+    <GuidingPrinciples />
+    <ValuesHeading />
+    <ValuesRowOne />
+    <ValuesRowTwo />
+    <CoreTeam />
+    <Advisors />
+  </div>
+</Layout>

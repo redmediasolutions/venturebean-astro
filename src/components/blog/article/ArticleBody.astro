@@ -1,0 +1,103 @@
+---
+/**
+ * Article text with the sticky sidebar: table of contents, then the Calendly booking box.
+ */
+import type { TocItem } from '../../../lib/article';
+import TableOfContents from '../TableOfContents.astro';
+import CalendlyWidget from '../CalendlyWidget.astro';
+
+interface Props {
+  /** Article HTML, already prepared by prepareContent() (src/lib/article.ts). */
+  content: string;
+  toc: TocItem[];
+}
+
+const { content, toc } = Astro.props;
+---
+
+<div
+  class="vb-element vb-element-a404898 e-flex e-con-boxed e-con e-parent"
+  data-id="a404898"
+  data-element_type="container"
+  data-e-type="container"
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-c33825b e-con-full e-flex e-con e-child"
+      data-id="c33825b"
+      data-element_type="container"
+      data-e-type="container"
+    >
+      <div
+        class="vb-element vb-element-ffed5ee blog-post vb-widget vb-widget-theme-post-content"
+        data-id="ffed5ee"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="theme-post-content.default"
+      >
+        <div class="vb-widget-container"><Fragment set:html={content} /></div>
+      </div>
+    </div>
+    <div
+      class="vb-element vb-element-e0fd014 e-con-full e-flex e-con e-child"
+      data-id="e0fd014"
+      data-element_type="container"
+      data-e-type="container"
+      id="side-bar"
+    >
+      <div
+        class="vb-element vb-element-92e9cc3 vb-toc--minimized-on-tablet vb-widget vb-widget-table-of-contents"
+        data-id="92e9cc3"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-settings={'{"exclude_headings_by_selector":"H1","no_headings_message":"No headings were found on this page.","marker_view":"bullets","headings_by_tags":["h2","h3","h4","h5","h6"],"icon":{"value":"fas fa-circle","library":"fa-solid"},"minimize_box":"yes","minimized_on":"tablet","hierarchical_view":"yes","min_height":{"unit":"px","size":"","sizes":[]},"min_height_tablet":{"unit":"px","size":"","sizes":[]},"min_height_mobile":{"unit":"px","size":"","sizes":[]}}'}
+        data-widget_type="table-of-contents.default"
+      >
+        <div class="vb-widget-container">
+          <div class="vb-toc__header">
+            <h2 class="vb-toc__header-title">Table of Contents</h2>
+            <div
+              class="vb-toc__toggle-button vb-toc__toggle-button--expand"
+              role="button"
+              tabindex="0"
+              aria-controls="vb-toc__92e9cc3"
+              aria-expanded="true"
+              aria-label="Open table of contents"
+            >
+              <i aria-hidden="true" class="fas fa-chevron-down"></i>
+            </div>
+            <div
+              class="vb-toc__toggle-button vb-toc__toggle-button--collapse"
+              role="button"
+              tabindex="0"
+              aria-controls="vb-toc__92e9cc3"
+              aria-expanded="true"
+              aria-label="Close table of contents"
+            >
+              <i aria-hidden="true" class="fas fa-chevron-up"></i>
+            </div>
+          </div>
+          <div id="vb-toc__92e9cc3" class="vb-toc__body">
+            <div class="vb-toc__body-inner"><TableOfContents items={toc} /></div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="vb-element vb-element-b9682d5 e-con-full e-flex e-con e-child"
+        data-id="b9682d5"
+        data-element_type="container"
+        data-e-type="container"
+      >
+        <div
+          class="vb-element vb-element-e811312 vb-widget vb-widget-html"
+          data-id="e811312"
+          data-element_type="widget"
+          data-e-type="widget"
+          data-widget_type="html.default"
+        >
+          <div class="vb-widget-container"><CalendlyWidget /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

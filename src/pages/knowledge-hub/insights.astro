@@ -1,0 +1,20 @@
+---
+/**
+ * Insights page (Knowledge Hub → Insights) → /knowledge-hub/insights/
+ * Each section lives in src/components/knowledge-hub/insights/.
+ */
+import Layout from '../../layouts/Layout.astro';
+import HeroSlider from '../../components/knowledge-hub/insights/HeroSlider.astro';
+import PageHeading from '../../components/knowledge-hub/insights/PageHeading.astro';
+import InsightsTabs from '../../components/knowledge-hub/insights/InsightsTabs.astro';
+---
+
+<Layout page="insights">
+  <main id="content" class="site-main post-19055 page type-page status-publish hentry">
+    <div data-vb-type="wp-page" data-vb-id="19055" class="vb vb-19055" data-vb-post-type="page">
+      <HeroSlider />
+      <PageHeading />
+      <InsightsTabs />
+    </div>
+  </main>
+</Layout>

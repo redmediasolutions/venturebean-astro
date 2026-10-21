@@ -1,5 +1,36 @@
 ---
+/**
+ * Home page → /
+ * Each section lives in src/components/home/.
+ */
 import Layout from '../layouts/Layout.astro';
+import HeroSlider from '../components/home/HeroSlider.astro';
+import Intro from '../components/home/Intro.astro';
+import TrustedStats from '../components/home/TrustedStats.astro';
+import WhyVentureBean from '../components/home/WhyVentureBean.astro';
+import IntroVideos from '../components/home/IntroVideos.astro';
+import HowWeHelp from '../components/home/HowWeHelp.astro';
+import BusinessConsulting from '../components/home/BusinessConsulting.astro';
+import CoachingAndOD from '../components/home/CoachingAndOD.astro';
+import IndustriesWeServe from '../components/home/IndustriesWeServe.astro';
+import ClientLogos from '../components/home/ClientLogos.astro';
+import KnowledgeHub from '../components/home/KnowledgeHub.astro';
+import Testimonials from '../components/home/Testimonials.astro';
 ---
 
-<Layout id="home" />
+<Layout page="home">
+  <div data-vb-type="site-page" data-vb-id="6391" class="vb vb-6391" data-vb-post-type="page">
+    <HeroSlider />
+    <Intro />
+    <TrustedStats />
+    <WhyVentureBean />
+    <IntroVideos />
+    <HowWeHelp />
+    <BusinessConsulting />
+    <CoachingAndOD />
+    <IndustriesWeServe />
+    <ClientLogos />
+    <KnowledgeHub />
+    <Testimonials />
+  </div>
+</Layout>

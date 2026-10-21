@@ -1,5 +1,50 @@
 ---
+/**
+ * Consulting page → /business-consulting/
+ * Each section lives in src/components/consulting/.
+ */
 import Layout from '../layouts/Layout.astro';
+import HeroSlider from '../components/consulting/HeroSlider.astro';
+import Intro from '../components/consulting/Intro.astro';
+import BusinessGrowthConsulting from '../components/consulting/BusinessGrowthConsulting.astro';
+import OurExpertise from '../components/consulting/OurExpertise.astro';
+import Stats from '../components/consulting/Stats.astro';
+import TalkToAConsultant from '../components/consulting/TalkToAConsultant.astro';
+import WhoWeHelp from '../components/consulting/WhoWeHelp.astro';
+import ConsultingVideos from '../components/consulting/ConsultingVideos.astro';
+import ChallengesWeSolve from '../components/consulting/ChallengesWeSolve.astro';
+import HowWeHelp from '../components/consulting/HowWeHelp.astro';
+import OurApproach from '../components/consulting/OurApproach.astro';
+import Frameworks from '../components/consulting/Frameworks.astro';
+import WhyChooseUs from '../components/consulting/WhyChooseUs.astro';
+import RelatedSolutions from '../components/consulting/RelatedSolutions.astro';
+import OurServices from '../components/consulting/OurServices.astro';
+import ServicesRowOne from '../components/consulting/ServicesRowOne.astro';
+import ServicesRowTwo from '../components/consulting/ServicesRowTwo.astro';
+import CallToAction from '../components/consulting/CallToAction.astro';
+import Faqs from '../components/consulting/Faqs.astro';
 ---
 
-<Layout id="business-consulting" />
+<Layout page="business-consulting">
+  <div data-vb-type="site-page" data-vb-id="19847" class="vb vb-19847" data-vb-post-type="page">
+    <HeroSlider />
+    <Intro />
+    <BusinessGrowthConsulting />
+    <OurExpertise />
+    <Stats />
+    <TalkToAConsultant />
+    <WhoWeHelp />
+    <ConsultingVideos />
+    <ChallengesWeSolve />
+    <HowWeHelp />
+    <OurApproach />
+    <Frameworks />
+    <WhyChooseUs />
+    <RelatedSolutions />
+    <OurServices />
+    <ServicesRowOne />
+    <ServicesRowTwo />
+    <CallToAction />
+    <Faqs />
+  </div>
+</Layout>

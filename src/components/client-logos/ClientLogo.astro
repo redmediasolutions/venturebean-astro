@@ -1,0 +1,37 @@
+---
+/**
+ * One client logo in the Clients page grid.
+ * Logo size (%) comes from the "Logo size" custom field; normal is 60%.
+ */
+import type { ClientLogo } from '../../lib/clients';
+
+interface Props {
+  client: ClientLogo;
+}
+
+const { client } = Astro.props;
+const hasSize = Boolean(client.logo.width && client.logo.height);
+const size =
+  client.logoSize && client.logoSize > 0 && client.logoSize <= 100
+    ? `width:${client.logoSize}%;max-width:100%`
+    : undefined;
+---
+
+<div
+  class="vb-element vb-widget vb-widget-image vb-client-logo"
+  data-element_type="widget"
+  data-widget_type="image.default"
+>
+  <div class="vb-widget-container">
+    <img
+      loading="lazy"
+      decoding="async"
+      width={hasSize ? client.logo.width : undefined}
+      height={hasSize ? client.logo.height : undefined}
+      src={client.logo.url}
+      class="vb-animation-grow attachment-full size-full"
+      alt={client.logo.alt}
+      style={size}
+    />
+  </div>
+</div>

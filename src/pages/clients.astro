@@ -1,5 +1,28 @@
 ---
+/**
+ * Clients page → /clients/
+ * Each section lives in src/components/clients/.
+ */
 import Layout from '../layouts/Layout.astro';
+import HeroSliderDesktop from '../components/clients/HeroSliderDesktop.astro';
+import HeroSliderMobile from '../components/clients/HeroSliderMobile.astro';
+import EveryLogoTellsAStory from '../components/clients/EveryLogoTellsAStory.astro';
+import WhatClientsSoughtDesktop from '../components/clients/WhatClientsSoughtDesktop.astro';
+import WhatClientsSoughtMobile from '../components/clients/WhatClientsSoughtMobile.astro';
+import OurClients from '../components/clients/OurClients.astro';
+import DrivingGrowth from '../components/clients/DrivingGrowth.astro';
+import LetsTalk from '../components/clients/LetsTalk.astro';
 ---
 
-<Layout id="clients" />
+<Layout page="clients">
+  <div data-vb-type="site-page" data-vb-id="12440" class="vb vb-12440" data-vb-post-type="page">
+    <HeroSliderDesktop />
+    <HeroSliderMobile />
+    <EveryLogoTellsAStory />
+    <WhatClientsSoughtDesktop />
+    <WhatClientsSoughtMobile />
+    <OurClients />
+    <DrivingGrowth />
+    <LetsTalk />
+  </div>
+</Layout>

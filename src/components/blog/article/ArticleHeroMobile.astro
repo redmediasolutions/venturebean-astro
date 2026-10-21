@@ -1,0 +1,95 @@
+---
+/**
+ * Article page header (tablet and phone): featured image on top, then title and date.
+ */
+
+interface Props {
+  title: string;
+  date: string;
+}
+
+const { title, date } = Astro.props;
+---
+
+<div
+  class="vb-element vb-element-56e5269 vb-hidden-desktop e-flex e-con-boxed e-con e-parent"
+  data-id="56e5269"
+  data-element_type="container"
+  data-e-type="container"
+  data-settings={'{"background_background":"classic"}'}
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-bd88443 e-con-full e-flex e-con e-child"
+      data-id="bd88443"
+      data-element_type="container"
+      data-e-type="container"
+      data-settings={'{"background_background":"classic"}'}
+    >
+    </div>
+    <div
+      class="vb-element vb-element-511476b e-con-full e-flex e-con e-child"
+      data-id="511476b"
+      data-element_type="container"
+      data-e-type="container"
+    >
+      <div
+        class="vb-element vb-element-e99f95d vb-widget vb-widget-text-editor"
+        data-id="e99f95d"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="text-editor.default"
+      >
+        <div class="vb-widget-container">
+          <p>BLOG</p>
+        </div>
+      </div>
+      <div
+        class="vb-element vb-element-5ea547c vb-widget vb-widget-theme-post-title vb-page-title vb-widget-heading"
+        data-id="5ea547c"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="theme-post-title.default"
+      >
+        <div class="vb-widget-container">
+          <h1 class="vb-heading-title vb-size-default">{title}</h1>
+        </div>
+      </div>
+      <div
+        class="vb-element vb-element-2a0c393 vb-widget-divider--view-line vb-widget vb-widget-divider"
+        data-id="2a0c393"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="divider.default"
+      >
+        <div class="vb-widget-container">
+          <div class="vb-divider">
+            <span class="vb-divider-separator"> </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="vb-element vb-element-892e21f vb-widget vb-widget-post-info"
+        data-id="892e21f"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="post-info.default"
+      >
+        <div class="vb-widget-container">
+          <ul class="vb-inline-items vb-icon-list-items vb-post-info">
+            <li class="vb-icon-list-item vb-repeater-item-e52f00d vb-inline-item" itemprop="datePublished">
+              <a href="/knowledge-hub/insights/">
+                <span class="vb-icon-list-icon">
+                  <i aria-hidden="true" class="fas fa-calendar"></i>
+                </span>
+                <span class="vb-icon-list-text vb-post-info__item vb-post-info__item--type-date">
+                  <time>{date}</time>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,19 @@
 ---
+/**
+ * Blog article → /<slug>/  (same addresses as on WordPress)
+ * One page per published Coaching / Consulting post in the Content Manager.
+ * The pieces are in src/components/blog/article/.
+ */
 import Layout from '../layouts/Layout.astro';
+import ArticleHero from '../components/blog/article/ArticleHero.astro';
+import ArticleHeroMobile from '../components/blog/article/ArticleHeroMobile.astro';
+import ArticleBody from '../components/blog/article/ArticleBody.astro';
+import RelatedPosts from '../components/blog/article/RelatedPosts.astro';
 import { getBlogPosts, postPath, type BlogPost } from '../lib/posts';
-import { renderPostPage } from '../lib/render-posts';
+import { formatDate, prepareContent } from '../lib/article';
 
 export async function getStaticPaths() {
+  // Slugs already used by site pages.
   const reserved = new Set([
     'about-us',
     'business-consulting',
@@ -29,16 +39,44 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const posts = (await getBlogPosts()) ?? [];
-const html = renderPostPage(post, posts);
-const canonical = `https://venturebean.com${postPath(post.slug)}`;
+const all = (await getBlogPosts()) ?? [];
+const { html: content, toc } = prepareContent(post.content);
+const category = post.categorySlugs.includes('coaching') ? 'coaching' : 'consulting';
+const related = all.filter((p) => p.slug !== post.slug && p.categorySlugs.includes(category)).slice(0, 4);
+const date = formatDate(post.publishedAt);
+
+// Featured image as the background of the header's image box (desktop + mobile).
+const image = post.featuredImage?.url;
+const heroCss = image
+  ? `<style>` +
+    `.vb-20312 .vb-element.vb-element-474937f:not(.vb-motion-effects-element-type-background),` +
+    `.vb-20312 .vb-element.vb-element-474937f > .vb-motion-effects-container > .vb-motion-effects-layer,` +
+    `.vb-20312 .vb-element.vb-element-bd88443:not(.vb-motion-effects-element-type-background),` +
+    `.vb-20312 .vb-element.vb-element-bd88443 > .vb-motion-effects-container > .vb-motion-effects-layer{` +
+    `background-image:url(${JSON.stringify(image)});}` +
+    `</style>`
+  : '';
 ---
 
 <Layout
-  id="post"
-  html={html}
+  page="post"
   title={post.seoTitle || post.title}
   description={post.seoDescription || post.excerpt}
-  canonical={canonical}
-  image={post.featuredImage?.url}
-/>
+  canonical={`https://venturebean.com${postPath(post.slug)}`}
+  image={image}
+>
+  <main id="content" class="site-main">
+    <Fragment set:html={heroCss} />
+    <div
+      data-vb-type="single-post"
+      data-vb-id="20312"
+      class={`vb vb-20312 vb-location-single post type-post status-publish format-standard has-post-thumbnail hentry category-${category}`}
+      data-vb-post-type="vb_library"
+    >
+      <ArticleHero title={post.title} date={date} />
+      <ArticleHeroMobile title={post.title} date={date} />
+      <ArticleBody content={content} toc={toc} />
+      <RelatedPosts related={related} category={category} />
+    </div>
+  </main>
+</Layout>

@@ -1,55 +1,47 @@
 ---
 /**
- * Shared page shell: SEO tags and stylesheets, header, page body, footer,
- * and the small runtime that replaces the old page scripts.
+ * Every page uses this layout: SEO tags + stylesheets, header, the page
+ * itself (<slot />), footer, pop-ups and the small runtime script.
+ *
+ * Per-page SEO tags and stylesheets are in src/data/pages.json (copied from
+ * the WordPress site), keyed by the `page` prop.
  */
-import manifest from '../content/pages.json';
-import header from '../content/header.html?raw';
-import footer from '../content/footer.html?raw';
-import popups from '../content/popups.html?raw';
-import ChatWidget from '../components/ChatWidget.astro';
-import { getClientsData } from '../lib/clients';
-import { renderClientTabs, renderHomeLogos } from '../lib/render-clients';
-import { getBlogPosts } from '../lib/posts';
-import { renderInsightLists } from '../lib/render-posts';
+import pages from '../data/pages.json';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Popups from '../components/layout/Popups.astro';
+import ChatWidget from '../components/layout/ChatWidget.astro';
 
-const bodies = import.meta.glob('../content/pages/*.html', { query: '?raw', import: 'default', eager: true });
+export type PageId = keyof typeof pages;
 
 interface Props {
-  id: string;
-  /** When set, used instead of the saved page HTML (article pages). */
-  html?: string;
+  page: PageId;
+  /** Overrides for article pages. */
   title?: string;
   description?: string;
   canonical?: string;
   image?: string;
 }
 
-const { id, html, title, description, canonical, image } = Astro.props;
-const page = manifest[id];
-if (!page) throw new Error(`No content for page "${id}".`);
-let main = html ?? (bodies[`../content/pages/${id}.html`] as string);
-if (!main) throw new Error(`No HTML for page "${id}".`);
+const { page: id, title, description, canonical, image } = Astro.props;
+const page = pages[id as PageId];
+if (!page) throw new Error(`No SEO data for page "${id}" in src/data/pages.json.`);
 
 const attr = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 let head = page.head;
 if (title) head = head.replace(/<title>[\s\S]*?<\/title>/, `<title>${attr(title)}</title>`);
-if (description) head = head.replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${attr(description)}">`);
-if (canonical) head = head.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${attr(canonical)}">`);
-if (image) head = head.replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${attr(image)}">`);
-
-// Client logos come from the Content Manager (Firebase). If it has none yet,
-// the original logos in the page HTML are kept.
-if (id === 'home' || id === 'clients') {
-  const clients = await getClientsData();
-  if (clients) main = id === 'home' ? renderHomeLogos(main, clients) : renderClientTabs(main, clients);
-}
-
-// Insights lists every published coaching and consulting article.
-if (id === 'insights') {
-  const posts = await getBlogPosts();
-  if (posts) main = renderInsightLists(main, posts);
-}
+if (description)
+  head = head.replace(
+    /<meta name="description" content="[^"]*">/,
+    `<meta name="description" content="${attr(description)}">`,
+  );
+if (canonical)
+  head = head.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${attr(canonical)}">`);
+if (image)
+  head = head.replace(
+    /<meta property="og:image" content="[^"]*">/,
+    `<meta property="og:image" content="${attr(image)}">`,
+  );
 ---
 
 <!doctype html>
@@ -62,11 +54,15 @@ if (id === 'insights') {
     <Fragment set:html={page.headStyles} />
     <link rel="stylesheet" href="/site/overrides.css" />
     <link rel="stylesheet" href="/site/chaty.css" />
+    <link rel="stylesheet" href="/site/responsive.css" />
+    <!-- prettier-ignore -->
     <noscript><style>.vb-invisible{visibility:visible!important}</style></noscript>
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=GT-NFBZ386N"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
+      function gtag() {
+        dataLayer.push(arguments);
+      }
       gtag('set', 'linker', { domains: ['venturebean.com'] });
       gtag('js', new Date());
       gtag('config', 'GT-NFBZ386N');
@@ -74,10 +70,10 @@ if (id === 'insights') {
   </head>
   <body class={page.bodyClass}>
     <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
-    <Fragment set:html={header} />
-    <Fragment set:html={main} />
-    <Fragment set:html={footer} />
-    <template id="vb-popups" set:html={popups} />
+    <Header />
+    <slot />
+    <Footer />
+    <template id="vb-popups"><Popups /></template>
     <ChatWidget />
     <script src="../scripts/site.js"></script>
   </body>

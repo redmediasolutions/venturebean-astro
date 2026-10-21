@@ -1,0 +1,45 @@
+---
+/**
+ * One article card (Insights tabs, "Continue reading" on an article).
+ * Same markup as the cards on the WordPress site, so the saved CSS applies.
+ */
+import { postPath, type BlogPost } from '../../lib/posts';
+import { excerptOf, formatDate } from '../../lib/article';
+
+interface Props {
+  post: BlogPost;
+  category: string;
+}
+
+const { post, category } = Astro.props;
+const href = postPath(post.slug);
+const date = formatDate(post.publishedAt);
+const img = post.featuredImage;
+---
+
+<article
+  class={`vb-post vb-grid-item post type-post status-publish format-standard has-post-thumbnail hentry category-${category}`}
+  role="listitem"
+>
+  <div class="vb-post__card">
+    {
+      img && (
+        <a class="vb-post__thumbnail__link" href={href} tabindex="-1">
+          <div class="vb-post__thumbnail">
+            <img loading="lazy" decoding="async" src={img.url} alt={img.alt} />
+          </div>
+        </a>
+      )
+    }
+    <div class="vb-post__text">
+      <h3 class="vb-post__title"><a href={href}>{post.title}</a></h3>
+      <div class="vb-post__excerpt"><p>{excerptOf(post)}</p></div>
+      <div class="vb-post__read-more-wrapper">
+        <a class="vb-post__read-more" href={href} aria-label={`Read more about ${post.title}`} tabindex="-1"
+          >Read More »</a
+        >
+      </div>
+    </div>
+    <div class="vb-post__meta-data">{date && <span class="vb-post-date">{date}</span>}</div>
+  </div>
+</article>

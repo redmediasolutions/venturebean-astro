@@ -1,5 +1,54 @@
 ---
+/**
+ * Coaching page → /coaching/
+ * Each section lives in src/components/coaching/.
+ */
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/coaching/Hero.astro';
+import LeadCoach from '../components/coaching/LeadCoach.astro';
+import ClientsInclude from '../components/coaching/ClientsInclude.astro';
+import CoachingVideos from '../components/coaching/CoachingVideos.astro';
+import CoachingExpertise from '../components/coaching/CoachingExpertise.astro';
+import CustomisedNote from '../components/coaching/CustomisedNote.astro';
+import WhoWeHelp from '../components/coaching/WhoWeHelp.astro';
+import CoachingServices from '../components/coaching/CoachingServices.astro';
+import ExecutiveCoaching from '../components/coaching/programs/ExecutiveCoaching.astro';
+import LeadershipCoaching from '../components/coaching/programs/LeadershipCoaching.astro';
+import BusinessCoaching from '../components/coaching/programs/BusinessCoaching.astro';
+import SalesCoaching from '../components/coaching/programs/SalesCoaching.astro';
+import CareerCoaching from '../components/coaching/programs/CareerCoaching.astro';
+import OrganisationalLeadership from '../components/coaching/programs/OrganisationalLeadership.astro';
+import TeamProgramsNote from '../components/coaching/TeamProgramsNote.astro';
+import MethodologyAlternate from '../components/coaching/MethodologyAlternate.astro';
+import Methodology from '../components/coaching/Methodology.astro';
+import ImpactCycle from '../components/coaching/ImpactCycle.astro';
+import EthicsAndStandards from '../components/coaching/EthicsAndStandards.astro';
+import LearningGames from '../components/coaching/LearningGames.astro';
+import Faqs from '../components/coaching/Faqs.astro';
 ---
 
-<Layout id="coaching" />
+<Layout page="coaching">
+  <div data-vb-type="site-page" data-vb-id="14420" class="vb vb-14420" data-vb-post-type="page">
+    <Hero />
+    <LeadCoach />
+    <ClientsInclude />
+    <CoachingVideos />
+    <CoachingExpertise />
+    <CustomisedNote />
+    <WhoWeHelp />
+    <CoachingServices />
+    <ExecutiveCoaching />
+    <LeadershipCoaching />
+    <BusinessCoaching />
+    <SalesCoaching />
+    <CareerCoaching />
+    <OrganisationalLeadership />
+    <TeamProgramsNote />
+    <MethodologyAlternate />
+    <Methodology />
+    <ImpactCycle />
+    <EthicsAndStandards />
+    <LearningGames />
+    <Faqs />
+  </div>
+</Layout>
