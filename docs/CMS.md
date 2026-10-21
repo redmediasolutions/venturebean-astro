@@ -53,3 +53,29 @@ keeps the original logos that are saved in the page HTML — the site never brea
 - `src/content/pages/home.html`, `clients.html` — the logo sections are marked with
   `<!--cms:…-->` comments; everything between the markers is replaced
 - `scripts/import-clients.mjs` — the one-time import
+
+# Articles (Knowledge Hub → Insights)
+
+Coaching and consulting articles come from the same Content Manager.
+
+| On the website                                   | In the Content Manager                                       |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| Insights page, **Consulting** / **Coaching** tabs | Published posts in the **Consulting** / **Coaching** categories |
+| Article address `venturebean.com/<slug>/`        | Post **slug** (same as on WordPress, so old links keep working) |
+| Card image + article header image                | **Featured image**                                           |
+| Card text                                        | First 20 words of the **excerpt** (or of the article)        |
+| Table of contents (sidebar)                      | Built from the article's headings and bold-only lines        |
+
+- **Add an article:** Posts → Coaching (or Consulting) → New post → **Publish**. Or bring it over
+  from WordPress with **Import from WordPress** (one post, or a whole category by ID).
+- Drafts and posts scheduled for later are not shown.
+- The Calendly booking box sits under the table of contents and stays on screen while reading
+  (desktop). Its code is in `src/content/post-template.html`.
+
+## Code
+
+- `src/lib/posts.ts`: loads published coaching and consulting posts (once per build)
+- `src/lib/render-posts.ts`: insights cards, article page, table of contents, link clean-up
+- `src/content/pages/insights.html`: the card lists sit between `<!--cms:insights-…-->` markers
+- `src/content/post-template.html`: the article page layout
+- `src/pages/[slug].astro`: one page per article

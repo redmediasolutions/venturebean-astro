@@ -45,6 +45,19 @@ function withTimeout<T>(promise: Promise<T>): Promise<T> {
   ]);
 }
 
+/** Titles copied from WordPress can still hold entities like &#8211; (–). */
+function decodeEntities(s: string): string {
+  return s
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&quot;/g, '"')
+    .replace(/&(?:#039|apos);/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
+}
+
 function num(v: unknown): number | null {
   return typeof v === 'number' && Number.isFinite(v) ? v : null;
 }
@@ -86,23 +99,23 @@ async function load(): Promise<BlogPost[] | null> {
     const publishedAt = toDate(p.publishedAt);
     if (publishedAt && publishedAt.getTime() > now) continue;
     const slug = String(p.slug ?? '').trim();
-    const title = String(p.title ?? '').trim();
+    const title = decodeEntities(String(p.title ?? '')).trim();
     if (!slug || !title) continue;
     const img = p.featuredImage;
     const featuredImage = img?.url
-      ? { url: String(img.url), alt: String(img.alt || title), width: num(img.width), height: num(img.height) }
+      ? { url: String(img.url), alt: decodeEntities(String(img.alt || title)), width: num(img.width), height: num(img.height) }
       : null;
     posts.push({
       id: d.id,
       title,
       slug,
       content: String(p.content ?? ''),
-      excerpt: String(p.excerpt ?? ''),
+      excerpt: decodeEntities(String(p.excerpt ?? '')),
       featuredImage,
       categorySlugs: slugs,
       publishedAt,
-      seoTitle: String(p.seoTitle || title),
-      seoDescription: String(p.seoDescription || p.excerpt || ''),
+      seoTitle: decodeEntities(String(p.seoTitle || title)),
+      seoDescription: decodeEntities(String(p.seoDescription || p.excerpt || '')),
     });
   }
   posts.sort((a, b) => (b.publishedAt?.getTime() ?? 0) - (a.publishedAt?.getTime() ?? 0));

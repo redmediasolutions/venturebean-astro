@@ -62,12 +62,11 @@ function plain(html: string): string {
   return decode(html.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
 }
 
+/** First 20 words, like the cards on the WordPress site (no "[…]"). */
 function excerptOf(post: BlogPost): string {
-  const text = plain(post.excerpt || post.content);
-  if (text.length <= 160) return text;
-  const cut = text.slice(0, 160);
-  const space = cut.lastIndexOf(' ');
-  return `${(space > 80 ? cut.slice(0, space) : cut).trim()}…`;
+  const text = plain(post.excerpt || post.content).replace(/\s*\[(…|\.\.\.)\]\s*$/, '');
+  const words = text.split(' ');
+  return words.length <= 20 ? text : words.slice(0, 20).join(' ');
 }
 
 export function formatDate(date: Date | null): string {
@@ -170,16 +169,20 @@ function tocHtml(items: TocItem[]): string {
   if (!items.length) {
     return '<p class="vb-toc__empty">In this article</p>';
   }
-  const lis = items
-    .map(
-      (item) =>
-        `<li class="vb-toc__list-item vb-toc__list-item-text-level-${item.level - 1}">` +
-        `<div class="vb-toc__list-item-text-wrapper">` +
-        `<a href="#${esc(item.id)}" class="vb-toc__list-item-text">${esc(item.text)}</a>` +
-        `</div></li>`
-    )
-    .join('');
-  return `<ul class="vb-toc__list-wrapper">${lis}</ul>`;
+  // Same markup the WordPress widget built: H3s nest under the H2 before them.
+  const li = (item: TocItem, children = '') =>
+    `<li class="vb-toc__list-item">` +
+    `<div class="vb-toc__list-item-text-wrapper"><i aria-hidden="true" class="fas fa-circle"></i>` +
+    `<a href="#${esc(item.id)}" class="vb-toc__list-item-text${item.level === 2 ? ' vb-toc__top-level' : ''}">${esc(item.text)}</a>` +
+    `</div>${children}</li>`;
+  let out = '';
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const subs: TocItem[] = [];
+    while (item.level === 2 && items[i + 1]?.level === 3) subs.push(items[++i]);
+    out += li(item, subs.length ? `<ul class="vb-toc__list-wrapper">${subs.map((s) => li(s)).join('')}</ul>` : '');
+  }
+  return `<ul class="vb-toc__list-wrapper">${out}</ul>`;
 }
 
 function heroStyle(imageUrl: string | undefined): string {

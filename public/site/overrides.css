@@ -172,8 +172,22 @@ html {
 #side-bar .vb-toc__list-item a:hover {
   color: #06329c;
 }
-#side-bar .vb-toc__list-item-text-level-1 a {
-  padding-left: 28px;
+#side-bar .vb-toc__list-item-text-wrapper {
+  padding-left: 16px;
+}
+#side-bar .vb-toc__list-item-text-wrapper > i {
+  font-size: 6px;
+  color: #13005a;
+  margin-inline-end: 0;
+}
+#side-bar .vb-toc__list-item-text-wrapper > a {
+  padding-left: 10px;
+}
+/* H3s sit under their H2 */
+#side-bar .vb-toc__list-wrapper .vb-toc__list-wrapper {
+  padding: 0 0 0 18px;
+}
+#side-bar .vb-toc__list-wrapper .vb-toc__list-wrapper a {
   font-size: 14px;
 }
 #side-bar .calendly-inline-widget {
@@ -200,4 +214,36 @@ html {
   width: 60%;
   max-width: 93%;
   height: auto;
+}
+
+/* ---- Article pages ---- */
+/* The header's saved CSS hides page titles site-wide; articles need theirs. */
+.vb-20312 .vb-page-title {
+  display: block;
+}
+/* Sticky sidebar (same idea as the old site's #side-bar CSS). The old site's
+   header was sticky, hence its top: 130px; this header scrolls away, so the
+   sidebar sits near the top. A long table of contents scrolls inside its box
+   so Calendly is always fully on screen. */
+@media (min-width: 1025px) {
+  .vb-20312 #side-bar {
+    top: 24px;
+  }
+  .vb-20312 #side-bar .vb-toc__body {
+    max-height: max(140px, calc(100vh - 640px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+/* Short laptop screens: the box can't fit, so only Calendly stays in view. */
+@media (min-width: 1025px) and (max-height: 780px) {
+  .vb-20312 #side-bar {
+    position: static;
+    align-self: stretch;
+    height: auto;
+  }
+  .vb-20312 .vb-element.vb-element-b9682d5 {
+    position: sticky;
+    top: 24px;
+  }
 }
