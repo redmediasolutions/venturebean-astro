@@ -1,0 +1,24 @@
+---
+/**
+ * Toolkit page (Knowledge Hub → Toolkit) → /knowledge-hub/toolkit/
+ * Each section lives in src/components/knowledge-hub/toolkit/.
+ */
+import Layout from '../../layouts/Layout.astro';
+import HeroSlider from '../../components/knowledge-hub/toolkit/HeroSlider.astro';
+import ToolkitHeadingMobile from '../../components/knowledge-hub/toolkit/ToolkitHeadingMobile.astro';
+import ToolkitHeading from '../../components/knowledge-hub/toolkit/ToolkitHeading.astro';
+import ToolkitTabs from '../../components/knowledge-hub/toolkit/ToolkitTabs.astro';
+---
+
+<Layout page="toolkit">
+  <main id="content" class="site-main post-24863 page type-page status-publish hentry">
+    <div class="page-content">
+      <div data-vb-type="site-page" data-vb-id="24863" class="vb vb-24863" data-vb-post-type="page">
+        <HeroSlider />
+        <ToolkitHeadingMobile />
+        <ToolkitHeading />
+        <ToolkitTabs />
+      </div>
+    </div>
+  </main>
+</Layout>

@@ -28,6 +28,9 @@ the same name in `src/components/`.
 | Solutions                                   | `venturebean-solutions-page.astro`                            | `solutions/`                           |
 | Knowledge Hub                               | `knowledge-hub/index.astro`                                   | `knowledge-hub/`                       |
 | Knowledge Hub → Insights (blog)             | `knowledge-hub/insights.astro`                                | `knowledge-hub/insights/`              |
+| Knowledge Hub → Media Spotlight             | `knowledge-hub/media-spotlight.astro`                         | `knowledge-hub/media-spotlight/`       |
+| Knowledge Hub → Industry Perspectives       | `knowledge-hub/industry-perspectives.astro`                   | `knowledge-hub/industry-perspectives/` |
+| Knowledge Hub → Toolkit                     | `knowledge-hub/toolkit.astro`                                 | `knowledge-hub/toolkit/`               |
 | Reach Us                                    | `contact-us.astro`                                            | `contact/`                             |
 | A blog article (`/<slug>/`)                 | `[slug].astro`                                                | `blog/article/`                        |
 
@@ -37,6 +40,8 @@ Shared pieces:
 - `src/components/layout/`: `Header` (+ `header/`: logo, desktop menu, mobile menu), `Footer`
   (+ `footer/`), pop-ups and the WhatsApp/phone button.
 - `src/components/blog/`: article cards, table of contents, Calendly box.
+- `src/components/knowledge-hub/cards/`: the Media Spotlight, Videos, Industry Perspectives and
+  Toolkit cards from the Content Manager.
 - `src/components/client-logos/`: client logos from the Content Manager.
 - `src/data/pages.json`: per-page SEO tags (title, description, Open Graph) and stylesheet lists.
 - `src/lib/`: loading data from Firebase (`posts.ts`, `clients.ts`) and article helpers.

@@ -1,0 +1,183 @@
+---
+/**
+ * Industry Perspectives page (Knowledge Hub → Industry Perspectives): the list of Industry Perspectives cards (from the Content Manager).
+ */
+import PerspectiveCardList from '../cards/PerspectiveCardList.astro';
+import SavedPerspectiveCards from './saved/SavedPerspectiveCards.astro';
+---
+
+<div
+  class="vb-element vb-element-96f04d0 e-flex e-con-boxed e-con e-parent"
+  data-id="96f04d0"
+  data-element_type="container"
+  data-e-type="container"
+  data-settings={'{"background_background":"classic"}'}
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-3657d5e vb-grid-3 vb-grid-tablet-2 vb-grid-mobile-1 vb-widget vb-widget-loop-grid"
+      data-id="3657d5e"
+      data-element_type="widget"
+      data-e-type="widget"
+      data-settings={'{"template_id":25438,"_skin":"post","columns":"3","columns_tablet":"2","columns_mobile":"1","edit_handle_selector":"[data-vb-type=\\"loop-item\\"]","row_gap":{"unit":"px","size":"","sizes":[]},"row_gap_tablet":{"unit":"px","size":"","sizes":[]},"row_gap_mobile":{"unit":"px","size":"","sizes":[]}}'}
+      data-widget_type="loop-grid.post"
+    >
+      <div class="vb-widget-container">
+        <div class="vb-loop-container vb-grid" role="list">
+          <style is:inline id="loop-25438">
+            .vb-25438 .vb-element.vb-element-75230c7 {
+              --display: flex;
+              --flex-direction: column;
+              --container-widget-width: 100%;
+              --container-widget-height: initial;
+              --container-widget-flex-grow: 0;
+              --container-widget-align-self: initial;
+              --flex-wrap-mobile: wrap;
+              --justify-content: flex-start;
+              --overflow: hidden;
+              box-shadow: 6px 8px 27px -9px rgba(0, 0, 0, 0.18);
+              --margin-top: 0px;
+              --margin-bottom: 0px;
+              --margin-left: 0px;
+              --margin-right: 0px;
+              --padding-top: 0px;
+              --padding-bottom: 0px;
+              --padding-left: 0px;
+              --padding-right: 0px;
+            }
+            .vb-25438 .vb-element.vb-element-75230c7:not(.vb-motion-effects-element-type-background),
+            .vb-25438 .vb-element.vb-element-75230c7 > .vb-motion-effects-container > .vb-motion-effects-layer {
+              background-color: #ffffff;
+            }
+            .vb-25438 .vb-element.vb-element-75230c7:hover {
+              box-shadow: 0px 0px 30px -1px rgba(0, 0, 0, 0.43);
+            }
+            .vb-25438 .vb-element.vb-element-e7a4e37 {
+              --display: flex;
+              --min-height: 251px;
+              --justify-content: space-between;
+            }
+            .vb-25438 .vb-element.vb-element-e7a4e37:not(.vb-motion-effects-element-type-background),
+            .vb-25438 .vb-element.vb-element-e7a4e37 > .vb-motion-effects-container > .vb-motion-effects-layer {
+              background-position: center left;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            .vb-25438 .vb-element.vb-element-c634425 {
+              --display: flex;
+              --justify-content: space-between;
+              --gap: 0px 0px;
+              --row-gap: 0px;
+              --column-gap: 0px;
+              --padding-top: 0px;
+              --padding-bottom: 34px;
+              --padding-left: 28px;
+              --padding-right: 26px;
+            }
+            .vb-25438 .vb-element.vb-element-09b311f {
+              width: var(--container-widget-width, 100%);
+              max-width: 100%;
+              --container-widget-width: 100%;
+              --container-widget-flex-grow: 0;
+              font-family: 'Arial', Sans-serif;
+              font-size: 12px;
+              font-weight: 700;
+              color: #747474;
+            }
+            .vb-25438 .vb-element.vb-element-09b311f > .vb-widget-container {
+              margin: 0px 0px 0px 0px;
+              padding: 0px 0px 0px 0px;
+            }
+            .vb-25438 .vb-element.vb-element-09b311f p {
+              margin-block-end: 0px;
+            }
+            .vb-25438 .vb-element.vb-element-e6ae944 {
+              --display: flex;
+              --min-height: 97px;
+              --justify-content: flex-start;
+              --margin-top: 0px;
+              --margin-bottom: 0px;
+              --margin-left: 0px;
+              --margin-right: 0px;
+              --padding-top: 0px;
+              --padding-bottom: 0px;
+              --padding-left: 0px;
+              --padding-right: 0px;
+            }
+            .vb-25438 .vb-element.vb-element-0e39db2 > .vb-widget-container {
+              margin: 0px 0px 0px 0px;
+              padding: 17px 0px 17px 0px;
+            }
+            .vb-25438 .vb-element.vb-element-0e39db2 .vb-heading-title {
+              font-size: 20px;
+              font-weight: 600;
+              line-height: 25px;
+              color: var(--e-global-color-09ef39a);
+            }
+            .vb-25438 .vb-element.vb-element-8cc365c {
+              --display: flex;
+              --min-height: 19px;
+              --margin-top: 0px;
+              --margin-bottom: 0px;
+              --margin-left: 0px;
+              --margin-right: 0px;
+              --padding-top: 0px;
+              --padding-bottom: 10px;
+              --padding-left: 0px;
+              --padding-right: 0px;
+            }
+            .vb-25438 .vb-element.vb-element-c1af106 > .vb-widget-container {
+              margin: 2px 0px 0px 0px;
+            }
+            .vb-25438 .vb-element.vb-element-c1af106 .vb-icon-list-icon i {
+              color: #5e5e5e;
+              font-size: 14px;
+            }
+            .vb-25438 .vb-element.vb-element-c1af106 .vb-icon-list-icon svg {
+              fill: #5e5e5e;
+              --e-icon-list-icon-size: 14px;
+            }
+            .vb-25438 .vb-element.vb-element-c1af106 .vb-icon-list-icon {
+              width: 14px;
+            }
+            .vb-25438 .vb-element.vb-element-c1af106 .vb-icon-list-text,
+            .vb-25438 .vb-element.vb-element-c1af106 .vb-icon-list-text a {
+              color: #6d6d6d;
+            }
+            .vb-25438 .vb-element.vb-element-c1af106 .vb-icon-list-item {
+              font-size: 14px;
+              text-transform: capitalize;
+            }
+            .vb-25438 .vb-element.vb-element-ee75cb9 {
+              --display: flex;
+              --min-height: 250px;
+              --margin-top: 0px;
+              --margin-bottom: 0px;
+              --margin-left: 0px;
+              --margin-right: 0px;
+              --padding-top: 0px;
+              --padding-bottom: 0px;
+              --padding-left: 0px;
+              --padding-right: 0px;
+            }
+            .vb-25438 .vb-element.vb-element-1c43056 .vb-widget-container {
+              color: #6f6f6f;
+            }
+            .vb-25438 .vb-element.vb-element-0e456aa .vb-button {
+              background-color: var(--e-global-color-09ef39a);
+            }
+            .vb-25438 .vb-element.vb-element-0e456aa > .vb-widget-container {
+              margin: 13px 0px 0px 0px;
+              padding: 0px 0px 0px 0px;
+            }
+            @media (min-width: 768px) {
+              .vb-25438 .vb-element.vb-element-c634425 {
+                --width: 100%;
+              }
+            }
+          </style><PerspectiveCardList><SavedPerspectiveCards /></PerspectiveCardList>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

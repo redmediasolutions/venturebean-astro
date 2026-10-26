@@ -1,0 +1,22 @@
+---
+/**
+ * Media Spotlight page (Knowledge Hub → Media Spotlight) → /knowledge-hub/media-spotlight/
+ * Each section lives in src/components/knowledge-hub/media-spotlight/.
+ */
+import Layout from '../../layouts/Layout.astro';
+import HeroSlider from '../../components/knowledge-hub/media-spotlight/HeroSlider.astro';
+import MediaTabs from '../../components/knowledge-hub/media-spotlight/MediaTabs.astro';
+import StayConnected from '../../components/knowledge-hub/media-spotlight/StayConnected.astro';
+---
+
+<Layout page="media-spotlight">
+  <main id="content" class="site-main post-24126 page type-page status-publish hentry">
+    <div class="page-content">
+      <div data-vb-type="site-page" data-vb-id="24126" class="vb vb-24126" data-vb-post-type="page">
+        <HeroSlider />
+        <MediaTabs />
+        <StayConnected />
+      </div>
+    </div>
+  </main>
+</Layout>

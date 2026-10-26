@@ -1,0 +1,77 @@
+---
+/**
+ * Media Spotlight → Videos: one card per post in the "Videos" category of the
+ * Content Manager (newest first).
+ *
+ * The card opens the post's "Link" custom field (link_url), e.g. the YouTube
+ * video. Thumbnail = featured image, text under the title = publish date.
+ * If the Content Manager has no posts here, the saved cards (children) show.
+ */
+import { getSectionPosts, linkOf } from '../../../lib/posts';
+import { formatDate } from '../../../lib/article';
+import { linkTarget } from './link-target';
+
+const posts = await getSectionPosts('videos');
+const cards = (posts ?? []).map((post) => {
+  const href = linkOf(post) ?? undefined;
+  return { post, href, ...linkTarget(href), date: formatDate(post.publishedAt), image: post.featuredImage };
+});
+---
+
+{
+  posts ? (
+    cards.map(({ post, href, target, rel, date, image }) => (
+      <div
+        data-vb-type="loop-item"
+        data-vb-id="24299"
+        class={`vb vb-24299 e-loop-item e-loop-item-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-videos`}
+        data-vb-post-type="vb_library"
+      >
+        <div
+          class="vb-element vb-element-8ab53f8 e-con-full e-flex e-con e-parent"
+          data-id="8ab53f8"
+          data-element_type="container"
+          data-e-type="container"
+        >
+          <div
+            class="vb-element vb-element-6081e8a vb-position-top vb-widget vb-widget-image-box"
+            data-id="6081e8a"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="image-box.default"
+          >
+            <div class="vb-widget-container">
+              <div class="vb-image-box-wrapper">
+                {image && (
+                  <figure class="vb-image-box-img">
+                    <a href={href} target={target} rel={rel} tabindex="-1">
+                      <img
+                        loading="lazy"
+                        decoding="async"
+                        width={image.width ?? undefined}
+                        height={image.height ?? undefined}
+                        src={image.url}
+                        class="attachment-full size-full"
+                        alt={image.alt}
+                      />
+                    </a>
+                  </figure>
+                )}
+                <div class="vb-image-box-content">
+                  <h3 class="vb-image-box-title">
+                    <a href={href} target={target} rel={rel}>
+                      {post.title}
+                    </a>
+                  </h3>
+                  <p class="vb-image-box-description">{date}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))
+  ) : (
+    <slot />
+  )
+}

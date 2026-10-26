@@ -1,0 +1,103 @@
+---
+/**
+ * Media Spotlight → Publications: one card per post in the "Media Spotlight"
+ * category of the Content Manager (newest first).
+ *
+ * The card opens the post's "Link" custom field (link_url): the press article,
+ * PDF or post on another site. Image = featured image, date = publish date.
+ * If the Content Manager has no posts here, the saved cards (children) show.
+ */
+import { getSectionPosts, linkOf, postPath } from '../../../lib/posts';
+import { formatDate } from '../../../lib/article';
+import { linkTarget } from './link-target';
+
+const posts = await getSectionPosts('publications');
+const cards = (posts ?? []).map((post) => {
+  const href = linkOf(post) ?? (post.content.trim() ? postPath(post.slug) : undefined);
+  return { post, href, ...linkTarget(href), date: formatDate(post.publishedAt), image: post.featuredImage?.url };
+});
+---
+
+{
+  posts ? (
+    cards.map(({ post, href, target, rel, date, image }) => (
+      <div
+        data-vb-type="loop-item"
+        data-vb-id="24249"
+        class={`vb vb-24249 e-loop-item e-loop-item-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-media-spotlight`}
+        data-vb-post-type="vb_library"
+      >
+        <div
+          class="vb-element vb-element-0c5aae4 e-con-full e-flex e-con e-parent"
+          data-id="0c5aae4"
+          data-element_type="container"
+          data-e-type="container"
+        >
+          <a
+            class="vb-element vb-element-8376f13 e-con-full e-flex e-con e-child"
+            data-id="8376f13"
+            data-element_type="container"
+            data-e-type="container"
+            href={href}
+            target={target}
+            rel={rel}
+            aria-label={post.title}
+            style={image ? `background-image:url(${JSON.stringify(image)})` : undefined}
+          />
+          <div
+            class="vb-element vb-element-92ee2dd vb-widget vb-widget-theme-post-title vb-page-title vb-widget-heading"
+            data-id="92ee2dd"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="theme-post-title.default"
+          >
+            <div class="vb-widget-container">
+              <h2 class="vb-heading-title vb-size-default">
+                <a href={href} target={target} rel={rel}>
+                  {post.title}
+                </a>
+              </h2>
+            </div>
+          </div>
+          <div
+            class="vb-element vb-element-eff1d91 vb-widget__width-initial vb-widget-divider--view-line vb-widget vb-widget-divider"
+            data-id="eff1d91"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="divider.default"
+          >
+            <div class="vb-widget-container">
+              <div class="vb-divider">
+                <span class="vb-divider-separator" />
+              </div>
+            </div>
+          </div>
+          {date && (
+            <div
+              class="vb-element vb-element-7e8cabc vb-widget vb-widget-post-info"
+              data-id="7e8cabc"
+              data-element_type="widget"
+              data-e-type="widget"
+              data-widget_type="post-info.default"
+            >
+              <div class="vb-widget-container">
+                <ul class="vb-inline-items vb-icon-list-items vb-post-info">
+                  <li class="vb-icon-list-item vb-repeater-item-ceb5d03 vb-inline-item" itemprop="datePublished">
+                    <span class="vb-icon-list-icon">
+                      <i aria-hidden="true" class="fas fa-calendar" />
+                    </span>
+                    <span class="vb-icon-list-text vb-post-info__item vb-post-info__item--type-date">
+                      <time>{date}</time>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    ))
+  ) : (
+    <slot />
+  )
+}

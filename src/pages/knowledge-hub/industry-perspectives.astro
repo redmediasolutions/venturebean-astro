@@ -1,0 +1,24 @@
+---
+/**
+ * Industry Perspectives page (Knowledge Hub → Industry Perspectives) → /knowledge-hub/industry-perspectives/
+ * Each section lives in src/components/knowledge-hub/industry-perspectives/.
+ */
+import Layout from '../../layouts/Layout.astro';
+import HeroSlider from '../../components/knowledge-hub/industry-perspectives/HeroSlider.astro';
+import FeaturedInsightsHeading from '../../components/knowledge-hub/industry-perspectives/FeaturedInsightsHeading.astro';
+import PerspectiveList from '../../components/knowledge-hub/industry-perspectives/PerspectiveList.astro';
+import StayConnected from '../../components/knowledge-hub/industry-perspectives/StayConnected.astro';
+---
+
+<Layout page="industry-perspectives">
+  <main id="content" class="site-main post-24152 page type-page status-publish hentry">
+    <div class="page-content">
+      <div data-vb-type="site-page" data-vb-id="24152" class="vb vb-24152" data-vb-post-type="page">
+        <HeroSlider />
+        <FeaturedInsightsHeading />
+        <PerspectiveList />
+        <StayConnected />
+      </div>
+    </div>
+  </main>
+</Layout>

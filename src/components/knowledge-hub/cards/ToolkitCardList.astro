@@ -1,0 +1,109 @@
+---
+/**
+ * Toolkit → Frameworks: one card per post in the "Framework" category of the
+ * Content Manager (newest first): featured image, title, a one-line
+ * description (the article's first line) and "Learn More" to the article.
+ *
+ * Every card re-uses the first saved card's element ids, so they all share
+ * its styles. If the Content Manager has no posts here, the saved cards
+ * (children) show.
+ */
+import { getSectionPosts, postPath } from '../../../lib/posts';
+import { subtitleOf } from '../../../lib/article';
+
+const posts = await getSectionPosts('toolkit');
+---
+
+{
+  posts ? (
+    posts.map((post) => {
+      const href = postPath(post.slug);
+      const image = post.featuredImage;
+      return (
+        <div
+          class="vb-element vb-element-2223df0 e-con-full e-flex e-con e-child"
+          data-id="2223df0"
+          data-element_type="container"
+          data-e-type="container"
+        >
+          <div
+            class="vb-element vb-element-b93322f e-con-full e-flex e-con e-child"
+            data-id="b93322f"
+            data-element_type="container"
+            data-e-type="container"
+          >
+            {image && (
+              <div
+                class="vb-element vb-element-d560e33 vb-widget vb-widget-image"
+                data-id="d560e33"
+                data-element_type="widget"
+                data-e-type="widget"
+                data-widget_type="image.default"
+              >
+                <div class="vb-widget-container">
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    width={image.width ?? undefined}
+                    height={image.height ?? undefined}
+                    src={image.url}
+                    class="attachment-full size-full"
+                    alt={image.alt}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+          <div
+            class="vb-element vb-element-1832234 e-con-full e-flex e-con e-child"
+            data-id="1832234"
+            data-element_type="container"
+            data-e-type="container"
+          >
+            <div
+              class="vb-element vb-element-37884f1 vb-widget vb-widget-heading"
+              data-id="37884f1"
+              data-element_type="widget"
+              data-e-type="widget"
+              data-widget_type="heading.default"
+            >
+              <div class="vb-widget-container">
+                <h2 class="vb-heading-title vb-size-default">{post.title}</h2>
+              </div>
+            </div>
+            <div
+              class="vb-element vb-element-ffc572b vb-widget vb-widget-text-editor"
+              data-id="ffc572b"
+              data-element_type="widget"
+              data-e-type="widget"
+              data-widget_type="text-editor.default"
+            >
+              <div class="vb-widget-container">
+                <p class="p1">{subtitleOf(post)}</p>
+              </div>
+            </div>
+            <div
+              class="vb-element vb-element-8fe48e8 vb-widget vb-widget-button"
+              data-id="8fe48e8"
+              data-element_type="widget"
+              data-e-type="widget"
+              data-widget_type="button.default"
+            >
+              <div class="vb-widget-container">
+                <div class="vb-button-wrapper">
+                  <a class="vb-button vb-button-link vb-size-sm" href={href}>
+                    <span class="vb-button-content-wrapper">
+                      <span class="vb-button-text">Learn More</span>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    })
+  ) : (
+    <slot />
+  )
+}

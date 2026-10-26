@@ -82,3 +82,30 @@ Coaching and consulting articles come from the same Content Manager.
 - `src/components/blog/article/`: the article page pieces (header, body + sidebar, "Continue reading")
 - `src/components/blog/TableOfContents.astro`, `CalendlyWidget.astro`: the sidebar
 - `src/pages/[slug].astro`: one page per article
+
+# Knowledge Hub pages (Media Spotlight, Industry Perspectives, Toolkit)
+
+| Page / list                                   | Content Manager category (slug)               | Card shows                                     | Card opens                         |
+| --------------------------------------------- | --------------------------------------------- | ---------------------------------------------- | ---------------------------------- |
+| Media Spotlight → Publications                | Media Spotlight (`media-spotlight`)           | Featured image, title, date                    | **Link** field (article, PDF…)     |
+| Media Spotlight → Videos                      | Videos (`videos`)                             | Featured image, title, date                    | **Link** field (YouTube video)     |
+| Media Spotlight → Photos                      | not from the Content Manager (fixed gallery)  |                                                |                                    |
+| Industry Perspectives                         | Industry Perspectives (`industry-perspectives`) | Title, date, first 25 words, "Download PDF" | The article page `/<slug>/`        |
+| Toolkit → Frameworks                          | Framework (`framework`)                       | Featured image, title, first line of the post  | The article page `/<slug>/`        |
+
+- **Link field:** the "Card link" field group (field name `link_url`) on Media Spotlight and Videos
+  posts. Paste the full address (https://…), or a file on this site such as
+  `/assets/uploads/2026/06/report.pdf`. Links to other sites open in a new tab.
+- Industry Perspectives and Framework posts also get their own article page, like blog posts.
+- Each list shows newest first. If a category has no published posts, the page shows the cards saved
+  from WordPress instead.
+- The slugs the site looks for are in `KNOWLEDGE_HUB` in `src/lib/posts.ts`.
+- **Toolkit → Assessment** is still the saved WordPress tab; its two cards link to pages that only
+  exist on WordPress.
+
+## Code
+
+- `src/lib/posts.ts`: `getSectionPosts()` and `linkOf()`
+- `src/components/knowledge-hub/cards/`: `MediaCardList`, `VideoCardList`, `PerspectiveCardList`,
+  `ToolkitCardList` (each falls back to its `saved/` cards)
+- `src/pages/knowledge-hub/media-spotlight.astro`, `industry-perspectives.astro`, `toolkit.astro`

@@ -1,0 +1,136 @@
+---
+/**
+ * Industry Perspectives: one card per post in the "Industry Perspectives"
+ * category of the Content Manager (newest first). Title, date, a short
+ * excerpt and a button to the full article.
+ *
+ * If the Content Manager has no posts here, the saved cards (children) show.
+ */
+import { getSectionPosts, postPath } from '../../../lib/posts';
+import { excerptWords, formatDate } from '../../../lib/article';
+
+const posts = await getSectionPosts('industryPerspectives');
+---
+
+{
+  posts ? (
+    posts.map((post) => {
+      const href = postPath(post.slug);
+      const image = post.featuredImage?.url;
+      return (
+        <div
+          data-vb-type="loop-item"
+          data-vb-id="25438"
+          class={`vb vb-25438 e-loop-item e-loop-item-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-industry-perspectives`}
+          data-vb-post-type="vb_library"
+        >
+          <div
+            class="vb-element vb-element-75230c7 e-flex e-con-boxed e-con e-parent"
+            data-id="75230c7"
+            data-element_type="container"
+            data-e-type="container"
+          >
+            <div class="e-con-inner">
+              <div
+                class="vb-element vb-element-e7a4e37 e-con-full e-flex e-con e-child"
+                data-id="e7a4e37"
+                data-element_type="container"
+                data-e-type="container"
+                style={image ? `background-image:url(${JSON.stringify(image)})` : undefined}
+              />
+              <div
+                class="vb-element vb-element-c634425 e-con-full e-flex e-con e-child"
+                data-id="c634425"
+                data-element_type="container"
+                data-e-type="container"
+              >
+                <div
+                  class="vb-element vb-element-e6ae944 e-con-full e-flex e-con e-child"
+                  data-id="e6ae944"
+                  data-element_type="container"
+                  data-e-type="container"
+                >
+                  <div
+                    class="vb-element vb-element-0e39db2 vb-widget vb-widget-heading"
+                    data-id="0e39db2"
+                    data-element_type="widget"
+                    data-e-type="widget"
+                    data-widget_type="heading.default"
+                  >
+                    <div class="vb-widget-container">
+                      <h2 class="vb-heading-title vb-size-default">
+                        <a href={href}>{post.title}</a>
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="vb-element vb-element-8cc365c e-con-full e-flex e-con e-child"
+                  data-id="8cc365c"
+                  data-element_type="container"
+                  data-e-type="container"
+                >
+                  <div
+                    class="vb-element vb-element-c1af106 vb-widget vb-widget-post-info"
+                    data-id="c1af106"
+                    data-element_type="widget"
+                    data-e-type="widget"
+                    data-widget_type="post-info.default"
+                  >
+                    <div class="vb-widget-container">
+                      <ul class="vb-inline-items vb-icon-list-items vb-post-info">
+                        <li class="vb-icon-list-item vb-repeater-item-2c3b621 vb-inline-item" itemprop="datePublished">
+                          <span class="vb-icon-list-icon">
+                            <i aria-hidden="true" class="fas fa-calendar" />
+                          </span>
+                          <span class="vb-icon-list-text vb-post-info__item vb-post-info__item--type-date">
+                            <time>{formatDate(post.publishedAt)}</time>
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="vb-element vb-element-ee75cb9 e-con-full e-flex e-con e-child"
+                  data-id="ee75cb9"
+                  data-element_type="container"
+                  data-e-type="container"
+                >
+                  <div
+                    class="vb-element vb-element-1c43056 vb-widget vb-widget-theme-post-excerpt"
+                    data-id="1c43056"
+                    data-element_type="widget"
+                    data-e-type="widget"
+                    data-widget_type="theme-post-excerpt.default"
+                  >
+                    <div class="vb-widget-container">{excerptWords(post, 25)}</div>
+                  </div>
+                </div>
+                <div
+                  class="vb-element vb-element-0e456aa vb-widget vb-widget-button"
+                  data-id="0e456aa"
+                  data-element_type="widget"
+                  data-e-type="widget"
+                  data-widget_type="button.default"
+                >
+                  <div class="vb-widget-container">
+                    <div class="vb-button-wrapper">
+                      <a class="vb-button vb-button-link vb-size-sm" href={href}>
+                        <span class="vb-button-content-wrapper">
+                          <span class="vb-button-text">Download PDF</span>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    })
+  ) : (
+    <slot />
+  )
+}

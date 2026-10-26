@@ -197,9 +197,12 @@ function initGalleries() {
       container.style.setProperty('--animation-duration', '350ms');
       container.style.setProperty('--columns', columns);
       if (layout !== 'masonry') {
+        // Grid: a fixed shape for every tile when the gallery sets one (e.g. "1:1").
+        const [aw, ah] = String(pick('aspect_ratio', '')).split(':').map(Number);
+        const fixed = aw > 0 && ah > 0 ? (ah / aw) * 100 : 0;
         items.forEach((it) => {
           const img = it.querySelector('.e-gallery-image');
-          const ratio = (Number(img.dataset.height) / Number(img.dataset.width)) * 100 || 100;
+          const ratio = fixed || (Number(img.dataset.height) / Number(img.dataset.width)) * 100 || 100;
           img.style.setProperty('--aspect-ratio', `${ratio}%`);
         });
         return;

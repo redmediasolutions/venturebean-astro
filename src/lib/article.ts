@@ -119,3 +119,21 @@ export function prepareContent(html: string): { html: string; toc: TocItem[] } {
   );
   return { html: out, toc };
 }
+
+/** First `words` words of the excerpt (or article), with " ..." when cut, like the WordPress cards. */
+export function excerptWords(post: BlogPost, words = 25): string {
+  const text = plain(post.excerpt || post.content).replace(/\s*\[(…|\.\.\.)\]\s*$/, '');
+  const parts = text.split(' ');
+  return parts.length <= words ? text : `${parts.slice(0, words).join(' ')} ...`;
+}
+
+/**
+ * One-line description for a Toolkit card: the article's first short line
+ * (e.g. "The operating system that helps organisations …"), else a short excerpt.
+ */
+export function subtitleOf(post: BlogPost): string {
+  const first = /<(p|h[2-6])[^>]*>([\s\S]*?)<\/\1>/i.exec(post.content)?.[2];
+  const line = first ? plain(first) : '';
+  if (line && line.length <= 160 && line.toLowerCase() !== post.title.toLowerCase()) return line;
+  return excerptWords(post, 18);
+}

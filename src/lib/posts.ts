@@ -1,19 +1,40 @@
 /**
- * Coaching and consulting articles, managed in the Content Manager:
+ * Posts from the Content Manager, loaded once per build (published only).
  *
- *   Categories → "Consulting" (slug: consulting)
- *                "Coaching"   (slug: coaching)
- *   Posts in those categories → one post per article
- *     • Title, excerpt, content (HTML) and featured image
- *     • Published posts only — drafts stay in the admin
+ *   Insights (blog)        → categories "Consulting" + "Coaching"
+ *   Knowledge Hub sections → see KNOWLEDGE_HUB below
  *
- * Loaded once per build, the same way client logos are.
+ * Each post: title, excerpt, content (HTML), featured image, date, and any
+ * custom fields (e.g. link_url for media and video cards).
  */
 import { collection, getDocs, query, Timestamp, where } from 'firebase/firestore/lite';
 import { getDb, isCmsConfigured } from './firebase';
 
 export const BLOG_CATEGORY_SLUGS = ['consulting', 'coaching'] as const;
 export type BlogCategorySlug = (typeof BLOG_CATEGORY_SLUGS)[number];
+
+/**
+ * Knowledge Hub pages and the Content Manager category slugs they show.
+ * Several slugs are accepted in case a category was named a little differently.
+ */
+export const KNOWLEDGE_HUB = {
+  /** Media Spotlight → Publications tab */
+  publications: ['media-spotlight'],
+  /** Media Spotlight → Videos tab */
+  videos: ['videos', 'video'],
+  /** Industry Perspectives page */
+  industryPerspectives: ['industry-perspectives', 'industry-perspective'],
+  /** Toolkit page → Frameworks tab */
+  toolkit: ['framework', 'frameworks', 'toolkit'],
+} as const;
+export type KnowledgeHubSection = keyof typeof KNOWLEDGE_HUB;
+
+/** Categories whose posts get their own article page at /<slug>/. */
+const ARTICLE_CATEGORY_SLUGS: readonly string[] = [
+  ...BLOG_CATEGORY_SLUGS,
+  ...KNOWLEDGE_HUB.industryPerspectives,
+  ...KNOWLEDGE_HUB.toolkit,
+];
 
 export interface PostImage {
   url: string;
@@ -34,6 +55,8 @@ export interface BlogPost {
   publishedAt: Date | null;
   seoTitle: string;
   seoDescription: string;
+  /** Custom field values (Content Manager → Custom Fields), keyed by field name. */
+  customFields: Record<string, unknown>;
 }
 
 const TIMEOUT_MS = 45_000;
@@ -80,7 +103,7 @@ function toDate(v: unknown): Date | null {
   return null;
 }
 
-async function load(): Promise<BlogPost[] | null> {
+async function loadAll(): Promise<BlogPost[] | null> {
   if (!isCmsConfigured) {
     console.warn(`[cms] No Firebase keys found in ${process.cwd()}/.env. Blog articles won't be built (their links will 404); copy .env from the project you set up.`);
     return null;
@@ -95,7 +118,6 @@ async function load(): Promise<BlogPost[] | null> {
   for (const d of snap.docs) {
     const p = d.data();
     const slugs: string[] = Array.isArray(p.categorySlugs) ? p.categorySlugs.map(String) : [];
-    if (!slugs.some((slug) => (BLOG_CATEGORY_SLUGS as readonly string[]).includes(slug))) continue;
     const publishedAt = toDate(p.publishedAt);
     if (publishedAt && publishedAt.getTime() > now) continue;
     const slug = String(p.slug ?? '').trim();
@@ -116,26 +138,52 @@ async function load(): Promise<BlogPost[] | null> {
       publishedAt,
       seoTitle: decodeEntities(String(p.seoTitle || title)),
       seoDescription: decodeEntities(String(p.seoDescription || p.excerpt || '')),
+      customFields: p.customFields && typeof p.customFields === 'object' ? (p.customFields as Record<string, unknown>) : {},
     });
   }
   posts.sort((a, b) => (b.publishedAt?.getTime() ?? 0) - (a.publishedAt?.getTime() ?? 0));
-  if (posts.length === 0) {
-    console.warn('[cms] No published coaching or consulting posts — insights will keep the saved article cards.');
-    return null;
-  }
-  console.log(`[cms] Loaded ${posts.length} coaching and consulting posts from Firebase.`);
+  console.log(`[cms] Loaded ${posts.length} published posts from Firebase.`);
   return posts;
 }
 
 let cached: Promise<BlogPost[] | null> | undefined;
 
-/** Fetched once per build. Returns null (→ keep the saved cards) if anything goes wrong. */
-export function getBlogPosts(): Promise<BlogPost[] | null> {
-  cached ??= load().catch((err) => {
-    console.warn(`[cms] Could not load posts from Firebase (${err?.message ?? err}) — using the saved article cards.`);
+/** Every published post. Fetched once per build; null if Firebase can't be reached. */
+export function getAllPosts(): Promise<BlogPost[] | null> {
+  cached ??= loadAll().catch((err) => {
+    console.warn(`[cms] Could not load posts from Firebase (${err?.message ?? err}) — pages keep their saved cards.`);
     return null;
   });
   return cached;
+}
+
+const inAny = (post: BlogPost, slugs: readonly string[]) => post.categorySlugs.some((s) => slugs.includes(s));
+
+/** Coaching + consulting articles (Insights). Null (→ keep the saved cards) if there are none. */
+export async function getBlogPosts(): Promise<BlogPost[] | null> {
+  const all = await getAllPosts();
+  const posts = all?.filter((p) => inAny(p, BLOG_CATEGORY_SLUGS)) ?? [];
+  if (all && posts.length === 0) console.warn('[cms] No published coaching or consulting posts — insights will keep the saved article cards.');
+  return posts.length ? posts : null;
+}
+
+/** Posts for one Knowledge Hub section. Null (→ keep the saved cards) if there are none. */
+export async function getSectionPosts(section: KnowledgeHubSection): Promise<BlogPost[] | null> {
+  const all = await getAllPosts();
+  const posts = all?.filter((p) => inAny(p, KNOWLEDGE_HUB[section])) ?? [];
+  return posts.length ? posts : null;
+}
+
+/** Posts that get their own article page (/<slug>/). */
+export async function getArticlePosts(): Promise<BlogPost[]> {
+  const all = (await getAllPosts()) ?? [];
+  return all.filter((p) => inAny(p, ARTICLE_CATEGORY_SLUGS));
+}
+
+/** "Link" custom field (link_url): where a media/video card opens. */
+export function linkOf(post: BlogPost): string | null {
+  const url = post.customFields.link_url;
+  return typeof url === 'string' && url.trim() ? url.trim() : null;
 }
 
 /** Public path of an article. Trailing slash matches the rest of the site. */

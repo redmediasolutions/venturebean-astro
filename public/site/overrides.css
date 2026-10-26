@@ -265,3 +265,13 @@ html {
   object-fit: cover;
   transform: none;
 }
+
+/* ---- Knowledge Hub → Toolkit cards ----
+   Card images from the Content Manager can be any shape; keep the 3:2 frame
+   the WordPress cards had and crop to fill it. */
+.vb-24863 .vb-element-d560e33 img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}

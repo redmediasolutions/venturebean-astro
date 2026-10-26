@@ -1,0 +1,83 @@
+---
+/**
+ * Media Spotlight page (Knowledge Hub → Media Spotlight): “Videos” tab (cards from the Content Manager).
+ */
+import VideoCardList from '../cards/VideoCardList.astro';
+import SavedVideoCards from './saved/SavedVideoCards.astro';
+---
+
+<div
+  id="e-n-tab-content-352483923"
+  role="tabpanel"
+  aria-labelledby="e-n-tab-title-352483923"
+  data-tab-index="3"
+  style="--n-tabs-title-order: 3;"
+  class="vb-element vb-element-de35c3e e-con-full e-flex e-con e-child"
+  data-id="de35c3e"
+  data-element_type="container"
+  data-e-type="container"
+>
+  <div
+    class="vb-element vb-element-1fc482e vb-widget vb-widget-heading"
+    data-id="1fc482e"
+    data-element_type="widget"
+    data-e-type="widget"
+    data-widget_type="heading.default"
+  >
+    <div class="vb-widget-container">
+      <h2 class="vb-heading-title vb-size-default">Video Presentations</h2>
+    </div>
+  </div>
+  <div
+    class="vb-element vb-element-18b2319 vb-widget vb-widget-text-editor"
+    data-id="18b2319"
+    data-element_type="widget"
+    data-e-type="widget"
+    data-widget_type="text-editor.default"
+  >
+    <div class="vb-widget-container">
+      <p>Browse through moments captured at our events, offices, and collaborative spaces</p>
+    </div>
+  </div>
+  <div
+    class="vb-element vb-element-323f0ef vb-grid-3 vb-grid-tablet-2 vb-grid-mobile-1 vb-widget vb-widget-loop-grid"
+    data-id="323f0ef"
+    data-element_type="widget"
+    data-e-type="widget"
+    data-settings={'{"template_id":24299,"_skin":"post","columns":"3","columns_tablet":"2","columns_mobile":"1","edit_handle_selector":"[data-vb-type=\\"loop-item\\"]","row_gap":{"unit":"px","size":"","sizes":[]},"row_gap_tablet":{"unit":"px","size":"","sizes":[]},"row_gap_mobile":{"unit":"px","size":"","sizes":[]}}'}
+    data-widget_type="loop-grid.post"
+  >
+    <div class="vb-widget-container">
+      <div class="vb-loop-container vb-grid" role="list">
+        <style is:inline id="loop-24299">
+          .vb-24299 .vb-element.vb-element-8ab53f8 {
+            --display: flex;
+            border-style: none;
+            --border-style: none;
+            --border-radius: 12px 12px 12px 12px;
+            box-shadow: 13px 10px 14px -7px rgba(0, 0, 0, 0.18);
+          }
+          .vb-24299 .vb-element.vb-element-8ab53f8:not(.vb-motion-effects-element-type-background),
+          .vb-24299 .vb-element.vb-element-8ab53f8 > .vb-motion-effects-container > .vb-motion-effects-layer {
+            background-color: #fcfcfc;
+          }
+          .vb-24299 .vb-element.vb-element-8ab53f8:hover {
+            box-shadow: 0px 0px 10px 0px rgba(0, 12.195652173913029, 255, 0.5);
+          }
+          .vb-24299 .vb-element.vb-element-8ab53f8.e-con {
+            --flex-grow: 0;
+            --flex-shrink: 0;
+          }
+          .vb-24299 .vb-element.vb-element-6081e8a .vb-image-box-wrapper {
+            text-align: start;
+          }
+          .vb-24299 .vb-element.vb-element-6081e8a .vb-image-box-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--e-global-color-3c853ee);
+          }
+        </style><VideoCardList><SavedVideoCards /></VideoCardList>
+      </div>
+    </div>
+  </div>
+</div>

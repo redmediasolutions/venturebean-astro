@@ -1,7 +1,8 @@
 ---
 /**
  * Blog article → /<slug>/  (same addresses as on WordPress)
- * One page per published Coaching / Consulting post in the Content Manager.
+ * One page per published Coaching, Consulting, Industry Perspectives and
+ * Framework (Toolkit) post in the Content Manager.
  * The pieces are in src/components/blog/article/.
  */
 import Layout from '../layouts/Layout.astro';
@@ -9,7 +10,7 @@ import ArticleHero from '../components/blog/article/ArticleHero.astro';
 import ArticleHeroMobile from '../components/blog/article/ArticleHeroMobile.astro';
 import ArticleBody from '../components/blog/article/ArticleBody.astro';
 import RelatedPosts from '../components/blog/article/RelatedPosts.astro';
-import { getBlogPosts, postPath, type BlogPost } from '../lib/posts';
+import { getArticlePosts, postPath, type BlogPost } from '../lib/posts';
 import { formatDate, prepareContent } from '../lib/article';
 
 export async function getStaticPaths() {
@@ -27,8 +28,11 @@ export async function getStaticPaths() {
     'testimonials',
     'venturebean-solutions-page',
     'insights',
+    'media-spotlight',
+    'industry-perspectives',
+    'toolkit',
   ]);
-  const posts = (await getBlogPosts()) ?? [];
+  const posts = await getArticlePosts();
   return posts
     .filter((post) => !reserved.has(post.slug))
     .map((post) => ({ params: { slug: post.slug }, props: { post } }));
@@ -39,9 +43,14 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const all = (await getBlogPosts()) ?? [];
+const all = await getArticlePosts();
 const { html: content, toc } = prepareContent(post.content);
-const category = post.categorySlugs.includes('coaching') ? 'coaching' : 'consulting';
+// "Continue reading" shows more posts from the article's own category.
+const category =
+  ['coaching', 'consulting'].find((c) => post.categorySlugs.includes(c)) ??
+  post.categorySlugs.find((c) => all.some((p) => p !== post && p.categorySlugs.includes(c))) ??
+  post.categorySlugs[0] ??
+  'consulting';
 const related = all.filter((p) => p.slug !== post.slug && p.categorySlugs.includes(category)).slice(0, 4);
 const date = formatDate(post.publishedAt);
 
