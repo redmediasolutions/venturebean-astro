@@ -82,7 +82,7 @@ function toDate(v: unknown): Date | null {
 
 async function load(): Promise<BlogPost[] | null> {
   if (!isCmsConfigured) {
-    console.warn('[cms] Firebase keys missing (.env) — insights will keep the saved article cards.');
+    console.warn(`[cms] No Firebase keys found in ${process.cwd()}/.env. Blog articles won't be built (their links will 404); copy .env from the project you set up.`);
     return null;
   }
   const db = getDb();
