@@ -95,12 +95,22 @@ function headingId(text: string, attrs: string, used: Set<string>): string {
   return unique;
 }
 
+/** Where the report download form goes inside an article (see prepareContent). */
+export const REPORT_FORM_MARKER = '<!--vb-report-download-->';
+
 export function prepareContent(html: string): { html: string; toc: TocItem[] } {
   const used = new Set<string>();
   const toc: TocItem[] = [];
   const withoutScripts = html.replace(/<script[\s\S]*?<\/script>/gi, '');
+  // WordPress's "Download the full analysis" form (Ninja Forms) left an empty
+  // box in imported articles. Mark the spot; the article page puts the new
+  // email form there (components/blog/article/ReportDownload.astro).
+  const withoutOldForms = withoutScripts
+    .replace(/<noscript class="ninja-forms-noscript-message">[\s\S]*?<\/noscript>/gi, '')
+    .replace(/<!--\s*That data is being printed[\s\S]*?-->/gi, '')
+    .replace(/<div id="nf-form-\d+-cont"[^>]*>[\s\S]*?<div class="nf-loading-spinner"><\/div>\s*<\/div>/gi, REPORT_FORM_MARKER);
   // Stored articles still use the old builder class prefix. Match the renamed site styles.
-  const formatted = formatContentUrls(withoutScripts).replace(/elementor/gi, 'vb');
+  const formatted = formatContentUrls(withoutOldForms).replace(/elementor/gi, 'vb');
   // Real headings, plus a paragraph that is only a bold line.
   const out = formatted.replace(
     /<h([23])([^>]*)>([\s\S]*?)<\/h\1>|<p([^>]*)>\s*<(strong|b)>([\s\S]*?)<\/\5>\s*<\/p>/gi,

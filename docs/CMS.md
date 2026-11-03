@@ -20,6 +20,15 @@ come from the Content Manager admin panel (Firebase).
 - **New industry tab:** Categories → add a category with **Parent = Clients**. Tabs are sorted A–Z;
   tabs with no logos are hidden.
 
+## Where the logo images live
+
+All client logos are stored on Amazon S3 (bucket `redmediaassets`, folder `venturebean/logos/`):
+
+- Logos added in the Content Manager (Media / featured image) are uploaded straight to S3.
+- Logos that were imported earlier into Firebase Storage were moved with
+  `node scripts/move-logos-to-s3.mjs --apply` (in the Content Manager project).
+- The fallback logos saved from WordPress (`src/components/client-logos/saved/`) also point at S3.
+
 ## Setup (one time)
 
 1. `npm install`

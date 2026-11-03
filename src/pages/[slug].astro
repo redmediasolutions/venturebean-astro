@@ -10,7 +10,7 @@ import ArticleHero from '../components/blog/article/ArticleHero.astro';
 import ArticleHeroMobile from '../components/blog/article/ArticleHeroMobile.astro';
 import ArticleBody from '../components/blog/article/ArticleBody.astro';
 import RelatedPosts from '../components/blog/article/RelatedPosts.astro';
-import { getArticlePosts, postPath, type BlogPost } from '../lib/posts';
+import { getArticlePosts, postPath, reportPdfOf, type BlogPost } from '../lib/posts';
 import { formatDate, prepareContent } from '../lib/article';
 
 export async function getStaticPaths() {
@@ -53,6 +53,8 @@ const category =
   'consulting';
 const related = all.filter((p) => p.slug !== post.slug && p.categorySlugs.includes(category)).slice(0, 4);
 const date = formatDate(post.publishedAt);
+const reportPdf = reportPdfOf(post);
+const download = reportPdf ? { pdf: reportPdf, postId: post.id, slug: post.slug, title: post.title } : null;
 
 // Featured image as the background of the header's image box (desktop + mobile).
 const image = post.featuredImage?.url;
@@ -84,7 +86,7 @@ const heroCss = image
     >
       <ArticleHero title={post.title} date={date} />
       <ArticleHeroMobile title={post.title} date={date} />
-      <ArticleBody content={content} toc={toc} />
+      <ArticleBody content={content} toc={toc} download={download} />
       <RelatedPosts related={related} category={category} />
     </div>
   </main>

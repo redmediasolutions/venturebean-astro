@@ -2,7 +2,8 @@
 /**
  * Article text with the sticky sidebar: table of contents, then the Calendly booking box.
  */
-import type { TocItem } from '../../../lib/article';
+import { REPORT_FORM_MARKER, type TocItem } from '../../../lib/article';
+import ReportDownload from './ReportDownload.astro';
 import TableOfContents from '../TableOfContents.astro';
 import CalendlyWidget from '../CalendlyWidget.astro';
 
@@ -10,9 +11,15 @@ interface Props {
   /** Article HTML, already prepared by prepareContent() (src/lib/article.ts). */
   content: string;
   toc: TocItem[];
+  /** "Download the full analysis" (post has a Report PDF). */
+  download?: { pdf: string; postId: string; slug: string; title: string } | null;
 }
 
-const { content, toc } = Astro.props;
+const { content, toc, download } = Astro.props;
+// The form goes where WordPress had it; otherwise at the end of the article.
+const [before, ...rest] = content.split(REPORT_FORM_MARKER);
+const after = rest.join('');
+const atMarker = rest.length > 0;
 ---
 
 <div
@@ -35,7 +42,12 @@ const { content, toc } = Astro.props;
         data-e-type="widget"
         data-widget_type="theme-post-content.default"
       >
-        <div class="vb-widget-container"><Fragment set:html={content} /></div>
+        <div class="vb-widget-container">
+          <Fragment set:html={before} />
+          {download && atMarker && <ReportDownload {...download} />}
+          <Fragment set:html={after} />
+          {download && !atMarker && <ReportDownload {...download} heading />}
+        </div>
       </div>
     </div>
     <div

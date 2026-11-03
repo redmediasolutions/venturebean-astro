@@ -186,6 +186,16 @@ export function linkOf(post: BlogPost): string | null {
   return typeof url === 'string' && url.trim() ? url.trim() : null;
 }
 
+/**
+ * "Report PDF" custom field (report_pdf): the full report behind
+ * "Download the full analysis" on Industry Perspectives articles.
+ */
+export function reportPdfOf(post: BlogPost): string | null {
+  const value = post.customFields.report_pdf;
+  const url = value && typeof value === 'object' ? (value as { url?: unknown }).url : value;
+  return typeof url === 'string' && url.trim() ? url.trim() : null;
+}
+
 /** Public path of an article. Trailing slash matches the rest of the site. */
 export function postPath(slug: string): string {
   const clean = slug.replace(/^\/+|\/+$/g, '');
