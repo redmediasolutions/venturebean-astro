@@ -1,5 +1,18 @@
 ---
+/**
+ * Contact (Reach Us) page → /contact-us/
+ * Each section lives in src/components/contact/.
+ */
 import Layout from '../layouts/Layout.astro';
+import HeroSlider from '../components/contact/HeroSlider.astro';
+import DiscoveryCall from '../components/contact/DiscoveryCall.astro';
+import ContactInformation from '../components/contact/ContactInformation.astro';
 ---
 
-<Layout id="contact-us" />
+<Layout page="contact-us">
+  <div data-vb-type="site-page" data-vb-id="11143" class="vb vb-11143" data-vb-post-type="page">
+    <HeroSlider />
+    <DiscoveryCall />
+    <ContactInformation />
+  </div>
+</Layout>

@@ -1,0 +1,34 @@
+---
+/**
+ * Home page scrolling logo strip, filled from the Content Manager
+ * (Clients category; see src/lib/clients.ts).
+ *
+ * If the Content Manager has no client logos yet, the logos saved from the
+ * WordPress site (passed in as children) are shown instead.
+ */
+import { getClientsData } from '../../lib/clients';
+
+const data = await getClientsData();
+const logos = data?.clients.filter((c) => c.onHome) ?? [];
+// The marquee scrolls two identical groups side by side for a seamless loop.
+const groups = [1, 2];
+---
+
+{
+  logos.length ? (
+    groups.map(() => (
+      <div class="deensimc-marquee-group">
+        {logos.map((c) => (
+          // No loading="lazy": the marquee waits for every logo to load before it starts
+          // scrolling, and lazy images outside the visible strip would never load.
+          <div class="deensimc-img-wrapper">
+            <img decoding="async" src={c.logo.url} alt={c.logo.alt} />
+            <figcaption class="vb-image-marquee-caption" />
+          </div>
+        ))}
+      </div>
+    ))
+  ) : (
+    <slot />
+  )
+}

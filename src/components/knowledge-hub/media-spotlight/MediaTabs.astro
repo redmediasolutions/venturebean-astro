@@ -1,0 +1,80 @@
+---
+/**
+ * Media Spotlight page (Knowledge Hub → Media Spotlight): the Publications / Photos / Videos tabs.
+ */
+import PublicationsTab from './PublicationsTab.astro';
+import PhotosTab from './PhotosTab.astro';
+import VideosTab from './VideosTab.astro';
+---
+
+<div
+  class="vb-element vb-element-e708251 e-con-full e-flex e-con e-parent"
+  data-id="e708251"
+  data-element_type="container"
+  data-e-type="container"
+  data-settings={'{"background_background":"classic"}'}
+>
+  <div
+    class="vb-element vb-element-219d908 e-n-tabs-none vb-widget vb-widget-n-tabs"
+    data-id="219d908"
+    data-element_type="widget"
+    data-e-type="widget"
+    data-settings={'{"tabs_justify_horizontal":"start","tabs_justify_horizontal_mobile":"stretch","horizontal_scroll_mobile":"disable","horizontal_scroll":"disable"}'}
+    data-widget_type="nested-tabs.default"
+  >
+    <div class="vb-widget-container">
+      <div
+        class="e-n-tabs"
+        data-widget-number="35248392"
+        aria-label="Tabs. Open items with Enter or Space, close with Escape and navigate using the Arrow keys."
+      >
+        <div class="e-n-tabs-heading" role="tablist">
+          <button
+            id="e-n-tab-title-352483921"
+            data-tab-title-id="e-n-tab-title-352483921"
+            class="e-n-tab-title"
+            aria-selected="true"
+            data-tab-index="1"
+            role="tab"
+            tabindex="0"
+            aria-controls="e-n-tab-content-352483921"
+            style="--n-tabs-title-order: 1;"
+          >
+            <span class="e-n-tab-title-text"> Publications </span>
+          </button>
+          <button
+            id="e-n-tab-title-352483922"
+            data-tab-title-id="e-n-tab-title-352483922"
+            class="e-n-tab-title"
+            aria-selected="false"
+            data-tab-index="2"
+            role="tab"
+            tabindex="-1"
+            aria-controls="e-n-tab-content-352483922"
+            style="--n-tabs-title-order: 2;"
+          >
+            <span class="e-n-tab-title-text"> Photos </span>
+          </button>
+          <button
+            id="e-n-tab-title-352483923"
+            data-tab-title-id="e-n-tab-title-352483923"
+            class="e-n-tab-title"
+            aria-selected="false"
+            data-tab-index="3"
+            role="tab"
+            tabindex="-1"
+            aria-controls="e-n-tab-content-352483923"
+            style="--n-tabs-title-order: 3;"
+          >
+            <span class="e-n-tab-title-text"> Videos </span>
+          </button>
+        </div>
+        <div class="e-n-tabs-content">
+          <PublicationsTab />
+          <PhotosTab />
+          <VideosTab />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

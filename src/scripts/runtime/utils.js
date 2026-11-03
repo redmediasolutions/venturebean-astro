@@ -4,7 +4,7 @@ export const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
 export const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/** Elementor's default breakpoints: mobile ≤ 767, tablet ≤ 1024. */
+/** Default breakpoints: mobile ≤ 767, tablet ≤ 1024. */
 export function currentDevice() {
   const w = window.innerWidth;
   if (w <= 767) return 'mobile';
@@ -20,7 +20,7 @@ export function settingsOf(el) {
   }
 }
 
-/** Elementor-style responsive setting lookup: mobile → tablet → desktop fallback. */
+/** Responsive setting lookup: mobile, then tablet, then desktop. */
 export function deviceSetting(settings, key, device = currentDevice()) {
   const order = device === 'mobile' ? ['_mobile', '_tablet', ''] : device === 'tablet' ? ['_tablet', ''] : [''];
   for (const suffix of order) {
@@ -49,10 +49,10 @@ export function onVisible(elements, fn, options = {}) {
   list.forEach((el) => io.observe(el));
 }
 
-/** Decode Elementor "#elementor-action:action=…&settings=base64" links. */
+/** Decode "#vb-action:action=…&settings=base64" links. */
 export function parseAction(href) {
   const raw = decodeURIComponent(href.replace(/^#/, ''));
-  const m = raw.match(/^elementor-action:action=([^&]+)(?:&settings=(.+))?$/);
+  const m = raw.match(/^vb-action:action=([^&]+)(?:&settings=(.+))?$/);
   if (!m) return null;
   let settings = {};
   if (m[2]) {

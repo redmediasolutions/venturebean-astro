@@ -1,0 +1,55 @@
+---
+/**
+ * Article table of contents (sidebar). H3s are listed under the H2 before them.
+ * Items come from prepareContent() in src/lib/article.ts.
+ */
+import type { TocItem } from '../../lib/article';
+
+interface Props {
+  items: TocItem[];
+}
+
+const { items } = Astro.props;
+
+// Group each H2 with the H3s that follow it.
+const groups: { item: TocItem; children: TocItem[] }[] = [];
+for (let i = 0; i < items.length; i++) {
+  const item = items[i];
+  const children: TocItem[] = [];
+  while (item.level === 2 && items[i + 1]?.level === 3) children.push(items[++i]);
+  groups.push({ item, children });
+}
+---
+
+{
+  items.length ? (
+    <ul class="vb-toc__list-wrapper">
+      {groups.map(({ item, children }) => (
+        <li class="vb-toc__list-item">
+          <div class="vb-toc__list-item-text-wrapper">
+            <i aria-hidden="true" class="fas fa-circle" />
+            <a href={`#${item.id}`} class={`vb-toc__list-item-text${item.level === 2 ? ' vb-toc__top-level' : ''}`}>
+              {item.text}
+            </a>
+          </div>
+          {children.length > 0 && (
+            <ul class="vb-toc__list-wrapper">
+              {children.map((child) => (
+                <li class="vb-toc__list-item">
+                  <div class="vb-toc__list-item-text-wrapper">
+                    <i aria-hidden="true" class="fas fa-circle" />
+                    <a href={`#${child.id}`} class="vb-toc__list-item-text">
+                      {child.text}
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="vb-toc__empty">In this article</p>
+  )
+}

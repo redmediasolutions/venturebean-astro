@@ -1,0 +1,45 @@
+---
+/**
+ * Clients page: “Our Clients” section.
+ */
+import ClientLogoTabs from '../client-logos/ClientLogoTabs.astro';
+import ClientsPageTabs from '../client-logos/saved/ClientsPageTabs.astro';
+---
+
+<div
+  class="vb-element vb-element-648eae6 e-flex e-con-boxed e-con e-parent"
+  data-id="648eae6"
+  data-element_type="container"
+  data-e-type="container"
+  id="all-clients"
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-10abce9 vb-widget vb-widget-heading"
+      data-id="10abce9"
+      data-element_type="widget"
+      data-e-type="widget"
+      data-widget_type="heading.default"
+    >
+      <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">Our Clients</h2></div>
+    </div>
+    <div
+      class="vb-element vb-element-6c60da4 vb-widget__width-initial e-n-tabs-none vb-widget vb-widget-n-tabs"
+      data-id="6c60da4"
+      data-element_type="widget"
+      data-e-type="widget"
+      data-settings={'{"tabs_justify_horizontal_mobile":"stretch","horizontal_scroll_mobile":"disable","horizontal_scroll":"disable"}'}
+      data-widget_type="nested-tabs.default"
+    >
+      <div class="vb-widget-container">
+        <div
+          class="e-n-tabs"
+          data-widget-number="113642916"
+          aria-label="Tabs. Open items with Enter or Space, close with Escape and navigate using the Arrow keys."
+        >
+          <ClientLogoTabs><ClientsPageTabs /></ClientLogoTabs>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

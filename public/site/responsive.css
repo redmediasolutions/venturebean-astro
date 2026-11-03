@@ -1,0 +1,293 @@
+/* ==========================================================================
+   Screen-size fixes.
+   The page CSS saved from WordPress only knows three sizes: phone (up to
+   767px), tablet (768–1024px) and desktop (1025px+), and a few sections were
+   never finished for some of them. These rules fill the gaps. Desktop
+   (1280px and wider) is not changed.
+
+   Elements are addressed by their saved ids, e.g. .vb-element-dff3e0d; the
+   id is in the component file (data-id="dff3e0d").
+   ========================================================================== */
+
+/* ---------- Everywhere ---------- */
+
+/* Long words in narrow boxes wrap instead of spilling out. */
+@media (max-width: 1279px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .vb-heading-title,
+  .vb-icon-box-description,
+  .vb-icon-list-text {
+    overflow-wrap: break-word;
+  }
+}
+
+/* ---------- Header (src/components/layout/header/) ---------- */
+
+/* Phones: keep the logo a sensible size on large phones. */
+@media (max-width: 767px) {
+  .vb-19568 .vb-element.vb-element-d567f9f img {
+    max-width: 210px;
+  }
+}
+
+/* Tablets: the saved header hid both the desktop menu and the mobile menu
+   button here, so there was no menu at all. MobileNav is now shown on tablets
+   too; this lays it out: logo left, search + menu icons right. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .vb-19568 .vb-element.vb-element-4d1c16f > .e-con-inner {
+    align-items: center;
+    justify-content: space-between;
+  }
+  .vb-19568 .vb-element.vb-element-6434ceb {
+    --width: 230px;
+  }
+  .vb-19568 .vb-element.vb-element-d567f9f img {
+    width: 100%;
+  }
+  .vb-19568 .vb-element.vb-element-fccc482 {
+    --width: auto;
+    --margin-top: 0px;
+    flex: 1 1 auto;
+    align-items: flex-end;
+  }
+  .vb-19568 .vb-element.vb-element-dff3e0d {
+    --width: auto;
+    --margin-top: 0px;
+    --justify-content: flex-end;
+    --align-items: center;
+    --gap: 0px 18px;
+  }
+  .vb-19568 .vb-element.vb-element-2fc5a38 .vb-icon {
+    font-size: 23px;
+  }
+  .vb-19568 .vb-element.vb-element-2fc5a38 .vb-icon svg {
+    height: 23px;
+  }
+  .vb-19568 .vb-element.vb-element-02ebb5d .vb-icon {
+    font-size: 21px;
+  }
+  .vb-19568 .vb-element.vb-element-02ebb5d .vb-icon svg {
+    height: 21px;
+  }
+  .vb-19568 .vb-element.vb-element-82f5101 {
+    --e-off-canvas-width: 292px;
+  }
+  /* logo inside the slide-out menu, same as on phones */
+  .vb-19568 .vb-element.vb-element-04eb703 img {
+    width: 78%;
+  }
+}
+
+/* Small laptops: the search box had a fixed width and pushed the menu over
+   the logo. It now takes whatever room is left. */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .vb-19568 .vb-element.vb-element-9c1ee08 {
+    --container-widget-width: auto;
+    width: auto;
+    max-width: none;
+    flex: 1 1 auto;
+    min-width: 110px;
+  }
+  .vb-19568 .vb-element.vb-element-36794c7 .vb-nav-menu--main .vb-item {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/* ---------- Footer (src/components/layout/footer/) ---------- */
+
+/* Tablets: four columns were too narrow (the email ran off the screen).
+   Two columns, two rows. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .vb-19613 .vb-element.vb-element-ad12578 > .e-con-inner {
+    flex-wrap: wrap;
+    row-gap: 32px;
+  }
+  .vb-19613 .vb-element.vb-element-ad12578 > .e-con-inner > .e-con {
+    --width: calc(50% - 12px);
+  }
+}
+@media (max-width: 1024px) {
+  .vb-19613 .vb-icon-list-text {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ---------- Home page (src/components/home/) ---------- */
+
+/* "Trusted by…" numbers: four in a row collided on tablets. Two by two. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .vb-6391 .vb-element.vb-element-c603dd9 {
+    --e-con-grid-template-columns: repeat(2, 1fr);
+    row-gap: 24px;
+  }
+}
+
+/* Testimonials labels ("COACHING" / "CONSULTING", here and on the
+   Testimonials page): the big words were wider than small phones. */
+@media (max-width: 767px) {
+  .vb-6391 .vb-element-bc5304b p,
+  .vb-6391 .vb-element-572c446 p,
+  .vb-13201 .vb-element-697a324 .vb-heading-title,
+  .vb-13201 .vb-element-59e484d .vb-heading-title {
+    font-size: min(3rem, 10.5vw);
+  }
+}
+
+/* ---------- Sections with no side margin on phones ---------- */
+
+/* These sections had zero side padding below 768px, so text touched the
+   screen edges. */
+@media (max-width: 767px) {
+  .vb-19847 .vb-element.vb-element-e7467df,
+  .vb-19847 .vb-element.vb-element-b860bd9,
+  .vb-19847 .vb-element.vb-element-80cc9f1,
+  .vb-19847 .vb-element.vb-element-abaac7f,
+  .vb-14420 .vb-element.vb-element-3095393,
+  .vb-14420 .vb-element.vb-element-f0c2bd1,
+  .vb-14420 .vb-element.vb-element-d17be3e,
+  .vb-14420 .vb-element.vb-element-53862ab,
+  .vb-14420 .vb-element.vb-element-c9b9e7f,
+  .vb-14420 .vb-element.vb-element-f859073,
+  .vb-14420 .vb-element.vb-element-13f06c9,
+  .vb-26158 .vb-element.vb-element-4da1a94,
+  .vb-26158 .vb-element.vb-element-204ee40,
+  .vb-26158 .vb-element.vb-element-ec74d05,
+  .vb-26158 .vb-element.vb-element-ded8f15 {
+    --padding-left: 20px;
+    --padding-right: 20px;
+  }
+}
+@media (max-width: 1024px) {
+  .vb-26158 .vb-element.vb-element-ded8f15,
+  .vb-19055 .vb-element.vb-element-0fdd6e4 {
+    --padding-left: 24px;
+    --padding-right: 24px;
+  }
+}
+
+/* ---------- Consulting page (src/components/consulting/) ---------- */
+
+/* "Our Expertise": 11 full-width cards made a very long scroll on phones.
+   Two per row. */
+@media (max-width: 767px) {
+  .vb-19847 .vb-element.vb-element-3baeda0 {
+    --e-con-grid-template-columns: repeat(2, 1fr);
+    --gap: 12px 12px;
+    --row-gap: 12px;
+    --column-gap: 12px;
+  }
+  .vb-19847 .vb-element-3baeda0 > .e-con {
+    --padding-left: 12px;
+    --padding-right: 12px;
+  }
+  .vb-19847 .vb-element-3baeda0 .vb-widget-icon-box > .vb-widget-container {
+    margin: 0;
+    padding: 0;
+  }
+  .vb-19847 .vb-element-3baeda0 .vb-icon-box-title,
+  .vb-19847 .vb-element-3baeda0 .vb-icon-box-description {
+    font-size: 14px;
+    overflow-wrap: normal;
+    hyphens: auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* "Business Challenges We Help Solve": 4 narrow columns → 2. */
+  .vb-19847 .vb-element.vb-element-e82f18d {
+    --e-con-grid-template-columns: repeat(2, 1fr);
+  }
+  /* "Our Approach" steps and the five strengths below them: 5 → 3 per row. */
+  .vb-19847 .vb-element.vb-element-bf4d058,
+  .vb-19847 .vb-element.vb-element-8eb9e8d {
+    --e-con-grid-template-columns: repeat(3, 1fr);
+  }
+  /* "Who We Help": 4 narrow cards → 2 per row. */
+  .vb-19847 .vb-element.vb-element-fa3b7a4 {
+    --flex-wrap: wrap;
+    --flex-direction: row;
+    row-gap: 20px;
+  }
+  .vb-19847 .vb-element-fa3b7a4 > .e-con {
+    --width: calc(50% - 10px);
+  }
+  /* "Related Solutions": 7 tiny tiles → 4 per row. */
+  .vb-19847 .vb-element.vb-element-a1c822b {
+    --e-con-grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* "Related Solutions" titles such as "Career/Transition Coaching" were a few
+   pixels wider than their tile on small laptops. */
+@media (max-width: 1366px) {
+  .vb-19847 .vb-element-a1c822b .vb-heading-title {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ---------- Coaching page (src/components/coaching/) ---------- */
+
+/* Programme sections (coaching/programs/): the 2-column layout squeezed the
+   title into a narrow strip on tablets. Stack them. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .vb-14420 .vb-element.vb-element-f1b0a7e,
+  .vb-14420 .vb-element.vb-element-59b0cc7,
+  .vb-14420 .vb-element.vb-element-d45e578,
+  .vb-14420 .vb-element.vb-element-25372a1,
+  .vb-14420 .vb-element.vb-element-c05ba03,
+  .vb-14420 .vb-element.vb-element-23d2a85 {
+    --flex-direction: column;
+    --flex-wrap: nowrap;
+  }
+  .vb-14420 .vb-element-f1b0a7e > .e-con-inner > .e-con,
+  .vb-14420 .vb-element-59b0cc7 > .e-con-inner > .e-con,
+  .vb-14420 .vb-element-d45e578 > .e-con-inner > .e-con,
+  .vb-14420 .vb-element-25372a1 > .e-con-inner > .e-con,
+  .vb-14420 .vb-element-c05ba03 > .e-con-inner > .e-con,
+  .vb-14420 .vb-element-23d2a85 > .e-con-inner > .e-con {
+    --width: 100%;
+  }
+  /* "5-Step Coaching Impact Cycle": 5 → 3 per row. */
+  .vb-14420 .vb-element.vb-element-0d1d226 {
+    --e-con-grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* "5-Step Coaching Impact Cycle": the step lists were pulled 25px left,
+   off the card edge on smaller screens. */
+@media (max-width: 1024px) {
+  /* …and the cards had no bottom padding, so the last line sat on the border. */
+  .vb-14420 .vb-element-0d1d226 > .e-con {
+    --padding-bottom: 22px;
+  }
+  .vb-14420 .vb-element-f859073 .vb-widget-icon-list > .vb-widget-container,
+  .vb-14420 .vb-element-f859073 .vb-widget-text-editor > .vb-widget-container {
+    margin-left: 0;
+  }
+}
+
+/* ---------- Article pages (src/components/blog/article/) ---------- */
+
+/* Tablets: article text first, then the table of contents and Calendly
+   underneath (the sidebar was too narrow for Calendly). */
+@media (max-width: 1024px) {
+  .vb-20312 .vb-element.vb-element-a404898 {
+    --flex-direction: column;
+    --content-width: 92%;
+  }
+  .vb-20312 .vb-element.vb-element-c33825b {
+    --width: 100%;
+  }
+  .vb-20312 #side-bar {
+    margin-top: 40px;
+  }
+  .vb-20312 .calendly-inline-widget {
+    min-width: 0 !important;
+  }
+}

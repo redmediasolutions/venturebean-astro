@@ -1,20 +1,47 @@
 ---
 /**
- * Shared page shell: SEO tags and stylesheets, header, page body, footer,
- * and the small runtime that replaces jQuery and Elementor's JavaScript.
+ * Every page uses this layout: SEO tags + stylesheets, header, the page
+ * itself (<slot />), footer, pop-ups and the small runtime script.
+ *
+ * Per-page SEO tags and stylesheets are in src/data/pages.json (copied from
+ * the WordPress site), keyed by the `page` prop.
  */
-import manifest from '../content/pages.json';
-import header from '../content/header.html?raw';
-import footer from '../content/footer.html?raw';
-import popups from '../content/popups.html?raw';
-import ChatWidget from '../components/ChatWidget.astro';
+import pages from '../data/pages.json';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Popups from '../components/layout/Popups.astro';
+import ChatWidget from '../components/layout/ChatWidget.astro';
 
-const bodies = import.meta.glob('../content/pages/*.html', { query: '?raw', import: 'default', eager: true });
+export type PageId = keyof typeof pages;
 
-const { id } = Astro.props;
-const page = manifest[id];
-if (!page) throw new Error(`No content for page "${id}".`);
-const main = bodies[`../content/pages/${id}.html`];
+interface Props {
+  page: PageId;
+  /** Overrides for article pages. */
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+}
+
+const { page: id, title, description, canonical, image } = Astro.props;
+const page = pages[id as PageId];
+if (!page) throw new Error(`No SEO data for page "${id}" in src/data/pages.json.`);
+
+const attr = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+let head = page.head;
+if (title) head = head.replace(/<title>[\s\S]*?<\/title>/, `<title>${attr(title)}</title>`);
+if (description)
+  head = head.replace(
+    /<meta name="description" content="[^"]*">/,
+    `<meta name="description" content="${attr(description)}">`,
+  );
+if (canonical)
+  head = head.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${attr(canonical)}">`);
+if (image)
+  head = head.replace(
+    /<meta property="og:image" content="[^"]*">/,
+    `<meta property="og:image" content="${attr(image)}">`,
+  );
 ---
 
 <!doctype html>
@@ -22,16 +49,21 @@ const main = bodies[`../content/pages/${id}.html`];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <Fragment set:html={page.head} />
+    <Fragment set:html={head} />
     {page.stylesheets.map((href) => <link rel="stylesheet" href={href} media="all" />)}
     <Fragment set:html={page.headStyles} />
     <link rel="stylesheet" href="/site/overrides.css" />
     <link rel="stylesheet" href="/site/chaty.css" />
-    <noscript><style>.elementor-invisible{visibility:visible!important}</style></noscript>
+    <link rel="stylesheet" href="/site/responsive.css" />
+    <!-- prettier-ignore -->
+    <noscript><style>.vb-invisible{visibility:visible!important}</style></noscript>
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=GT-NFBZ386N"></script>
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
+      window.dataLayer = 
+      window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
       gtag('set', 'linker', { domains: ['venturebean.com'] });
       gtag('js', new Date());
       gtag('config', 'GT-NFBZ386N');
@@ -39,10 +71,10 @@ const main = bodies[`../content/pages/${id}.html`];
   </head>
   <body class={page.bodyClass}>
     <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
-    <Fragment set:html={header} />
-    <Fragment set:html={main} />
-    <Fragment set:html={footer} />
-    <template id="vb-popups" set:html={popups} />
+    <Header />
+    <slot />
+    <Footer />
+    <template id="vb-popups"><Popups /></template>
     <ChatWidget />
     <script src="../scripts/site.js"></script>
   </body>

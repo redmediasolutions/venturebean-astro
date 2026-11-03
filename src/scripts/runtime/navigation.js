@@ -1,5 +1,5 @@
 // Header behaviour: active menu item, dropdowns, mobile toggle menu,
-// off-canvas panel and Elementor popups (search).
+// off-canvas panel and search popups.
 import { $$, settingsOf, parseAction } from './utils.js';
 
 const norm = (p) => (p.endsWith('/') ? p : `${p}/`);
@@ -33,7 +33,7 @@ function initSearch(root = document) {
 /** Mark the menu item for the page we're on. */
 function markActive() {
   const here = norm(location.pathname);
-  $$('.elementor-nav-menu a').forEach((a) => {
+  $$('.vb-nav-menu a').forEach((a) => {
     let url;
     try {
       url = new URL(a.href, location.href);
@@ -43,7 +43,7 @@ function markActive() {
     if (url.origin !== location.origin || norm(url.pathname) !== here) return;
     // The link itself is active; a parent item only gets current-menu-ancestor
     // (its link is not highlighted).
-    a.classList.add('elementor-item-active');
+    a.classList.add('vb-item-active');
     a.setAttribute('aria-current', 'page');
     const li = a.closest('li');
     li?.classList.add('current-menu-item', 'current_page_item');
@@ -54,7 +54,7 @@ function markActive() {
 
 /** Desktop dropdowns open on hover via CSS; this adds keyboard + touch support. */
 function initDropdowns() {
-  $$('.elementor-nav-menu--main li.menu-item-has-children').forEach((li) => {
+  $$('.vb-nav-menu--main li.menu-item-has-children').forEach((li) => {
     const a = li.querySelector(':scope > a');
     const open = (state) => {
       li.classList.toggle('vb-open', state);
@@ -80,19 +80,19 @@ function initDropdowns() {
   });
 }
 
-/** Elementor's burger → dropdown menu (used on tablet / mobile). */
+/** Burger menu that opens as a dropdown on tablet and mobile. */
 function initMenuToggle() {
-  $$('.elementor-widget-nav-menu').forEach((widget) => {
-    const toggle = widget.querySelector('.elementor-menu-toggle');
-    const container = widget.querySelector('.elementor-nav-menu--dropdown.elementor-nav-menu__container');
+  $$('.vb-widget-nav-menu').forEach((widget) => {
+    const toggle = widget.querySelector('.vb-menu-toggle');
+    const container = widget.querySelector('.vb-nav-menu--dropdown.vb-nav-menu__container');
     if (!toggle || !container) return;
     const set = (state) => {
-      toggle.classList.toggle('elementor-active', state);
+      toggle.classList.toggle('vb-active', state);
       toggle.setAttribute('aria-expanded', String(state));
       container.setAttribute('aria-hidden', String(!state));
       container.style.setProperty('--menu-height', `${container.scrollHeight}px`);
     };
-    toggle.addEventListener('click', () => set(!toggle.classList.contains('elementor-active')));
+    toggle.addEventListener('click', () => set(!toggle.classList.contains('vb-active')));
     toggle.addEventListener('keydown', (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), toggle.click()));
 
     // sub-menus inside the dropdown open on tap
@@ -119,7 +119,7 @@ let lastFocus = null;
 
 function initActions() {
   document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href^="#elementor-action"]');
+    const a = e.target.closest('a[href^="#vb-action"]');
     if (!a) return;
     const act = parseAction(a.getAttribute('href'));
     if (!act) return;
@@ -133,7 +133,7 @@ function initActions() {
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     $$('.e-off-canvas[aria-hidden="false"]').forEach((el) => closeOffCanvas(el));
-    $$('.elementor-popup-modal.vb-shown').forEach((m) => closePopup(m));
+    $$('.vb-popup-modal.vb-shown').forEach((m) => closePopup(m));
   });
 
   // Overlay click closes the off-canvas
@@ -147,7 +147,7 @@ function offCanvas(id, verb) {
   if (!el) return;
   const isOpen = el.getAttribute('aria-hidden') === 'false';
   if (verb === 'close' || (verb === 'toggle' && isOpen)) return closeOffCanvas(el);
-  const widget = el.closest('.elementor-widget-off-canvas');
+  const widget = el.closest('.vb-widget-off-canvas');
   const anim = settingsOf(widget).entrance_animation || 'fadeIn';
   const main = el.querySelector('.e-off-canvas__main');
   el.removeAttribute('inert');
@@ -175,7 +175,7 @@ const modals = {};
 function popup(id, verb, toggle) {
   const existing = modals[id];
   if (verb === 'close') {
-    const m = existing || document.querySelector('.elementor-popup-modal.vb-shown');
+    const m = existing || document.querySelector('.vb-popup-modal.vb-shown');
     return m && closePopup(m);
   }
   if (existing?.classList.contains('vb-shown')) {
@@ -199,15 +199,15 @@ function popup(id, verb, toggle) {
 
 function buildPopup(id) {
   const tpl = document.getElementById('vb-popups');
-  const src = tpl?.content.querySelector(`[data-elementor-id="${id}"]`);
+  const src = tpl?.content.querySelector(`[data-vb-id="${id}"]`);
   if (!src) return null;
   let settings = {};
   try {
-    settings = JSON.parse(src.getAttribute('data-elementor-settings') || '{}');
+    settings = JSON.parse(src.getAttribute('data-vb-settings') || '{}');
   } catch {}
   const modal = document.createElement('div');
-  modal.className = 'dialog-widget dialog-lightbox-widget dialog-type-buttons dialog-type-lightbox elementor-popup-modal';
-  modal.id = `elementor-popup-modal-${id}`;
+  modal.className = 'dialog-widget dialog-lightbox-widget dialog-type-buttons dialog-type-lightbox vb-popup-modal';
+  modal.id = `vb-popup-modal-${id}`;
   modal.setAttribute('role', 'document');
   modal.setAttribute('aria-modal', 'true');
   modal.tabIndex = 0;
@@ -219,8 +219,8 @@ function buildPopup(id) {
     content.style.animationDuration = `${settings.entrance_animation_duration.size}s`;
   }
   const node = document.importNode(src, true);
-  node.style.display = 'block'; // Elementor's popup JS sets this inline
-  node.querySelectorAll('.elementor-invisible').forEach((el) => el.classList.remove('elementor-invisible'));
+  node.style.display = 'block'; // the popup script sets this inline
+  node.querySelectorAll('.vb-invisible').forEach((el) => el.classList.remove('vb-invisible'));
   node.querySelectorAll('.e-con').forEach((el) => el.classList.add('e-lazyloaded'));
   initSearch(node);
   modal.querySelector('.dialog-message').appendChild(node);

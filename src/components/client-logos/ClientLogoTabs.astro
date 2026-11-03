@@ -1,0 +1,110 @@
+---
+/**
+ * Clients page: industry tabs with a logo grid in each, filled from the
+ * Content Manager (Clients category + its sub-categories; see src/lib/clients.ts).
+ *
+ * Tab 1 is "All"; then one tab per industry that has logos. The panel and
+ * grid wrappers re-use the saved WordPress element ids, so the page CSS
+ * still styles them.
+ *
+ * If the Content Manager has no client logos yet, the tabs saved from the
+ * WordPress site (passed in as children) are shown instead.
+ */
+import { getClientsData } from '../../lib/clients';
+import ClientLogo from './ClientLogo.astro';
+
+/** Tab widget number from the saved page; tab ids are built from it. */
+const WIDGET = '113642916';
+
+/** Saved panel + grid wrappers, in tab order. Extra tabs re-use the 2nd one's. */
+const PANELS = [
+  { panel: '4a3ce63', panelClass: 'e-con-full e-flex', grid: '5fbe308', gridBoxed: true },
+  { panel: '40ebeac', panelClass: 'e-con-full e-flex', grid: '4a24a5e', gridBoxed: false },
+  { panel: 'c4c1b79', panelClass: 'e-con-full e-flex', grid: '15b30f5', gridBoxed: false },
+  { panel: '51c7074', panelClass: 'e-flex e-con-boxed', grid: '3d2927f', gridBoxed: false },
+  { panel: '423d7af', panelClass: 'e-flex e-con-boxed', grid: 'a80afd8', gridBoxed: false },
+  { panel: 'ca90fa2', panelClass: 'e-flex e-con-boxed', grid: 'f22da77', gridBoxed: false },
+  { panel: '1f16a08', panelClass: 'e-flex e-con-boxed', grid: '7289d44', gridBoxed: false },
+];
+
+const data = await getClientsData();
+const onPage = data?.clients.filter((c) => c.onClientsPage) ?? [];
+
+const tabs = onPage.length
+  ? [
+      { title: 'All', clients: onPage },
+      ...(data?.industries ?? [])
+        .map((ind) => ({ title: ind.name, clients: onPage.filter((c) => c.industryIds.includes(ind.id)) }))
+        .filter((t) => t.clients.length > 0),
+    ].map((tab, i) => {
+      const n = i + 1;
+      const saved = PANELS[i] ?? PANELS[1];
+      return {
+        ...tab,
+        n,
+        first: n === 1,
+        titleId: n === 1 ? 'tabs' : `e-n-tab-title-${WIDGET}${n}`,
+        contentId: `e-n-tab-content-${WIDGET}${n}`,
+        saved,
+      };
+    })
+  : [];
+---
+
+{
+  tabs.length ? (
+    <>
+      <div class="e-n-tabs-heading" role="tablist">
+        {tabs.map((t) => (
+          <button
+            id={t.titleId}
+            data-tab-title-id={`e-n-tab-title-${WIDGET}${t.n}`}
+            class="e-n-tab-title vb-animation-grow"
+            aria-selected={String(t.first)}
+            data-tab-index={t.n}
+            role="tab"
+            tabindex={t.first ? 0 : -1}
+            aria-controls={t.contentId}
+            style={`--n-tabs-title-order: ${t.n};`}
+          >
+            <span class="e-n-tab-title-text">{t.title}</span>
+          </button>
+        ))}
+      </div>
+      <div class="e-n-tabs-content">
+        {tabs.map((t) => (
+          <div
+            id={t.contentId}
+            role="tabpanel"
+            aria-labelledby={t.titleId}
+            data-tab-index={t.n}
+            style={`--n-tabs-title-order: ${t.n};`}
+            class={`${t.first ? 'e-active ' : ''}vb-element vb-element-${t.saved.panel} ${t.saved.panelClass} e-con e-child`}
+            data-id={t.saved.panel}
+            data-element_type="container"
+            data-e-type="container"
+          >
+            <div
+              class={`vb-element vb-element-${t.saved.grid} e-grid ${t.saved.gridBoxed ? 'e-con-boxed' : 'e-con-full'} e-con e-child`}
+              data-id={t.saved.grid}
+              data-element_type="container"
+              data-e-type="container"
+            >
+              {t.saved.gridBoxed ? (
+                <div class="e-con-inner">
+                  {t.clients.map((c) => (
+                    <ClientLogo client={c} />
+                  ))}
+                </div>
+              ) : (
+                t.clients.map((c) => <ClientLogo client={c} />)
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  ) : (
+    <slot />
+  )
+}

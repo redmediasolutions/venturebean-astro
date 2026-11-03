@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Loaded after all Elementor CSS. Only replaces behaviour that used to come
-   from jQuery/Elementor JS, plus a few subtle animations. No design changes.
+   Loaded after the page CSS. Only replaces behaviour that used to come
+   from the old page scripts, plus a few subtle animations. No design changes.
    ========================================================================== */
 
 html {
@@ -8,11 +8,11 @@ html {
 }
 
 /* ---- Nav dropdowns (SmartMenus replacement) ---- */
-.elementor-nav-menu--main .elementor-nav-menu li.menu-item-has-children {
+.vb-nav-menu--main .vb-nav-menu li.menu-item-has-children {
   position: relative;
 }
 /* same inline values SmartMenus applied on the live site */
-.elementor-nav-menu--main .elementor-nav-menu li.menu-item-has-children > ul {
+.vb-nav-menu--main .vb-nav-menu li.menu-item-has-children > ul {
   z-index: 3;
   width: auto;
   min-width: 10em;
@@ -22,9 +22,9 @@ html {
   margin-left: 0;
   margin-top: 0;
 }
-.elementor-nav-menu--main .elementor-nav-menu li.vb-open > ul,
-.elementor-nav-menu--main .elementor-nav-menu li:hover > ul,
-.elementor-nav-menu--main .elementor-nav-menu li:focus-within > ul {
+.vb-nav-menu--main .vb-nav-menu li.vb-open > ul,
+.vb-nav-menu--main .vb-nav-menu li:hover > ul,
+.vb-nav-menu--main .vb-nav-menu li:focus-within > ul {
   display: block;
   animation: vb-drop 0.22s ease-out;
 }
@@ -152,4 +152,126 @@ html {
     opacity: 1;
     transform: none;
   }
+}
+
+/* ---- Article sidebar: table of contents + Calendly stay in view ---- */
+#side-bar .vb-toc__list-wrapper {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 12px;
+}
+#side-bar .vb-toc__list-item a {
+  display: block;
+  padding: 7px 16px;
+  color: #1b1b1b;
+  text-decoration: none;
+  font-family: Barlow, sans-serif;
+  font-size: 15px;
+  line-height: 1.35;
+}
+#side-bar .vb-toc__list-item a:hover {
+  color: #06329c;
+}
+#side-bar .vb-toc__list-item-text-wrapper {
+  padding-left: 16px;
+}
+#side-bar .vb-toc__list-item-text-wrapper > i {
+  font-size: 6px;
+  color: #13005a;
+  margin-inline-end: 0;
+}
+#side-bar .vb-toc__list-item-text-wrapper > a {
+  padding-left: 10px;
+}
+/* H3s sit under their H2 */
+#side-bar .vb-toc__list-wrapper .vb-toc__list-wrapper {
+  padding: 0 0 0 18px;
+}
+#side-bar .vb-toc__list-wrapper .vb-toc__list-wrapper a {
+  font-size: 14px;
+}
+#side-bar .calendly-inline-widget {
+  margin-top: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+}
+@media (max-width: 1024px) {
+  #side-bar {
+    width: 100% !important;
+    position: static;
+    padding-right: 0;
+  }
+}
+
+/* ---- Client logos from the Content Manager (Clients page grid) ---- */
+.vb-widget-image.vb-client-logo {
+  align-self: center;
+  text-align: center;
+}
+.vb-widget-image.vb-client-logo img {
+  width: 60%;
+  max-width: 93%;
+  height: auto;
+}
+
+/* ---- Article pages ---- */
+/* The header's saved CSS hides page titles site-wide; articles need theirs. */
+.vb-20312 .vb-page-title {
+  display: block;
+}
+/* Sticky sidebar (same idea as the old site's #side-bar CSS). The old site's
+   header was sticky, hence its top: 130px; this header scrolls away, so the
+   sidebar sits near the top. A long table of contents scrolls inside its box
+   so Calendly is always fully on screen. */
+@media (min-width: 1025px) {
+  .vb-20312 #side-bar {
+    top: 24px;
+  }
+  .vb-20312 #side-bar .vb-toc__body {
+    max-height: max(140px, calc(100vh - 640px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+/* Short laptop screens: the box can't fit, so only Calendly stays in view. */
+@media (min-width: 1025px) and (max-height: 780px) {
+  .vb-20312 #side-bar {
+    position: static;
+    align-self: stretch;
+    height: auto;
+  }
+  .vb-20312 .vb-element.vb-element-b9682d5 {
+    position: sticky;
+    top: 24px;
+  }
+}
+
+/* ---- Article cards (Insights tabs, "Continue reading") ----
+   The saved CSS gives each card image an empty box (padding-bottom: 10–66% of
+   the width, depending on screen size) that WordPress filled with a script.
+   Without it the empty box showed as a grey block under the image. Every card
+   image now sits in the same 16:9 frame and is cropped to fill it. */
+.vb-posts-container .vb-post__thumbnail {
+  padding-bottom: 0 !important;
+  aspect-ratio: 16 / 9;
+}
+.vb-posts-container .vb-post__thumbnail img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: none;
+}
+
+/* ---- Knowledge Hub → Toolkit cards ----
+   Card images from the Content Manager can be any shape; keep the 3:2 frame
+   the WordPress cards had and crop to fill it. */
+.vb-24863 .vb-element-d560e33 img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
 }

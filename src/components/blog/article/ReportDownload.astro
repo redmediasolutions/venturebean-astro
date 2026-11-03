@@ -1,0 +1,231 @@
+---
+/**
+ * "Download the full analysis" on Industry Perspectives articles — same form
+ * as the Ninja Forms one on WordPress: the visitor enters their email, it is
+ * saved to the Content Manager (Report downloads), then the PDF opens.
+ *
+ * The PDF is the post's "Report PDF" custom field (report_pdf). The email goes
+ * straight to Firestore (collection reportDownloads); firestore.rules in the
+ * Content Manager only lets the website ADD entries, never read them.
+ */
+interface Props {
+  pdf: string;
+  postId: string;
+  slug: string;
+  title: string;
+  /** Show the "Download the full analysis" line (when the article doesn't have it). */
+  heading?: boolean;
+}
+
+const { pdf, postId, slug, title, heading = false } = Astro.props;
+const project = import.meta.env.PUBLIC_FIREBASE_PROJECT_ID ?? '';
+const apiKey = import.meta.env.PUBLIC_FIREBASE_API_KEY ?? '';
+const id = `vb-rd-email-${slug.replace(/[^a-z0-9-]/gi, '').slice(0, 40)}`;
+---
+
+<div
+  class="vb-report-download"
+  data-report-download
+  data-pdf={pdf}
+  data-post-id={postId}
+  data-slug={slug}
+  data-title={title}
+  data-project={project}
+  data-key={apiKey}
+>
+  {heading && <p>Download the full analysis</p>}
+  <form class="vb-rd-form" novalidate>
+    <p class="vb-rd-required">Fields marked with an <span class="vb-rd-req">*</span> are required</p>
+    <div class="vb-rd-field">
+      <label for={id}>Email <span class="vb-rd-req">*</span></label>
+      <input id={id} type="email" name="email" autocomplete="email" inputmode="email" required maxlength="254" />
+      <p class="vb-rd-error" role="alert" hidden></p>
+    </div>
+    <!-- Left empty by people; bots fill it in. -->
+    <input class="vb-rd-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <button type="submit" class="vb-rd-button">Download PDF</button>
+  </form>
+  <div class="vb-rd-done" role="status" hidden>
+    <p>Thank you! Your report is ready.</p>
+    <a class="vb-rd-button" href={pdf} target="_blank" rel="noopener">Open the report (PDF)</a>
+  </div>
+</div>
+
+<style>
+  .vb-report-download {
+    margin: 0 0 24px;
+    font-family: -apple-system, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #333;
+  }
+  .vb-report-download p {
+    margin: 0 0 14.4px;
+  }
+  .vb-rd-form .vb-rd-required {
+    margin: 0 0 4px;
+  }
+  .vb-rd-req {
+    color: #e80000;
+  }
+  .vb-rd-field {
+    margin-bottom: 25px;
+  }
+  .vb-rd-field label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+    line-height: 16px;
+  }
+  .vb-rd-field input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 42px;
+    padding: 8px 16px;
+    font: inherit;
+    color: #000;
+    background: #fff;
+    border: 1px solid #666;
+    border-radius: 3px;
+  }
+  .vb-rd-field input[aria-invalid='true'] {
+    border-color: #e80000;
+  }
+  .vb-rd-form .vb-rd-error {
+    margin: 6px 0 0;
+    font-size: 14px;
+    color: #e80000;
+  }
+  .vb-rd-hp {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+  .vb-rd-button {
+    display: inline-block;
+    height: 42px;
+    padding: 8px 16px;
+    font: inherit;
+    line-height: 24px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    background: #cc3366;
+    border: 1px solid #cc3366;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+  .vb-rd-button:hover,
+  .vb-rd-button:focus-visible {
+    color: #fff;
+    background: #a8284f;
+    border-color: #a8284f;
+  }
+  .vb-rd-button[disabled] {
+    cursor: wait;
+    opacity: 0.7;
+  }
+</style>
+
+<script>
+  const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  const REMEMBER = 'vb-report-email';
+
+  function remembered(): string {
+    try {
+      return localStorage.getItem(REMEMBER) ?? '';
+    } catch {
+      return '';
+    }
+  }
+  function remember(email: string) {
+    try {
+      localStorage.setItem(REMEMBER, email);
+    } catch {
+      // private mode etc. — not important
+    }
+  }
+
+  function newId(): string {
+    const bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  /** Add the email to Firestore → reportDownloads (createdAt = server time). */
+  async function save(box: HTMLElement, email: string) {
+    const { project, key, postId = '', slug = '', title = '' } = box.dataset;
+    if (!project || !key) throw new Error('not configured');
+    const db = `projects/${project}/databases/(default)/documents`;
+    const str = (v: string) => ({ stringValue: v });
+    const res = await fetch(`https://firestore.googleapis.com/v1/${db}:commit?key=${encodeURIComponent(key)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        writes: [
+          {
+            update: {
+              name: `${db}/reportDownloads/${newId()}`,
+              fields: {
+                email: str(email),
+                postId: str(postId.slice(0, 100)),
+                postSlug: str(slug.slice(0, 200)),
+                postTitle: str(title.slice(0, 300)),
+                pageUrl: str(location.href.split('#')[0].slice(0, 500)),
+              },
+            },
+            currentDocument: { exists: false },
+            updateTransforms: [{ fieldPath: 'createdAt', setToServerValue: 'REQUEST_TIME' }],
+          },
+        ],
+      }),
+    });
+    if (!res.ok) throw new Error(`save failed (${res.status})`);
+  }
+
+  for (const box of document.querySelectorAll<HTMLElement>('[data-report-download]')) {
+    const form = box.querySelector<HTMLFormElement>('form')!;
+    const input = form.querySelector<HTMLInputElement>('input[name=email]')!;
+    const trap = form.querySelector<HTMLInputElement>('input[name=website]')!;
+    const error = form.querySelector<HTMLElement>('.vb-rd-error')!;
+    const button = form.querySelector<HTMLButtonElement>('button')!;
+    const done = box.querySelector<HTMLElement>('.vb-rd-done')!;
+
+    if (!input.value) input.value = remembered();
+
+    const showError = (message: string) => {
+      error.textContent = message;
+      error.hidden = !message;
+      input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    };
+    input.addEventListener('input', () => error.hidden || showError(''));
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = input.value.trim();
+      if (!email) return showError('This is a required field.');
+      if (!EMAIL.test(email) || email.length > 254) return showError('Please enter a valid email address!');
+      showError('');
+
+      button.disabled = true;
+      button.textContent = 'Processing';
+      try {
+        if (!trap.value) await save(box, email);
+        remember(email);
+        form.hidden = true;
+        done.hidden = false;
+        // Open the PDF straight away; the button stays in case the browser blocks it.
+        window.open(box.dataset.pdf, '_blank', 'noopener');
+      } catch (err) {
+        console.error('[report download]', err);
+        showError('Sorry, something went wrong. Please try again.');
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Download PDF';
+      }
+    });
+  }
+</script>

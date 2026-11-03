@@ -1,5 +1,24 @@
 ---
+/**
+ * Solutions page → /venturebean-solutions-page/
+ * Each section lives in src/components/solutions/.
+ */
 import Layout from '../layouts/Layout.astro';
+import HeroSlider from '../components/solutions/HeroSlider.astro';
+import ArchitectureOfScale from '../components/solutions/ArchitectureOfScale.astro';
+import ChallengesWeSolve from '../components/solutions/ChallengesWeSolve.astro';
+import OurSolutions from '../components/solutions/OurSolutions.astro';
+import CustomisedNote from '../components/solutions/CustomisedNote.astro';
+import CallToAction from '../components/solutions/CallToAction.astro';
 ---
 
-<Layout id="venturebean-solutions-page" />
+<Layout page="venturebean-solutions-page">
+  <div data-vb-type="site-page" data-vb-id="26158" class="vb vb-26158" data-vb-post-type="page">
+    <HeroSlider />
+    <ArchitectureOfScale />
+    <ChallengesWeSolve />
+    <OurSolutions />
+    <CustomisedNote />
+    <CallToAction />
+  </div>
+</Layout>

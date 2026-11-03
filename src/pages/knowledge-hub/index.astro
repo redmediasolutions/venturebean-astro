@@ -1,0 +1,28 @@
+---
+/**
+ * Knowledge Hub page → /knowledge-hub/
+ * Each section lives in src/components/knowledge-hub/.
+ */
+import Layout from '../../layouts/Layout.astro';
+import HeroSlider from '../../components/knowledge-hub/HeroSlider.astro';
+import HubIntro from '../../components/knowledge-hub/HubIntro.astro';
+import MediaSpotlight from '../../components/knowledge-hub/MediaSpotlight.astro';
+import RecentUploadsHeading from '../../components/knowledge-hub/RecentUploadsHeading.astro';
+import RecentUploads from '../../components/knowledge-hub/RecentUploads.astro';
+import StayConnected from '../../components/knowledge-hub/StayConnected.astro';
+---
+
+<Layout page="knowledge-hub">
+  <main id="content" class="site-main post-24043 page type-page status-publish hentry">
+    <div class="page-content">
+      <div data-vb-type="site-page" data-vb-id="24043" class="vb vb-24043" data-vb-post-type="page">
+        <HeroSlider />
+        <HubIntro />
+        <MediaSpotlight />
+        <RecentUploadsHeading />
+        <RecentUploads />
+        <StayConnected />
+      </div>
+    </div>
+  </main>
+</Layout>
