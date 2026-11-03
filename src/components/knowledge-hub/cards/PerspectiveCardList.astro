@@ -15,7 +15,7 @@ const posts = await getSectionPosts('industryPerspectives');
 {
   posts ? (
     posts.map((post) => {
-      const href = postPath(post.slug);
+      const href = `/knowledge-hub/industry-perspectives/${post.slug}/`;
       const image = post.featuredImage?.url;
       return (
         <div

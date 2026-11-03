@@ -17,7 +17,7 @@ const posts = await getSectionPosts('toolkit');
 {
   posts ? (
     posts.map((post) => {
-      const href = postPath(post.slug);
+      const href = `/knowledge-hub/toolkit/${post.slug}/`;
       const image = post.featuredImage;
       return (
         <div

@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { post, category } = Astro.props;
-const href = postPath(post.slug);
+const href = `/knowledge-hub/insights/${post.slug}/`;
 const date = formatDate(post.publishedAt);
 const img = post.featuredImage;
 ---
