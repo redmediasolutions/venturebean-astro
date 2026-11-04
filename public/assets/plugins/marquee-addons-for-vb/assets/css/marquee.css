@@ -231,12 +231,9 @@
    8. Media Queries
    ========================================================================== */
 
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .deensimc-marquee-group {
-    animation-play-state: paused !important;
-  }
-}
+/* Reduced Motion: the client logo strip keeps scrolling (slowly) even when a
+   phone asks for fewer animations — many phones turn this on in battery saver,
+   which left the home page showing only the first two logos. */
 
 /* Mobile Styles (Max Width: 881px) */
 @media (max-width: 881px) {

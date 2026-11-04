@@ -156,7 +156,7 @@ function initMarquees() {
         });
         if (!size) return;
         group.style.animationDuration = `${size / speed}s`;
-        group.style.animationPlayState = reducedMotion() ? 'paused' : 'running';
+        group.style.animationPlayState = 'running';
         group.classList.remove('deensimc-paused');
       });
       if (pauseOnHover) {
@@ -164,10 +164,27 @@ function initMarquees() {
         marquee.addEventListener('mouseleave', () => groups.forEach((g) => (g.style.animationPlayState = 'running')));
       }
     };
-    // wait for images so widths are real
-    const imgs = $$('img', marquee).filter((i) => !i.complete);
-    if (!imgs.length) setup();
-    else Promise.all(imgs.map((i) => new Promise((r) => i.addEventListener('load', r, { once: true }) || i.addEventListener('error', r, { once: true })))).then(setup);
+    // Wait for the logos so widths are real. Logos marked loading="lazy" that
+    // sit off the side of a phone screen would never load (so the strip never
+    // started): load them all now, and start anyway after a few seconds.
+    const all = $$('img', marquee);
+    all.forEach((i) => {
+      if (i.loading === 'lazy') i.loading = 'eager';
+    });
+    const imgs = all.filter((i) => !i.complete);
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      setup();
+    };
+    if (!imgs.length) start();
+    else {
+      Promise.all(
+        imgs.map((i) => new Promise((r) => (i.addEventListener('load', r, { once: true }), i.addEventListener('error', r, { once: true })))),
+      ).then(start);
+      setTimeout(start, 4000);
+    }
   });
 }
 

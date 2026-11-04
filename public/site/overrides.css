@@ -436,3 +436,23 @@ header.vb-19568 {
     display: none !important;
   }
 }
+
+/* Home → "Trusted by Businesses…" stats: centred on phones. */
+@media (max-width: 767px) {
+  .vb-element-92bfcee .vb-heading-title {
+    text-align: center;
+  }
+  .vb-element-c603dd9 {
+    justify-content: center;
+    justify-items: center;
+  }
+  .vb-element-c603dd9 .vb-counter {
+    align-items: center;
+    text-align: center;
+  }
+  .vb-element-c603dd9 .vb-counter-title,
+  .vb-element-c603dd9 .vb-counter-number-wrapper {
+    justify-content: center;
+    text-align: center;
+  }
+}
