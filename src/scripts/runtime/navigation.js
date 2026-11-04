@@ -136,13 +136,25 @@ function initActions() {
     $$('.vb-popup-modal.vb-shown').forEach((m) => closePopup(m));
   });
 
-  // Overlay click closes the off-canvas
+  // Overlay and close button click closes the off-canvas
   $$('.e-off-canvas').forEach((el) => {
     el.querySelector('.e-off-canvas__overlay')?.addEventListener('click', () => closeOffCanvas(el));
+    el.querySelectorAll('.mobile-drawer-close-btn, [data-off-canvas-close]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeOffCanvas(el);
+      });
+    });
+    // Navigation link click closes the off-canvas before navigating
+    el.querySelectorAll('a[href]:not([href^="#"]):not([href="/services/"])').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeOffCanvas(el);
+      });
+    });
   });
 }
 
-function offCanvas(id, verb) {
+export function offCanvas(id, verb) {
   const el = document.getElementById(`off-canvas-${id}`);
   if (!el) return;
   const isOpen = el.getAttribute('aria-hidden') === 'false';
@@ -158,7 +170,7 @@ function offCanvas(id, verb) {
   el.querySelector('a, button, [tabindex]')?.focus({ preventScroll: true });
 }
 
-function closeOffCanvas(el) {
+export function closeOffCanvas(el) {
   const main = el.querySelector('.e-off-canvas__main');
   main.classList.add('vb-leaving');
   setTimeout(() => {

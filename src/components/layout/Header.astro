@@ -28,5 +28,90 @@ import MobileNav from './header/MobileNav.astro';
         <MobileNav />
       </div>
     </div>
+
+    <!-- Full-Header Search Overlay (shared between Desktop and Mobile) -->
+    <div
+      id="header-search-overlay"
+      class="header-search-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site Search"
+      hidden
+    >
+      <div class="header-search-overlay-inner">
+        <form class="overlay-search-form" action="/" method="get">
+          <label for="overlay-search-input" class="vb-screen-only">Search</label>
+          <i class="fas fa-search overlay-search-icon" aria-hidden="true"></i>
+          <input
+            id="overlay-search-input"
+            class="overlay-search-input"
+            type="search"
+            name="s"
+            placeholder="Type to search..."
+            autocomplete="off"
+          />
+          <button class="overlay-submit-btn" type="submit">Search</button>
+        </form>
+        <button
+          id="search-close-btn"
+          class="header-search-close-btn"
+          type="button"
+          aria-label="Close search dialog"
+        >
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </header>
+
+<script>
+  function setupSearchOverlay() {
+    const desktopOpenBtn = document.getElementById('search-open-btn');
+    const mobileOpenBtn = document.getElementById('mobile-search-open-btn');
+    const closeBtn = document.getElementById('search-close-btn');
+    const overlay = document.getElementById('header-search-overlay');
+    const input = document.getElementById('overlay-search-input') as HTMLInputElement | null;
+
+    if (!overlay || !closeBtn) return;
+
+    const openBtns = [desktopOpenBtn, mobileOpenBtn].filter((b): b is HTMLElement => Boolean(b));
+    if (openBtns.length === 0) return;
+
+    function openSearch() {
+      overlay?.removeAttribute('hidden');
+      requestAnimationFrame(() => {
+        overlay?.classList.add('is-active');
+        openBtns.forEach((btn) => btn.setAttribute('aria-expanded', 'true'));
+        input?.focus();
+      });
+    }
+
+    function closeSearch() {
+      overlay?.classList.remove('is-active');
+      openBtns.forEach((btn) => btn.setAttribute('aria-expanded', 'false'));
+      setTimeout(() => {
+        if (!overlay?.classList.contains('is-active')) {
+          overlay?.setAttribute('hidden', '');
+        }
+      }, 250);
+    }
+
+    openBtns.forEach((btn) => {
+      btn.removeEventListener('click', openSearch);
+      btn.addEventListener('click', openSearch);
+    });
+
+    closeBtn.removeEventListener('click', closeSearch);
+    closeBtn.addEventListener('click', closeSearch);
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay?.classList.contains('is-active')) {
+        closeSearch();
+      }
+    });
+  }
+
+  setupSearchOverlay();
+  document.addEventListener('astro:page-load', setupSearchOverlay);
+</script>

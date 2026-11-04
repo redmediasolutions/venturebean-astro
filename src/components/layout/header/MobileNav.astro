@@ -1,7 +1,9 @@
 ---
 /**
- * Mobile header: menu button and the slide-out menu.
- * Hidden on desktop and tablet.
+ * Mobile header: search button, hamburger menu button,
+ * and the modern interactive slide-out off-canvas drawer.
+ * Visible on mobile (< 768px) and tablet (768px - 1024px).
+ * Hidden on desktop (>= 1025px).
  */
 ---
 
@@ -11,42 +13,37 @@
   data-element_type="container"
   data-e-type="container"
 >
-  <div
-    class="vb-element vb-element-2fc5a38 vb-hidden-desktop vb-view-default vb-widget vb-widget-icon"
-    data-id="2fc5a38"
-    data-element_type="widget"
-    data-e-type="widget"
-    data-widget_type="icon.default"
-  >
-    <div class="vb-widget-container">
-      <div class="vb-icon-wrapper">
-        <a
-          class="vb-icon"
-          href="#vb-action%3Aaction%3Dpopup%3Aopen%26settings%3DeyJpZCI6IjIwNDA3IiwidG9nZ2xlIjp0cnVlfQ%3D%3D"
-        >
-          <i aria-hidden="true" class="feather icon-search"></i>
-        </a>
-      </div>
-    </div>
+  <!-- Search trigger button -->
+  <div class="mobile-header-btn-wrap">
+    <button
+      id="mobile-search-open-btn"
+      class="mobile-header-icon-btn"
+      type="button"
+      aria-label="Open search dialog"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="header-search-overlay"
+    >
+      <i class="fas fa-search" aria-hidden="true"></i>
+    </button>
   </div>
-  <div
-    class="vb-element vb-element-02ebb5d vb-hidden-desktop vb-view-default vb-widget vb-widget-icon"
-    data-id="02ebb5d"
-    data-element_type="widget"
-    data-e-type="widget"
-    data-widget_type="icon.default"
-  >
-    <div class="vb-widget-container">
-      <div class="vb-icon-wrapper">
-        <a
-          class="vb-icon"
-          href="#vb-action%3Aaction%3Doff_canvas%3Aopen%26settings%3DeyJpZCI6IjgyZjUxMDEiLCJkaXNwbGF5TW9kZSI6Im9wZW4ifQ%3D%3D"
-        >
-          <i aria-hidden="true" class="fas fa-bars"></i>
-        </a>
-      </div>
-    </div>
+
+  <!-- Hamburger trigger button -->
+  <div class="mobile-header-btn-wrap">
+    <a
+      id="mobile-menu-toggle-btn"
+      class="mobile-header-icon-btn"
+      href="#vb-action%3Aaction%3Doff_canvas%3Aopen%26settings%3DeyJpZCI6IjgyZjUxMDEiLCJkaXNwbGF5TW9kZSI6Im9wZW4ifQ%3D%3D"
+      role="button"
+      aria-label="Open navigation menu"
+      aria-haspopup="dialog"
+      aria-controls="off-canvas-82f5101"
+    >
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </a>
   </div>
+
+  <!-- Off-Canvas Drawer -->
   <div
     class="vb-element vb-element-82f5101 vb-widget vb-widget-off-canvas"
     data-id="82f5101"
@@ -61,192 +58,196 @@
         class="e-off-canvas"
         role="dialog"
         aria-hidden="true"
-        aria-label="Off-Canvas"
+        aria-label="Navigation Menu"
         aria-modal="true"
         inert=""
         data-delay-child-handlers="true"
       >
         <div class="e-off-canvas__overlay"></div>
         <div class="e-off-canvas__main">
-          <div class="e-off-canvas__content">
-            <div
-              class="vb-element vb-element-914a433 e-con-full e-flex e-con e-child"
-              data-id="914a433"
-              data-element_type="container"
-              data-e-type="container"
-              data-settings={'{"background_background":"classic"}'}
-            >
-              <div
-                class="vb-element vb-element-27a429a e-con-full e-flex e-con e-child"
-                data-id="27a429a"
-                data-element_type="container"
-                data-e-type="container"
-                data-settings={'{"background_background":"classic"}'}
+          <div class="e-off-canvas__content mobile-drawer-content">
+            <!-- 1. Drawer Header: Logo + Close 'X' Button -->
+            <div class="mobile-drawer-header">
+              <a href="/" class="mobile-drawer-logo" aria-label="VentureBean Home">
+                <img
+                  src="/assets/uploads/2023/03/Venture-bean-logo.svg"
+                  alt="VentureBean"
+                  width="135"
+                  height="34"
+                />
+              </a>
+              <a
+                id="mobile-drawer-close-btn"
+                class="mobile-drawer-close-btn"
+                href="#vb-action%3Aaction%3Doff_canvas%3Aclose%26settings%3DeyJpZCI6IjgyZjUxMDEifQ%3D%3D"
+                role="button"
+                aria-label="Close navigation menu"
               >
-                <div
-                  class="vb-element vb-element-04eb703 vb-widget vb-widget-theme-site-logo vb-widget-image"
-                  data-id="04eb703"
-                  data-element_type="widget"
-                  data-e-type="widget"
-                  data-widget_type="theme-site-logo.default"
-                >
-                  <div class="vb-widget-container">
-                    <a href="/">
-                      <img
-                        width="100"
-                        height="100"
-                        src="/assets/uploads/2023/03/Venture-bean-logo.svg"
-                        class="attachment-full size-full site-image-23042"
-                        alt=""
-                      />
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </a>
+            </div>
+
+            <!-- 2. Drawer Search Form -->
+            <div class="mobile-drawer-search">
+              <form class="mobile-drawer-search-form" action="/" method="get">
+                <i class="fas fa-search mobile-drawer-search-icon" aria-hidden="true"></i>
+                <input
+                  type="search"
+                  name="s"
+                  placeholder="Search VentureBean..."
+                  class="mobile-drawer-search-input"
+                  autocomplete="off"
+                />
+                <button type="submit" class="mobile-drawer-search-submit" aria-label="Submit Search">
+                  <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+
+            <!-- 3. Drawer Navigation Menu -->
+            <nav class="mobile-drawer-nav" aria-label="Mobile Navigation">
+              <ul class="mobile-nav-list">
+                <!-- Home -->
+                <li class="mobile-nav-item">
+                  <a href="/" class="mobile-nav-link">
+                    <span class="mobile-nav-text">
+                      <i class="fas fa-home mobile-nav-icon" aria-hidden="true"></i>Home
+                    </span>
+                  </a>
+                </li>
+
+                <!-- About Us Accordion -->
+                <li class="mobile-nav-item has-accordion">
+                  <div class="mobile-nav-row">
+                    <a href="/about-us/" class="mobile-nav-link">
+                      <span class="mobile-nav-text">
+                        <i class="fas fa-info-circle mobile-nav-icon" aria-hidden="true"></i>About Us
+                      </span>
                     </a>
+                    <button
+                      type="button"
+                      class="mobile-accordion-btn"
+                      aria-expanded="false"
+                      aria-label="Toggle About Us submenu"
+                    >
+                      <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
                   </div>
-                </div>
-              </div>
-              <div
-                class="vb-element vb-element-a2c54a5 e-flex e-con-boxed e-con e-child"
-                data-id="a2c54a5"
-                data-element_type="container"
-                data-e-type="container"
-              >
-                <div class="e-con-inner">
-                  <div
-                    class="vb-element vb-element-f526c5f vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
-                    data-id="f526c5f"
-                    data-element_type="widget"
-                    data-e-type="widget"
-                    data-widget_type="icon-list.default"
-                  >
-                    <div class="vb-widget-container">
-                      <ul class="vb-icon-list-items">
-                        <li class="vb-icon-list-item">
-                          <a href="/">
-                            <span class="vb-icon-list-icon">
-                              <i aria-hidden="true" class="feather icon-home"></i>
-                            </span>
-                            <span class="vb-icon-list-text">HOME</span>
-                          </a>
-                        </li>
-                        <li class="vb-icon-list-item">
-                          <a href="/about-us/">
-                            <span class="vb-icon-list-icon">
-                              <i aria-hidden="true" class="feather icon-globe"></i>
-                            </span>
-                            <span class="vb-icon-list-text">ABOUT</span>
-                          </a>
-                        </li>
-                        <li class="vb-icon-list-item">
-                          <a href="/business-consulting/">
-                            <span class="vb-icon-list-icon">
-                              <i aria-hidden="true" class="feather icon-layers"></i>
-                            </span>
-                            <span class="vb-icon-list-text">Consulting</span>
-                          </a>
-                        </li>
-                        <li class="vb-icon-list-item">
-                          <a href="/coaching/">
-                            <span class="vb-icon-list-icon">
-                              <i aria-hidden="true" class="feather icon-grid"></i>
-                            </span>
-                            <span class="vb-icon-list-text">Coaching</span>
-                          </a>
-                        </li>
-                        <li class="vb-icon-list-item">
-                          <a href="/venturebean-solutions-page/">
-                            <span class="vb-icon-list-icon">
-                              <i aria-hidden="true" class="feather icon-grid"></i>
-                            </span>
-                            <span class="vb-icon-list-text">Solutions</span>
-                          </a>
-                        </li>
-                        <li class="vb-icon-list-item">
-                          <a href="/knowledge-hub/">
-                            <span class="vb-icon-list-icon">
-                              <i aria-hidden="true" class="feather icon-layers"></i>
-                            </span>
-                            <span class="vb-icon-list-text">Knowledge Hub</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
+                  <ul class="mobile-sub-menu" hidden>
+                    <li><a href="/about-us/" class="mobile-sub-link">About Us Overview</a></li>
+                    <li><a href="/clients/" class="mobile-sub-link">Clients</a></li>
+                    <li><a href="/testimonials/" class="mobile-sub-link">Testimonials</a></li>
+                    <li><a href="/case-studies/" class="mobile-sub-link">Case Studies</a></li>
+                  </ul>
+                </li>
+
+                <!-- Services Accordion -->
+                <li class="mobile-nav-item has-accordion">
+                  <div class="mobile-nav-row">
+                    <a href="/services/" class="mobile-nav-link">
+                      <span class="mobile-nav-text">
+                        <i class="fas fa-briefcase mobile-nav-icon" aria-hidden="true"></i>Services
+                      </span>
+                    </a>
+                    <button
+                      type="button"
+                      class="mobile-accordion-btn"
+                      aria-expanded="false"
+                      aria-label="Toggle Services submenu"
+                    >
+                      <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
                   </div>
-                  <div
-                    class="vb-element vb-element-3d97339 vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
-                    data-id="3d97339"
-                    data-element_type="widget"
-                    data-e-type="widget"
-                    data-widget_type="icon-list.default"
-                  >
-                    <div class="vb-widget-container">
-                      <ul class="vb-icon-list-items">
-                        <li class="vb-icon-list-item">
-                          <a href="/testimonials/">
-                            <span class="vb-icon-list-icon">
-                              <i aria-hidden="true" class="remixicon ri-speaker-3-fill"></i>
-                            </span>
-                            <span class="vb-icon-list-text">TESTIMONIAL</span>
-                          </a>
-                        </li>
-                        <li class="vb-icon-list-item">
-                          <a href="/clients/">
-                            <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-hourglass"></i> </span>
-                            <span class="vb-icon-list-text">CLIENTS</span>
-                          </a>
-                        </li>
-                        <li class="vb-icon-list-item">
-                          <a href="/knowledge-hub/insights/">
-                            <span class="vb-icon-list-icon">
-                              <i aria-hidden="true" class="feather icon-grid"></i>
-                            </span>
-                            <span class="vb-icon-list-text">Insights</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div
-                    class="vb-element vb-element-e4adf41 vb-align-left vb-mobile-align-justify vb-widget vb-widget-button"
-                    data-id="e4adf41"
-                    data-element_type="widget"
-                    data-e-type="widget"
-                    data-widget_type="button.default"
-                  >
-                    <div class="vb-widget-container">
-                      <div class="vb-button-wrapper">
-                        <a class="vb-button vb-button-link vb-size-sm" href="/contact-us/">
-                          <span class="vb-button-content-wrapper">
-                            <span class="vb-button-icon">
-                              <i aria-hidden="true" class="remixicon ri-contacts-line"></i>
-                            </span>
-                            <span class="vb-button-text">Reach Us</span>
-                          </span>
-                        </a>
+                  <ul class="mobile-sub-menu" hidden>
+                    <li><a href="/business-consulting/" class="mobile-sub-link">Consulting</a></li>
+                    <li><a href="/coaching/" class="mobile-sub-link">Coaching</a></li>
+                    <li><a href="/venturebean-solutions-page/" class="mobile-sub-link">Solutions</a></li>
+
+                    <!-- Nested: Organisational Development -->
+                    <li class="mobile-sub-nested has-nested-accordion">
+                      <div class="mobile-nested-row">
+                        <span class="mobile-nested-title">Organisational Development</span>
+                        <button
+                          type="button"
+                          class="mobile-nested-accordion-btn"
+                          aria-expanded="false"
+                          aria-label="Toggle Organisational Development submenu"
+                        >
+                          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </button>
                       </div>
-                    </div>
+                      <ul class="mobile-nested-menu" hidden>
+                        <li><a href="/organisational-development/" class="mobile-nested-link">OD Consulting</a></li>
+                        <li><a href="/management-games/" class="mobile-nested-link">Management Games</a></li>
+                      </ul>
+                    </li>
+
+                    <!-- Nested: Assessments -->
+                    <li class="mobile-sub-nested has-nested-accordion">
+                      <div class="mobile-nested-row">
+                        <span class="mobile-nested-title">Assessments</span>
+                        <button
+                          type="button"
+                          class="mobile-nested-accordion-btn"
+                          aria-expanded="false"
+                          aria-label="Toggle Assessments submenu"
+                        >
+                          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                      <ul class="mobile-nested-menu" hidden>
+                        <li><a href="/assessments/motivation-factor/" class="mobile-nested-link">Motivation Factor</a></li>
+                        <li><a href="/assessments/mcode/" class="mobile-nested-link">Mcode</a></li>
+                        <li><a href="/assessments/greenspire/" class="mobile-nested-link">Greenspire</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- Knowledge Hub Accordion -->
+                <li class="mobile-nav-item has-accordion">
+                  <div class="mobile-nav-row">
+                    <a href="/knowledge-hub/" class="mobile-nav-link">
+                      <span class="mobile-nav-text">
+                        <i class="fas fa-book-open mobile-nav-icon" aria-hidden="true"></i>Knowledge Hub
+                      </span>
+                    </a>
+                    <button
+                      type="button"
+                      class="mobile-accordion-btn"
+                      aria-expanded="false"
+                      aria-label="Toggle Knowledge Hub submenu"
+                    >
+                      <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
                   </div>
-                </div>
-              </div>
-              <div
-                class="vb-element vb-element-79e796b e-con-full e-flex e-con e-child"
-                data-id="79e796b"
-                data-element_type="container"
-                data-e-type="container"
-              >
-                <div
-                  class="vb-element vb-element-952c6f0 vb-widget vb-widget-text-editor"
-                  data-id="952c6f0"
-                  data-element_type="widget"
-                  data-e-type="widget"
-                  data-widget_type="text-editor.default"
-                >
-                  <div class="vb-widget-container">
-                    <p>
-                      <strong>VentureBean Consulting Pvt. Ltd.</strong><br />We Work Salarpuria Symbiosis,<br />Arekere
-                      Village<br />Begur Hobli,<br />Bannerghatta Road,<br />Bengaluru – 560076, India
-                    </p>
-                  </div>
-                </div>
-              </div>
+                  <ul class="mobile-sub-menu" hidden>
+                    <li><a href="/knowledge-hub/" class="mobile-sub-link">Knowledge Hub Overview</a></li>
+                    <li><a href="/knowledge-hub/media-spotlight/" class="mobile-sub-link">Media Spotlight</a></li>
+                    <li><a href="/knowledge-hub/industry-perspectives/" class="mobile-sub-link">Industry Perspectives</a></li>
+                    <li><a href="/knowledge-hub/toolkit/" class="mobile-sub-link">Toolkit</a></li>
+                    <li><a href="/knowledge-hub/insights/" class="mobile-sub-link">Insights</a></li>
+                  </ul>
+                </li>
+
+                <!-- Reach Us CTA -->
+                <li class="mobile-nav-cta">
+                  <a href="/contact-us/" class="mobile-cta-btn">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    <span>Reach Us</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+            <!-- 4. Drawer Footer Contact Info -->
+            <div class="mobile-drawer-footer">
+              <p class="mobile-company-title">VentureBean Consulting Pvt. Ltd.</p>
+              <p class="mobile-company-address">
+                We Work Salarpuria Symbiosis,<br />
+                Arekere Village, Begur Hobli,<br />
+                Bannerghatta Road, Bengaluru – 560076, India
+              </p>
             </div>
           </div>
         </div>
@@ -254,3 +255,529 @@
     </div>
   </div>
 </div>
+
+<style>
+  /* Mobile Header Action Buttons in Top Bar */
+  .mobile-header-btn-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-header-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: #1a1a1a;
+    font-size: 1.15rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  }
+
+  .mobile-header-icon-btn:hover,
+  .mobile-header-icon-btn:focus-visible {
+    background-color: #f7f7f7;
+    color: #8b2332;
+  }
+
+  .mobile-header-icon-btn:active {
+    transform: scale(0.94);
+  }
+
+  /* Drawer Container & Content Panel */
+  .mobile-drawer-content {
+    background-color: #ffffff !important;
+    width: min(340px, 86vw) !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.16) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 1. Drawer Header */
+  .mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eeeeee;
+    background-color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .mobile-drawer-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .mobile-drawer-logo img {
+    height: 34px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .mobile-drawer-close-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid #e5e5e5;
+    background: #fafafa;
+    color: #444444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .mobile-drawer-close-btn:hover,
+  .mobile-drawer-close-btn:focus-visible {
+    background-color: #fcf4f5;
+    color: #8b2332;
+    border-color: #8b2332;
+    transform: rotate(90deg);
+  }
+
+  /* 2. Quick Search */
+  .mobile-drawer-search {
+    padding: 14px 20px 8px;
+    background-color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .mobile-drawer-search-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .mobile-drawer-search-icon {
+    position: absolute;
+    left: 14px;
+    color: #888888;
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+
+  .mobile-drawer-search-input {
+    width: 100%;
+    height: 42px;
+    padding: 0 44px 0 38px;
+    font-size: 0.92rem;
+    color: #1a1a1a;
+    background-color: #f8f9fa;
+    border: 1px solid #dedede;
+    border-radius: 21px;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-drawer-search-input:focus {
+    background-color: #ffffff;
+    border-color: #8b2332;
+    box-shadow: 0 0 0 3px rgba(139, 35, 50, 0.12);
+  }
+
+  .mobile-drawer-search-submit {
+    position: absolute;
+    right: 4px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background-color: #8b2332;
+    color: #ffffff;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+  }
+
+  .mobile-drawer-search-submit:hover {
+    opacity: 0.9;
+  }
+
+  .mobile-drawer-search-submit:active {
+    transform: scale(0.92);
+  }
+
+  /* 3. Navigation Menu */
+  .mobile-drawer-nav {
+    flex: 1 1 auto;
+    padding: 8px 0;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mobile-nav-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #f2f2f2;
+  }
+
+  .mobile-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    padding: 13px 20px;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    transition: all 0.18s ease;
+  }
+
+  .mobile-nav-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mobile-nav-icon {
+    font-size: 1rem;
+    color: #8b2332;
+    width: 18px;
+    text-align: center;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link:focus-visible,
+  .mobile-nav-link.is-active {
+    color: #8b2332;
+    background-color: #fcf4f5;
+  }
+
+  /* Accordion Chevron Button */
+  .mobile-accordion-btn {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #777777;
+    font-size: 0.82rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-accordion-btn:hover,
+  .mobile-accordion-btn:focus-visible {
+    color: #8b2332;
+    background-color: #fcf4f5;
+  }
+
+  .mobile-accordion-btn.is-open i,
+  .mobile-accordion-btn[aria-expanded="true"] i {
+    transform: rotate(180deg);
+    color: #8b2332;
+  }
+
+  /* Submenus */
+  .mobile-sub-menu {
+    list-style: none;
+    margin: 0 0 0 20px;
+    padding: 4px 0 8px;
+    background-color: #fbfbfb;
+    border-left: 3px solid #8b2332;
+    animation: mobileSlideDown 0.2s ease-out;
+  }
+
+  .mobile-sub-menu[hidden] {
+    display: none !important;
+  }
+
+  @keyframes mobileSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .mobile-sub-menu li {
+    list-style: none;
+    margin: 0;
+  }
+
+  .mobile-sub-link {
+    display: block;
+    padding: 10px 18px;
+    color: #333333;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.18s ease;
+  }
+
+  .mobile-sub-link:hover,
+  .mobile-sub-link:focus-visible,
+  .mobile-sub-link.is-active {
+    color: #8b2332;
+    background-color: #f4eaec;
+    padding-left: 22px;
+  }
+
+  /* Nested Accordions */
+  .mobile-sub-nested {
+    border-top: 1px solid #f0f0f0;
+    margin-top: 4px;
+    padding-top: 2px;
+  }
+
+  .mobile-nested-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .mobile-nested-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #222222;
+    padding: 10px 18px;
+    flex: 1;
+  }
+
+  .mobile-nested-accordion-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #777777;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-nested-accordion-btn.is-open i,
+  .mobile-nested-accordion-btn[aria-expanded="true"] i {
+    transform: rotate(180deg);
+    color: #8b2332;
+  }
+
+  .mobile-nested-menu {
+    list-style: none;
+    margin: 0 0 6px 18px;
+    padding: 4px 0;
+    background-color: #f4f4f4;
+    border-left: 2px solid #b84050;
+    animation: mobileSlideDown 0.2s ease-out;
+  }
+
+  .mobile-nested-menu[hidden] {
+    display: none !important;
+  }
+
+  .mobile-nested-menu li {
+    list-style: none;
+  }
+
+  .mobile-nested-link {
+    display: block;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #444444;
+    text-decoration: none;
+    transition: all 0.18s ease;
+  }
+
+  .mobile-nested-link:hover,
+  .mobile-nested-link:focus-visible,
+  .mobile-nested-link.is-active {
+    color: #8b2332;
+    background-color: #ece0e2;
+    padding-left: 20px;
+  }
+
+  /* 4. Reach Us CTA Button */
+  .mobile-nav-cta {
+    list-style: none;
+    padding: 20px 20px 10px;
+  }
+
+  .mobile-cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #8b2332;
+    color: #ffffff !important;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(139, 35, 50, 0.26);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .mobile-cta-btn:hover,
+  .mobile-cta-btn:focus-visible {
+    background-color: #721c28;
+    box-shadow: 0 6px 16px rgba(139, 35, 50, 0.38);
+    transform: translateY(-1px);
+  }
+
+  .mobile-cta-btn:active {
+    transform: translateY(0);
+  }
+
+  /* 5. Drawer Footer */
+  .mobile-drawer-footer {
+    padding: 18px 20px 24px;
+    border-top: 1px solid #eeeeee;
+    background-color: #fafafa;
+    flex-shrink: 0;
+  }
+
+  .mobile-company-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+  }
+
+  .mobile-company-address {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #666666;
+    margin: 0;
+  }
+</style>
+
+<script>
+  function setupMobileNav() {
+    const drawer = document.getElementById('off-canvas-82f5101');
+    if (!drawer) return;
+
+    // Toggle accordions on chevron click
+    const accordionBtns = drawer.querySelectorAll<HTMLButtonElement>('.mobile-accordion-btn, .mobile-nested-accordion-btn');
+
+    accordionBtns.forEach((btn) => {
+      btn.replaceWith(btn.cloneNode(true));
+    });
+
+    const refreshedBtns = drawer.querySelectorAll<HTMLButtonElement>('.mobile-accordion-btn, .mobile-nested-accordion-btn');
+
+    refreshedBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+        const parentLi = btn.closest('li');
+        const targetSubmenu = parentLi?.querySelector<HTMLElement>(':scope > .mobile-sub-menu, :scope > .mobile-nested-menu');
+
+        if (!targetSubmenu) return;
+
+        if (isExpanded) {
+          btn.setAttribute('aria-expanded', 'false');
+          targetSubmenu.setAttribute('hidden', '');
+          btn.classList.remove('is-open');
+          targetSubmenu.classList.remove('is-open');
+        } else {
+          btn.setAttribute('aria-expanded', 'true');
+          targetSubmenu.removeAttribute('hidden');
+          btn.classList.add('is-open');
+          targetSubmenu.classList.add('is-open');
+        }
+      });
+    });
+
+    // Handle clicking "/services/" parent link to expand accordion rather than navigating to missing page
+    const servicesLink = drawer.querySelector<HTMLAnchorElement>('a[href="/services/"]');
+    if (servicesLink) {
+      servicesLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        const accordionBtn = servicesLink.parentElement?.querySelector<HTMLButtonElement>('.mobile-accordion-btn');
+        accordionBtn?.click();
+      });
+    }
+
+    // Mark active page in mobile drawer and auto-expand parent accordion
+    const norm = (p: string) => (p.endsWith('/') ? p : `${p}/`);
+    const currentPath = norm(window.location.pathname);
+    drawer.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link, .mobile-sub-link, .mobile-nested-link').forEach((a) => {
+      try {
+        const url = new URL(a.href, window.location.href);
+        if (url.origin === window.location.origin && norm(url.pathname) === currentPath) {
+          a.classList.add('is-active');
+          a.setAttribute('aria-current', 'page');
+          const subMenu = a.closest('.mobile-sub-menu, .mobile-nested-menu');
+          if (subMenu) {
+            subMenu.removeAttribute('hidden');
+            subMenu.classList.add('is-open');
+            const parentBtn = subMenu.parentElement?.querySelector('.mobile-accordion-btn, .mobile-nested-accordion-btn');
+            parentBtn?.setAttribute('aria-expanded', 'true');
+            parentBtn?.classList.add('is-open');
+
+            const ancestorMenu = subMenu.parentElement?.closest('.mobile-sub-menu');
+            if (ancestorMenu) {
+              ancestorMenu.removeAttribute('hidden');
+              ancestorMenu.classList.add('is-open');
+              const ancestorBtn = ancestorMenu.parentElement?.querySelector('.mobile-accordion-btn');
+              ancestorBtn?.setAttribute('aria-expanded', 'true');
+              ancestorBtn?.classList.add('is-open');
+            }
+          }
+        }
+      } catch {}
+    });
+  }
+
+  setupMobileNav();
+  document.addEventListener('astro:page-load', setupMobileNav);
+</script>
