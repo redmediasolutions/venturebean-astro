@@ -13,9 +13,10 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.3.5",
-    "swiper": "^8.4.7",
-    "firebase": "^12.19.0"
+    "firebase": "^12.19.0",
+    "swiper": "^8.4.7"
   },
   "overrides": {
     "@firebase/app": "0.16.2",
