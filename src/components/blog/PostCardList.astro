@@ -2,11 +2,8 @@
 /**
  * Cards for every published article in one category (Insights page tabs).
  * Articles come from the Content Manager (see src/lib/posts.ts).
- *
- * If the Content Manager has no articles yet, the cards saved from the
- * WordPress site (passed in as children) are shown instead.
  */
-import { getBlogPosts } from '../../lib/posts';
+import { getAllPosts, getBlogPosts } from '../../lib/posts';
 import PostCard from './PostCard.astro';
 
 interface Props {
@@ -14,8 +11,36 @@ interface Props {
 }
 
 const { category } = Astro.props;
+const rawAll = await getAllPosts();
 const all = await getBlogPosts();
-const posts = all?.filter((p) => p.categorySlugs.includes(category)) ?? [];
+
+console.log(`\n--- [PostCardList DEBUG] ---`);
+console.log(`Target category prop: "${category}"`);
+console.log(`Total raw posts in Firestore: ${rawAll?.length ?? 0}`);
+console.log(`getBlogPosts() returned:`, all ? `${all.length} posts` : 'null');
+
+if (rawAll && rawAll.length > 0) {
+  console.log(`Sample post categories in Firestore:`);
+  rawAll.slice(0, 5).forEach((p) => {
+    console.log(` - "${p.title}" -> categorySlugs:`, JSON.stringify(p.categorySlugs));
+  });
+}
+
+// Case-insensitive, trimmed match
+const target = category.toLowerCase().trim();
+const posts =
+  all?.filter((p) =>
+    p.categorySlugs.some((s) => String(s).toLowerCase().trim() === target)
+  ) ?? [];
+
+console.log(`Matched posts for "${category}": ${posts.length}`);
+console.log(`---------------------------\n`);
 ---
 
-{all ? posts.map((post) => <PostCard post={post} category={category} />) : <slot />}
+{
+  posts.length > 0 ? (
+    posts.map((post) => <PostCard post={post} category={category} />)
+  ) : (
+    <slot />
+  )
+}
