@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://venturebean.com/sitemap-index.xml
-Sitemap: https://venturebean.com/sitemap.xml
