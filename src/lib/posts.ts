@@ -1,5 +1,5 @@
 /**
- * Posts from the Content Manager, loaded once per build (published only).
+ * Posts from the Content Manager.
  *
  *   Insights (blog)        → categories "Consulting" + "Coaching"
  *   Knowledge Hub sections → see KNOWLEDGE_HUB below
@@ -109,8 +109,10 @@ async function loadAll(): Promise<BlogPost[] | null> {
     return null;
   }
   const db = getDb();
+
+  // Support both 'published' and 'publish' in case of legacy CMS naming
   const snap = await withTimeout(
-    getDocs(query(collection(db, 'posts'), where('status', '==', 'published')))
+    getDocs(query(collection(db, 'posts'), where('status', 'in', ['published', 'publish'])))
   );
 
   const now = Date.now();
@@ -119,7 +121,10 @@ async function loadAll(): Promise<BlogPost[] | null> {
     const p = d.data();
     const slugs: string[] = Array.isArray(p.categorySlugs) ? p.categorySlugs.map(String) : [];
     const publishedAt = toDate(p.publishedAt);
-    if (publishedAt && publishedAt.getTime() > now) continue;
+    
+    // Give 5 minutes of clock-drift tolerance for just-published articles
+    if (publishedAt && publishedAt.getTime() > now + 5 * 60 * 1000) continue;
+    
     const slug = String(p.slug ?? '').trim();
     const title = decodeEntities(String(p.title ?? '')).trim();
     if (!slug || !title) continue;
@@ -148,8 +153,18 @@ async function loadAll(): Promise<BlogPost[] | null> {
 
 let cached: Promise<BlogPost[] | null> | undefined;
 
-/** Every published post. Fetched once per build; null if Firebase can't be reached. */
+/**
+ * Loads posts freshly on every request during SSR or Dev.
+ * Only caches during static builds (`astro build` without SSR).
+ */
 export function getAllPosts(): Promise<BlogPost[] | null> {
+  if (import.meta.env.DEV || import.meta.env.SSR) {
+    return loadAll().catch((err) => {
+      console.warn(`[cms] Could not load posts from Firebase (${err?.message ?? err}) — pages keep their saved cards.`);
+      return null;
+    });
+  }
+
   cached ??= loadAll().catch((err) => {
     console.warn(`[cms] Could not load posts from Firebase (${err?.message ?? err}) — pages keep their saved cards.`);
     return null;

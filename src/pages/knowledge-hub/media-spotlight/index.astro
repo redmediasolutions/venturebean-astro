@@ -3,6 +3,8 @@
  * Media Spotlight page (Knowledge Hub → Media Spotlight) → /knowledge-hub/media-spotlight/
  * Each section lives in src/components/knowledge-hub/media-spotlight/.
  */
+export const prerender = false; // Renders on-demand on Vercel so new Firebase entries display instantly
+
 import Layout from '../../../layouts/Layout.astro';
 import HeroSlider from '../../../components/knowledge-hub/media-spotlight/HeroSlider.astro';
 import MediaTabs from '../../../components/knowledge-hub/media-spotlight/MediaTabs.astro';

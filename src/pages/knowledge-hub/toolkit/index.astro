@@ -3,6 +3,8 @@
  * Toolkit page (Knowledge Hub → Toolkit) → /knowledge-hub/toolkit/
  * Each section lives in src/components/knowledge-hub/toolkit/.
  */
+export const prerender = false; // Renders on-demand on Vercel so new Firebase toolkit items display instantly
+
 import Layout from '../../../layouts/Layout.astro';
 import HeroSlider from '../../../components/knowledge-hub/toolkit/HeroSlider.astro';
 import ToolkitHeadingMobile from '../../../components/knowledge-hub/toolkit/ToolkitHeadingMobile.astro';

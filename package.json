@@ -13,7 +13,7 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/vercel": "^11.0.21",
     "astro": "^7.3.5",
     "firebase": "^12.19.0",
     "swiper": "^8.4.7"
