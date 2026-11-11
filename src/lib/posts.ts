@@ -7,16 +7,19 @@
  * Each post: title, excerpt, content (HTML), featured image, date, and any
  * custom fields (e.g. link_url for media and video cards).
  */
-import { collection, getDocs, query, Timestamp, where } from 'firebase/firestore/lite';
+import {
+  collection,
+  getDocs,
+  limit,
+  query,
+  Timestamp,
+  where,
+} from 'firebase/firestore/lite';
 import { getDb, isCmsConfigured } from './firebase';
 
 export const BLOG_CATEGORY_SLUGS = ['consulting', 'coaching'] as const;
 export type BlogCategorySlug = (typeof BLOG_CATEGORY_SLUGS)[number];
 
-/**
- * Knowledge Hub pages and the Content Manager category slugs they show.
- * Several slugs are accepted in case a category was named a little differently.
- */
 export const KNOWLEDGE_HUB = {
   /** Media Spotlight → Publications tab */
   publications: ['media-spotlight'],
@@ -59,12 +62,15 @@ export interface BlogPost {
   customFields: Record<string, unknown>;
 }
 
-const TIMEOUT_MS = 45_000;
+const TIMEOUT_MS = 20_000;
+const CACHE_TTL_MS = 60_000; // 60 seconds memory cache in SSR / Dev to avoid quota exhaustion
 
 function withTimeout<T>(promise: Promise<T>): Promise<T> {
   return Promise.race([
     promise,
-    new Promise<T>((_, reject) => setTimeout(() => reject(new Error(`timed out after ${TIMEOUT_MS / 1000}s`)), TIMEOUT_MS)),
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`timed out after ${TIMEOUT_MS / 1000}s`)), TIMEOUT_MS)
+    ),
   ]);
 }
 
@@ -103,14 +109,51 @@ function toDate(v: unknown): Date | null {
   return null;
 }
 
-async function loadAll(): Promise<BlogPost[] | null> {
-  if (!isCmsConfigured) {
-    console.warn(`[cms] No Firebase keys found in ${process.cwd()}/.env. Blog articles won't be built (their links will 404); copy .env from the project you set up.`);
-    return null;
-  }
-  const db = getDb();
+function parsePostDocument(id: string, p: Record<string, unknown>, now = Date.now()): BlogPost | null {
+  const publishedAt = toDate(p.publishedAt);
+  // 5-minute clock drift margin
+  if (publishedAt && publishedAt.getTime() > now + 5 * 60 * 1000) return null;
 
-  // Support both 'published' and 'publish' in case of legacy CMS naming
+  const slug = String(p.slug ?? '').trim();
+  const title = decodeEntities(String(p.title ?? '')).trim();
+  if (!slug || !title) return null;
+
+  const slugs: string[] = Array.isArray(p.categorySlugs)
+    ? p.categorySlugs.map((s) => String(s).toLowerCase().trim())
+    : [];
+
+  const img = p.featuredImage as Record<string, unknown> | undefined;
+  const featuredImage = img?.url
+    ? {
+        url: String(img.url),
+        alt: decodeEntities(String(img.alt || title)),
+        width: num(img.width),
+        height: num(img.height),
+      }
+    : null;
+
+  return {
+    id,
+    title,
+    slug,
+    content: String(p.content ?? ''),
+    excerpt: decodeEntities(String(p.excerpt ?? '')),
+    featuredImage,
+    categorySlugs: slugs,
+    publishedAt,
+    seoTitle: decodeEntities(String(p.seoTitle || title)),
+    seoDescription: decodeEntities(String(p.seoDescription || p.excerpt || '')),
+    customFields: p.customFields && typeof p.customFields === 'object' ? (p.customFields as Record<string, unknown>) : {},
+  };
+}
+
+async function loadAllFromFirestore(): Promise<BlogPost[]> {
+  if (!isCmsConfigured) {
+    console.warn(`[cms] No Firebase keys configured.`);
+    return [];
+  }
+
+  const db = getDb();
   const snap = await withTimeout(
     getDocs(query(collection(db, 'posts'), where('status', 'in', ['published', 'publish'])))
   );
@@ -118,71 +161,64 @@ async function loadAll(): Promise<BlogPost[] | null> {
   const now = Date.now();
   const posts: BlogPost[] = [];
   for (const d of snap.docs) {
-    const p = d.data();
-    const slugs: string[] = Array.isArray(p.categorySlugs) ? p.categorySlugs.map(String) : [];
-    const publishedAt = toDate(p.publishedAt);
-    
-    // Give 5 minutes of clock-drift tolerance for just-published articles
-    if (publishedAt && publishedAt.getTime() > now + 5 * 60 * 1000) continue;
-    
-    const slug = String(p.slug ?? '').trim();
-    const title = decodeEntities(String(p.title ?? '')).trim();
-    if (!slug || !title) continue;
-    const img = p.featuredImage;
-    const featuredImage = img?.url
-      ? { url: String(img.url), alt: decodeEntities(String(img.alt || title)), width: num(img.width), height: num(img.height) }
-      : null;
-    posts.push({
-      id: d.id,
-      title,
-      slug,
-      content: String(p.content ?? ''),
-      excerpt: decodeEntities(String(p.excerpt ?? '')),
-      featuredImage,
-      categorySlugs: slugs,
-      publishedAt,
-      seoTitle: decodeEntities(String(p.seoTitle || title)),
-      seoDescription: decodeEntities(String(p.seoDescription || p.excerpt || '')),
-      customFields: p.customFields && typeof p.customFields === 'object' ? (p.customFields as Record<string, unknown>) : {},
-    });
+    const post = parsePostDocument(d.id, d.data() as Record<string, unknown>, now);
+    if (post) posts.push(post);
   }
+
   posts.sort((a, b) => (b.publishedAt?.getTime() ?? 0) - (a.publishedAt?.getTime() ?? 0));
   console.log(`[cms] Loaded ${posts.length} published posts from Firebase.`);
   return posts;
 }
 
-let cached: Promise<BlogPost[] | null> | undefined;
+// In-memory cache structure
+let cachedPosts: BlogPost[] | null = null;
+let lastFetchedAt = 0;
+let inFlightRequest: Promise<BlogPost[]> | null = null;
 
 /**
- * Loads posts freshly on every request during SSR or Dev.
- * Only caches during static builds (`astro build` without SSR).
+ * Loads posts using a 60-second TTL cache in SSR/Dev to save Firebase quota,
+ * while preventing concurrent duplicate requests (thundering herd).
  */
-export function getAllPosts(): Promise<BlogPost[] | null> {
-  if (import.meta.env.DEV || import.meta.env.SSR) {
-    return loadAll().catch((err) => {
-      console.warn(`[cms] Could not load posts from Firebase (${err?.message ?? err}) — pages keep their saved cards.`);
-      return null;
-    });
+export async function getAllPosts(): Promise<BlogPost[] | null> {
+  const now = Date.now();
+
+  // Return fresh in-memory data if within the TTL window
+  if (cachedPosts && now - lastFetchedAt < CACHE_TTL_MS) {
+    return cachedPosts;
   }
 
-  cached ??= loadAll().catch((err) => {
-    console.warn(`[cms] Could not load posts from Firebase (${err?.message ?? err}) — pages keep their saved cards.`);
-    return null;
-  });
-  return cached;
+  // Deduplicate simultaneous requests
+  if (!inFlightRequest) {
+    inFlightRequest = loadAllFromFirestore()
+      .then((data) => {
+        cachedPosts = data;
+        lastFetchedAt = Date.now();
+        return data;
+      })
+      .catch((err) => {
+        console.warn(`[cms] Firestore query failed (${err?.message ?? err}). Using fallback.`);
+        return cachedPosts ?? [];
+      })
+      .finally(() => {
+        inFlightRequest = null;
+      });
+  }
+
+  const results = await inFlightRequest;
+  return results.length ? results : null;
 }
 
-const inAny = (post: BlogPost, slugs: readonly string[]) => post.categorySlugs.some((s) => slugs.includes(s));
+const inAny = (post: BlogPost, slugs: readonly string[]) =>
+  post.categorySlugs.some((s) => slugs.includes(s.toLowerCase().trim()));
 
-/** Coaching + consulting articles (Insights). Null (→ keep the saved cards) if there are none. */
+/** Coaching + consulting articles (Insights). Null (→ keep saved cards) if empty. */
 export async function getBlogPosts(): Promise<BlogPost[] | null> {
   const all = await getAllPosts();
   const posts = all?.filter((p) => inAny(p, BLOG_CATEGORY_SLUGS)) ?? [];
-  if (all && posts.length === 0) console.warn('[cms] No published coaching or consulting posts — insights will keep the saved article cards.');
   return posts.length ? posts : null;
 }
 
-/** Posts for one Knowledge Hub section. Null (→ keep the saved cards) if there are none. */
+/** Posts for one Knowledge Hub section. */
 export async function getSectionPosts(section: KnowledgeHubSection): Promise<BlogPost[] | null> {
   const all = await getAllPosts();
   const posts = all?.filter((p) => inAny(p, KNOWLEDGE_HUB[section])) ?? [];
@@ -193,6 +229,40 @@ export async function getSectionPosts(section: KnowledgeHubSection): Promise<Blo
 export async function getArticlePosts(): Promise<BlogPost[]> {
   const all = (await getAllPosts()) ?? [];
   return all.filter((p) => inAny(p, ARTICLE_CATEGORY_SLUGS));
+}
+
+/**
+ * Single-post query: Checks memory cache first.
+ * If not present, queries only that single post document instead of all 210 documents.
+ */
+export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+  if (cachedPosts) {
+    const found = cachedPosts.find((p) => p.slug === slug);
+    if (found) return found;
+  }
+
+  if (!isCmsConfigured) return null;
+
+  try {
+    const db = getDb();
+    const snap = await withTimeout(
+      getDocs(
+        query(
+          collection(db, 'posts'),
+          where('slug', '==', slug),
+          where('status', 'in', ['published', 'publish']),
+          limit(1)
+        )
+      )
+    );
+
+    if (snap.empty) return null;
+    const doc = snap.docs[0];
+    return parsePostDocument(doc.id, doc.data() as Record<string, unknown>);
+  } catch (err: any) {
+    console.warn(`[cms] Single-post lookup for "${slug}" failed:`, err?.message ?? err);
+    return null;
+  }
 }
 
 /** "Link" custom field (link_url): where a media/video card opens. */

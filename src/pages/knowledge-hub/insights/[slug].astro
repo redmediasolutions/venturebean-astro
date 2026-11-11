@@ -3,22 +3,28 @@
  * Blog article → /<slug>/  (same addresses as on WordPress)
  * One page per published Coaching, Consulting, Industry Perspectives and
  * Framework (Toolkit) post in the Content Manager.
- * The pieces are in src/components/blog/article/.  TEST
+ * The pieces are in src/components/blog/article/.
  */
-export const prerender = false; // <-- 1. Enables on-demand SSR for new posts
+export const prerender = false;
 
 import Layout from '../../../layouts/Layout.astro';
 import ArticleHero from '../../../components/blog/article/ArticleHero.astro';
 import ArticleHeroMobile from '../../../components/blog/article/ArticleHeroMobile.astro';
 import ArticleBody from '../../../components/blog/article/ArticleBody.astro';
 import RelatedPosts from '../../../components/blog/article/RelatedPosts.astro';
-import { getArticlePosts, postPath, reportPdfOf, type BlogPost } from '../../../lib/posts';
+import {
+  getPostBySlug,
+  getArticlePosts,
+  postPath,
+  reportPdfOf,
+  type BlogPost,
+} from '../../../lib/posts';
 import { formatDate, prepareContent } from '../../../lib/article';
 
-// 2. Read the slug from the incoming URL parameter
+// 1. Read the slug from the incoming URL parameter
 const { slug } = Astro.params;
 
-// Reserved slugs already used by site pages
+// Reserved static slugs already handled by distinct pages
 const reserved = new Set([
   'about-us',
   'business-consulting',
@@ -41,30 +47,39 @@ if (!slug || reserved.has(slug)) {
   return Astro.redirect('/404');
 }
 
-// 3. Fetch the posts dynamically on-demand
-const all = (await getArticlePosts()) ?? [];
-const post = all.find((p) => p.slug === slug);
+// 2. Fetch target post directly (1 read from Firestore or memory cache)
+const post = await getPostBySlug(slug);
 
-// If the post does not exist or isn't published, return 404
 if (!post) {
   return Astro.redirect('/404');
 }
 
 const { html: content, toc } = prepareContent(post.content);
 
-// "Continue reading" shows more posts from the article's own category.
+// 3. Determine category for "Continue reading" section
+const postCategorySlugs = post.categorySlugs.map((s) => s.toLowerCase().trim());
 const category =
-  ['coaching', 'consulting'].find((c) => post.categorySlugs.includes(c)) ??
-  post.categorySlugs.find((c) => all.some((p) => p !== post && p.categorySlugs.includes(c))) ??
-  post.categorySlugs[0] ??
+  ['coaching', 'consulting'].find((c) => postCategorySlugs.includes(c)) ??
+  postCategorySlugs[0] ??
   'consulting';
 
-const related = all.filter((p) => p.slug !== post.slug && p.categorySlugs.includes(category)).slice(0, 4);
+// 4. Fetch related articles (reads from the 60-second in-memory cache)
+const all = (await getArticlePosts()) ?? [];
+const related = all
+  .filter(
+    (p) =>
+      p.slug !== post.slug &&
+      p.categorySlugs.some((s) => s.toLowerCase().trim() === category)
+  )
+  .slice(0, 4);
+
 const date = formatDate(post.publishedAt);
 const reportPdf = reportPdfOf(post);
-const download = reportPdf ? { pdf: reportPdf, postId: post.id, slug: post.slug, title: post.title } : null;
+const download = reportPdf
+  ? { pdf: reportPdf, postId: post.id, slug: post.slug, title: post.title }
+  : null;
 
-// Featured image as the background of the header's image box (desktop + mobile).
+// Featured image styling for the header background
 const image = post.featuredImage?.url;
 const heroCss = image
   ? `<style>` +
