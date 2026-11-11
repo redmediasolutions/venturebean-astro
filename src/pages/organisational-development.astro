@@ -1,0 +1,237 @@
+---
+/**
+ * Organisational Development page → /organisational-development/
+ * Content: "Organisational Development Page_V1_16thOct26" (client's Drive).
+ * Built from the Consulting page's sections (src/components/service-pages/).
+ */
+import Layout from '../layouts/Layout.astro';
+import ServiceHero from '../components/service-pages/ServiceHero.astro';
+import ServiceText from '../components/service-pages/ServiceText.astro';
+import ServiceAudience from '../components/service-pages/ServiceAudience.astro';
+import ServiceCards from '../components/service-pages/ServiceCards.astro';
+import ServiceSteps from '../components/service-pages/ServiceSteps.astro';
+import ServiceTiles from '../components/service-pages/ServiceTiles.astro';
+import ServiceCta from '../components/service-pages/ServiceCta.astro';
+import ServiceFaqs from '../components/service-pages/ServiceFaqs.astro';
+
+const U = '/assets/uploads';
+const list = (s: string) => s.split(/,\s*|\s+and\s+(?=[^,]*$)/).map((x) => x.trim()).filter(Boolean).map((x) => x[0].toUpperCase() + x.slice(1));
+
+const focusAreas = [
+  {
+    title: 'Leadership Alignment & Team Effectiveness',
+    text: '<p>Help leadership teams establish shared priorities, clarify expectations and work towards common business outcomes. Through facilitated workshops and team coaching, we strengthen trust, collective decision-making and leadership accountability.</p>',
+    items: list('leadership alignment, executive team coaching, shared priorities, collective decision-making and team effectiveness'),
+  },
+  {
+    title: 'Cross-Functional Collaboration & Organisational Communication',
+    text: '<p>Improve coordination between departments, address working silos and establish clearer communication across teams. Help leaders manage interdependencies, resolve competing priorities and strengthen collaboration across the organisation.</p>',
+    items: list('cross-functional collaboration, organisational communication, conflict resolution, stakeholder coordination and interdepartmental effectiveness'),
+  },
+  {
+    title: 'Role Clarity, Delegation & Succession Planning',
+    text: '<p>Establish clear roles, responsibilities, decision rights and accountability at different levels of the organisation. Strengthen delegation practices, reduce unnecessary escalation to senior leaders and prepare potential successors for critical positions.</p>',
+    items: list('role clarity, decision authority, delegation, succession planning, leadership pipeline and leadership continuity'),
+  },
+  {
+    title: 'People Management & Leadership Accountability',
+    text: '<p>Equip managers to set clear expectations, provide constructive feedback, manage performance and develop their teams. Strengthen ownership at every level by connecting individual responsibilities with team objectives and organisational goals.</p>',
+    items: list('manager effectiveness, people management, performance management, feedback, coaching skills, accountability and employee development'),
+  },
+  {
+    title: 'Sales Leadership & Coaching',
+    text: '<p>Develop sales leaders who can coach their teams, strengthen sales execution and build consistent performance. Connect sales strategy with pipeline discipline, customer engagement and revenue objectives.</p><p>Help sales managers improve opportunity reviews, sales conversations, feedback and individual development. Equip sales professionals to strengthen consultative selling, value articulation, objection handling and negotiation.</p>',
+    items: list('sales leadership, sales coaching, pipeline management, consultative selling, customer engagement, negotiation, objection handling and sales performance reviews'),
+  },
+  {
+    title: 'Conflict Resolution, Psychological Safety & Inclusive Culture',
+    text: '<p>Help leaders navigate difficult conversations, manage disagreements constructively and build an environment where people can express concerns, contribute ideas and challenge assumptions respectfully. Combine psychological safety with clear expectations, responsible behaviour and performance accountability.</p>',
+    items: list('conflict resolution, difficult conversations, psychological safety, inclusive leadership, trust, constructive challenge and team culture'),
+  },
+];
+
+const programmes = [
+  {
+    title: 'Leadership & Team Development',
+    text: '',
+    label: 'Programmes',
+    items: [
+      'Leadership alignment and effectiveness workshops',
+      'Executive and senior management team coaching',
+      'Cross-functional collaboration programmes',
+      'Team communication and decision-making workshops',
+    ],
+  },
+  {
+    title: 'Management & Organisational Effectiveness',
+    text: '',
+    label: 'Programmes',
+    items: [
+      'Manager effectiveness and people management',
+      'Role clarity, delegation and decision-making',
+      'Leadership accountability and performance management',
+      'Succession planning and leadership continuity',
+    ],
+  },
+  {
+    title: 'Sales Leadership & Sales Capability',
+    text: '',
+    label: 'Programmes',
+    items: [
+      'Sales leadership development and coaching',
+      'Sales manager coaching skills',
+      'Consultative selling and customer engagement',
+      'Sales funnel and pipeline management',
+      'Negotiation and objection-handling workshops',
+      'Sales performance reviews and accountability',
+    ],
+  },
+  {
+    title: 'Culture & Behavioural Development',
+    text: '',
+    label: 'Programmes',
+    items: [
+      'Conflict resolution and difficult conversations',
+      'Psychological safety and inclusive leadership',
+      'Experiential learning and management simulations',
+      'Team effectiveness and behavioural development',
+    ],
+  },
+];
+
+const faqs = [
+  {
+    q: 'What is organisational development?',
+    a: 'Organisational development is a structured approach to improving how an organisation functions by strengthening leadership, team effectiveness, communication, culture and management practices. It helps align people and organisational capabilities with business objectives.',
+  },
+  {
+    q: 'What do organisational development services include?',
+    a: "Organisational development services may include leadership alignment, team coaching, cross-functional collaboration, manager development, role clarity, delegation, succession planning, conflict resolution and sales leadership development. The scope depends on the organisation's needs and priorities.",
+  },
+  {
+    q: 'How is organisational development different from corporate training?',
+    a: 'Corporate training generally focuses on developing specific knowledge or skills. Organisational development takes a broader view, addressing the leadership behaviours, team dynamics and working practices that influence organisational performance. It may include training, coaching, facilitated interventions and changes to management practices.',
+  },
+  {
+    q: 'How long does an organisational development programme take?',
+    a: 'Duration depends on the scope, the number of teams involved and the outcomes expected. A focused workshop or coaching intervention may address a specific need, while broader leadership and organisational development initiatives may require a structured programme over several months.',
+  },
+  {
+    q: 'How do you measure the success of organisational development?',
+    a: "Success measures are agreed at the outset and linked to the engagement's objectives. Depending on the programme, these may include improved decision-making, stronger accountability, better cross-functional coordination, increased management effectiveness or improvements in relevant business performance indicators.",
+  },
+];
+---
+
+<Layout
+  page="business-consulting"
+  title="Organisational Development Services | VentureBean"
+  description="Organisational development services to strengthen leadership, improve team effectiveness, build management capability and enhance business performance."
+  canonical="https://venturebean.com/organisational-development/"
+  image={`https://venturebean.com${U}/2025/11/campaign-creators-gMsnXqILjp4-unsplash-scaled.jpg`}
+>
+  <div data-vb-type="site-page" data-vb-id="19847" class="vb vb-19847 vb-service-page" data-vb-post-type="page">
+    <ServiceHero
+      title="Organisational Development Services That Improve Business Performance"
+      description="Align Leadership. Strengthen Teams. Improve Business Performance."
+      image={`${U}/2025/11/campaign-creators-gMsnXqILjp4-unsplash-scaled.jpg`}
+      imageAlt="Leadership team in a workshop | VentureBean"
+      buttonText="Book a Discovery Call"
+    />
+
+    <ServiceText
+      title="Organisational Development That Drives Business Performance"
+      html={`<p>As organisations grow, leadership misalignment, unclear responsibilities and weak cross-functional coordination can slow execution and create unnecessary management dependency. Even capable individuals can struggle to deliver collective results when priorities conflict, decisions are delayed and accountability is inconsistent.</p>
+<p>VentureBean’s Organisational Development services help organisations <b>strengthen leadership effectiveness, improve team performance and establish the people practices needed for sustained business performance</b>. We work with leadership teams, managers and functional heads to align priorities, clarify decision-making authority, improve collaboration and build accountability across the organisation.</p>
+<p>Our approach connects leadership development with organisational priorities, helping translate individual capability and team learning into improved execution.</p>`}
+    />
+
+    <ServiceAudience
+      title="Who We Work With"
+      cards={[
+        {
+          title: 'Executive Leadership',
+          text: 'Align strategic priorities, strengthen collective leadership and improve organisation-wide decision-making, governance and accountability.',
+          image: `${U}/2025/09/boss-with-his-new-workers-modern-office-speaking-about-presentation-with-laptop-scaled.jpg`,
+        },
+        {
+          title: 'Senior Management',
+          text: 'Build leadership cohesion, resolve cross-functional challenges and establish shared ownership of business objectives and organisational outcomes.',
+          image: `${U}/2026/06/businesswoman-leading-office-discussion.webp`,
+        },
+        {
+          title: 'Functional Leadership',
+          text: 'Improve coordination across departments, clarify decision rights and strengthen collaboration between functions to support efficient execution.',
+          image: `${U}/2025/09/smiling-business-lady-working-with-colleagues-scaled.jpg`,
+        },
+        {
+          title: 'Mid-Management',
+          text: 'Develop people management, delegation, feedback and performance management capabilities so managers can lead teams effectively and take greater ownership of results.',
+          image: `${U}/2025/12/amy-hirschi-JaoVGh5aJ3E-unsplash-scaled.jpg`,
+        },
+      ]}
+    />
+
+    <ServiceCards title="Our Organisational Development Focus Areas" cards={focusAreas.map((c) => ({ ...c, label: 'Focus areas' }))} />
+
+    <ServiceCards
+      title="Our Organisational Development Programmes"
+      intro="<p>VentureBean delivers structured programmes and facilitated interventions based on organisational priorities, capability gaps and desired outcomes.</p><p>Programmes may be delivered through focused workshops, individual coaching, team coaching, experiential learning or structured development journeys. The format and duration depend on the organisation’s priorities and the outcomes expected.</p>"
+      cards={programmes}
+    />
+
+    <ServiceSteps
+      title="Our Approach"
+      steps={[
+        { title: 'Baseline', icon: 'fas fa-search', items: ['Assess the organisational context, leadership dynamics, team effectiveness and current development needs.'] },
+        { title: 'Benchmark', icon: 'far fa-chart-bar', items: ['Identify capability gaps, establish priorities and align development objectives with organisational goals.'] },
+        { title: 'Analyse & Action Plan', icon: 'fas fa-clipboard-list', items: ['Translate findings into a structured development plan with clear activities, responsibilities and success measures.'] },
+        { title: 'Implement', icon: 'fas fa-cogs', items: ['Deliver targeted workshops, coaching and experiential interventions that address identified needs and build practical workplace capabilities.'] },
+        { title: 'Sustain', icon: 'fas fa-sync-alt', items: ['Track progress, reinforce desired behaviours and integrate learning into everyday leadership and management practices.'] },
+      ]}
+    />
+
+    <ServiceTiles
+      title="Outcomes We Work Towards"
+      subtitle="Our organisational development programmes strengthen leadership, teamwork and business performance. Success measures are agreed at the beginning of each engagement and aligned with the organisation’s specific development objectives."
+      tiles={[
+        { icon: 'fas fa-bullseye', text: 'Stronger leadership alignment and strategic execution' },
+        { icon: 'fas fa-sitemap', text: 'Clearer roles, delegation and decision-making authority' },
+        { icon: 'fas fa-people-arrows', text: 'Better cross-functional collaboration and communication' },
+        { icon: 'fas fa-user-check', text: 'Improved people management and team accountability' },
+        { icon: 'fas fa-chart-line', text: 'Stronger sales leadership, pipeline management and conversion' },
+        { icon: 'fas fa-handshake', text: 'Better succession planning, conflict resolution and inclusive culture' },
+      ]}
+    />
+
+    <ServiceText
+      title="Why VentureBean? Connecting People Development with Business Performance"
+      html={`<p>Organisational challenges often require more than training alone. They may involve unclear structures, overlapping responsibilities, inconsistent management practices or gaps in leadership capability.</p>
+<p>VentureBean brings together <a href="/business-consulting/">business consulting</a>, <a href="/coaching/">executive coaching</a> and leadership development to address these connected challenges. This allows us to work on both the capabilities people need and the organisational practices that enable them to perform effectively.</p>
+<p>Our approach combines structured assessment, facilitated learning, practical business situations and experiential methods. Development activities are linked to organisational priorities, with an emphasis on workplace application, accountability and sustained improvement.</p>
+<div class="vb-sp-links">
+  <div><h3>Explore our related services</h3><ul>
+    <li><a href="/venturebean-solutions-page/">Leadership Development and Coaching</a></li>
+    <li><a href="/venturebean-solutions-page/">Business and People Transformation</a></li>
+    <li><a href="/coaching/">Executive and Leadership Coaching</a></li>
+    <li><a href="/assessments/">Leadership Assessment</a></li>
+  </ul></div>
+  <div><h3>Explore our work</h3><ul>
+    <li><a href="/coaching-case-studies/">Organisational Development Case Studies</a></li>
+    <li><a href="/consulting-case-studies/">Consulting Case Studies</a></li>
+    <li><a href="/testimonials/">Client Testimonials</a></li>
+  </ul></div>
+</div>`}
+    />
+
+    <ServiceCta
+      title="Strengthen Your Organisation from Within"
+      html="<p>Develop leaders who work towards shared goals, managers who build capable teams and functions that collaborate effectively. Equip your organisation with the leadership capabilities and working practices required to improve execution and support sustainable growth.</p><p><b>Discuss your organisational development priorities:</b> book a discovery call with VentureBean to explore the development needs of your leadership teams and organisation.</p>"
+      buttonText="Book a Discovery Call"
+      buttonHref="/contact-us/"
+      secondary={{ text: 'Testimonials', href: '/testimonials/' }}
+    />
+
+    <ServiceFaqs faqs={faqs} />
+  </div>
+</Layout>

@@ -1,0 +1,204 @@
+---
+/**
+ * Assessment page → /assessments/
+ * Content: "Assessment Page_V1_16thOct26" (client's Drive).
+ * Built from the Consulting page's sections (src/components/service-pages/).
+ */
+import Layout from '../layouts/Layout.astro';
+import ServiceHero from '../components/service-pages/ServiceHero.astro';
+import ServiceText from '../components/service-pages/ServiceText.astro';
+import ServiceCards from '../components/service-pages/ServiceCards.astro';
+import ServiceSteps from '../components/service-pages/ServiceSteps.astro';
+import ServiceTiles from '../components/service-pages/ServiceTiles.astro';
+import ServiceCta from '../components/service-pages/ServiceCta.astro';
+import ServiceFaqs from '../components/service-pages/ServiceFaqs.astro';
+
+const U = '/assets/uploads';
+
+const faqs = [
+  {
+    q: 'What is a leadership assessment?',
+    a: 'A leadership assessment evaluates relevant strengths, competencies and development needs against role expectations and future responsibilities.',
+  },
+  {
+    q: 'What is an assessment centre?',
+    a: 'An assessment centre combines structured methods, such as behavioural event interviews and case-based discussions, to evaluate competencies relevant to a particular role.',
+  },
+  {
+    q: 'Which assessment tools does VentureBean use?',
+    a: 'VentureBean collaborates with Motivation Factor, MCode and Greenspire. Other instruments, including Hogan Assessments and Gallup CliftonStrengths, may be considered where appropriate and available.',
+  },
+  {
+    q: 'Does leadership assessment include coaching?',
+    a: 'Coaching can follow an assessment to support individual development. Organisational programmes may also include small-group workshops, depending on the agreed objectives.',
+  },
+  {
+    q: 'Can leadership assessments support succession planning?',
+    a: 'Yes. Assessment findings can inform discussions about readiness for future roles, identify capability gaps and guide development priorities. Decisions should also consider performance, experience and role requirements.',
+  },
+];
+---
+
+<Layout
+  page="business-consulting"
+  title="Leadership Assessment for Individuals, Teams and Organisations | VentureBean"
+  description="Leadership assessments, assessment centres and behavioural insights to identify strengths, development priorities and readiness for greater responsibility."
+  canonical="https://venturebean.com/assessments/"
+  image={`https://venturebean.com${U}/2025/08/business-consultation.jpg`}
+>
+  <div data-vb-type="site-page" data-vb-id="19847" class="vb vb-19847 vb-service-page" data-vb-post-type="page">
+    <ServiceHero
+      title="Leadership Assessment for Individuals, Teams and Organisations"
+      description="Understand Capabilities. Identify Gaps. Develop Leaders."
+      image={`${U}/2025/08/business-consultation.jpg`}
+      imageAlt="Reviewing assessment results | VentureBean"
+      buttonText="Book a Free Discovery Session"
+    />
+
+    <ServiceText
+      title="Make Leadership Development Purposeful, Relevant and Actionable"
+      html={`<p>Effective leadership development starts with understanding current capabilities and the demands of future roles. Without a clear baseline, development efforts can miss the areas that matter most.</p>
+<p>VentureBean combines <b>leadership assessments, competency evaluation and behavioural insights</b> to identify strengths, development priorities and readiness for greater responsibility. Our Leadership Journey connects assessment with <a href="/organisational-development/">organisational development</a> workshops and <a href="/coaching/">coaching</a>, aligning individual growth with business objectives.</p>
+<p>Our focus is simple: make leadership development purposeful, relevant and actionable.</p>`}
+    />
+
+    <ServiceCards
+      title="Our Assessment Services"
+      cards={[
+        {
+          title: 'Individual Assessment',
+          text: '<p><b>Understand your strengths. Clarify your development priorities.</b></p><p>Individual leadership assessments help professionals understand their motivational drivers, recognise their strengths and identify capabilities to develop for career progression or greater responsibility.</p>',
+          label: 'Focus areas',
+          items: ['Motivation', 'Self-awareness', 'Leadership potential', 'Career direction', 'Development planning'],
+        },
+        {
+          title: 'Team Assessment',
+          text: '<p><b>Strengthen collaboration and collective performance.</b></p><p>Team assessments explore individual motivations, working preferences and collective strengths to identify opportunities to improve communication, collaboration and alignment around shared objectives.</p>',
+          label: 'Focus areas',
+          items: ['Team dynamics', 'Motivation', 'Collaboration', 'Alignment', 'Collective effectiveness'],
+        },
+        {
+          title: 'Organisational Assessment',
+          text: '<p><b>Build a baseline for leadership capability and talent development.</b></p><p>Organisational assessments evaluate leadership and functional competencies against role expectations and future business requirements. The findings help organisations prioritise development investments and inform succession planning, talent development and leadership readiness.</p>',
+          label: 'Focus areas',
+          items: ['Competency gaps', 'Leadership readiness', 'Functional capability', 'Succession planning', 'Business priorities'],
+        },
+      ]}
+    />
+
+    <ServiceCards
+      title="Our Assessment Methods"
+      intro="<p>VentureBean selects appropriate assessment tools and evaluation methods according to each engagement's objectives. These may include specialised assessments, behavioural event interviews and case-based discussions.</p><p><b>Assessment tools.</b> We collaborate with specialist providers to support individual, team and organisational development. Additional instruments, including Hogan Assessments and Gallup CliftonStrengths, may be considered where suitable and available through the relevant practitioner arrangements.</p>"
+      cards={[
+        {
+          title: 'Motivation Factor',
+          text: '<p>The Motivation Factor assessment provides insights into motivational drivers and the conditions that support engagement. The findings can inform individual development and help organisations identify opportunities to strengthen motivation and performance.</p>',
+          link: { href: 'https://motivationfactor.com/', text: 'Visit Motivation Factor', external: true },
+        },
+        {
+          title: 'MCode (Motivation Code)',
+          text: '<p>MCode explores the motivational patterns behind personally meaningful achievements. It helps individuals understand what energises them, how they contribute and which working conditions may enable them to perform at their best.</p>',
+          link: { href: 'https://motivationcode.com/', text: 'Visit MCode', external: true },
+        },
+        {
+          title: 'GiANT 5 Voices',
+          text: '<p>GiANT’s 5 Voices assessment helps individuals understand their communication styles, leadership preferences and contributions within a team. The insights can inform leadership development, strengthen working relationships and help teams improve communication and collaboration.</p>',
+          link: { href: 'https://www.giantworldwide.com/', text: 'Visit GiANT', external: true },
+        },
+      ]}
+    />
+
+    <ServiceCards
+      title="Assessment Centre"
+      intro="<p><b>Evaluate Competencies. Inform Talent Decisions.</b></p><p>Our assessment centre approach combines role-specific evaluation methods to examine demonstrated behaviours, functional capabilities and decision-making. Methods are selected according to the competencies and responsibilities relevant to each role.</p>"
+      cards={[
+        {
+          title: 'Leadership Behavioural Event Interview (BEI)',
+          text: '<p>Examines past leadership experiences to evaluate behaviours related to decision-making, accountability, stakeholder management, communication and people leadership.</p>',
+        },
+        {
+          title: 'Functional Behavioural Event Interview (BEI)',
+          text: '<p>Evaluates functional expertise, problem-solving, judgement and execution against the requirements of a specific professional discipline.</p>',
+        },
+        {
+          title: 'Case-Based Discussion',
+          text: '<p>Assesses how individuals analyse business situations, establish priorities, evaluate alternatives and communicate recommendations. Depending on the case, this may include strategic thinking and commercial awareness.</p>',
+        },
+      ]}
+    />
+
+    <ServiceSteps
+      title="How the Assessment Centre Works"
+      subtitle="Outcome: an evidence-informed view of role-related capabilities and development needs to support talent development, internal mobility, succession planning and leadership readiness decisions."
+      steps={[
+        { title: 'Define', icon: 'fas fa-bullseye', items: ['Establish role expectations and the competencies to be assessed.'] },
+        { title: 'Assess', icon: 'fas fa-comments', items: ['Conduct structured interviews and case-based discussions.'] },
+        { title: 'Evaluate', icon: 'fas fa-balance-scale', items: ['Map the evidence against agreed competency criteria.'] },
+        { title: 'Recommend', icon: 'fas fa-route', items: ['Identify strengths, development priorities and appropriate next steps.'] },
+      ]}
+    />
+
+    <ServiceSteps
+      title="The VentureBean Leadership Journey"
+      subtitle="Assessment establishes the baseline. Workshops and coaching translate the findings into focused development and practical action."
+      steps={[
+        {
+          title: 'Module 1: Assessment & Baselining',
+          icon: 'fas fa-clipboard-check',
+          items: ['Identify current capabilities, motivations and development priorities through individual assessments, team assessments or a structured assessment centre.'],
+        },
+        {
+          title: 'Module 2: Organisational Development Workshops',
+          icon: 'fas fa-users',
+          items: ['Develop shared capabilities through small-group workshops focused on leadership effectiveness, managerial skills, team alignment, communication, commercial acumen and cross-functional collaboration.'],
+          link: { href: '/organisational-development/', text: 'Organisational Development' },
+        },
+        {
+          title: 'Module 3: Coaching',
+          icon: 'fas fa-user-tie',
+          items: ['Support individuals and small teams in applying assessment insights to workplace challenges, strengthening leadership behaviours and progressing towards agreed development goals.'],
+          link: { href: '/coaching/', text: 'Coaching' },
+        },
+      ]}
+    />
+
+    <ServiceCards
+      title="Pathways to Leadership Development"
+      intro="<p>The approach can be adapted for founders, senior executives, emerging leaders, functional specialists, managers and leadership teams.</p><p>The Leadership Journey can be taken as individual modules or combined into a customised programme. The right combination depends on the organisation's objectives, leadership level, participant group and development requirements.</p>"
+      cards={[
+        {
+          title: 'For Individual Professionals',
+          text: '<p>Understand personal strengths and development needs, then use focused coaching to work towards career progression, stronger leadership effectiveness or readiness for a new role.</p>',
+          label: 'Pathway',
+          items: ['Assessment → One-to-One Coaching'],
+        },
+        {
+          title: 'For Organisations',
+          text: '<p>Connect individual capabilities with business priorities, build shared leadership skills and support the application of learning through coaching.</p>',
+          label: 'Pathway',
+          items: ['Assessment → Workshops → Coaching (group or 1:1)'],
+        },
+      ]}
+    />
+
+    <ServiceTiles
+      title="Turn Assessment Insights into Development"
+      subtitle="A structured leadership assessment helps organisations direct development resources towards identified needs rather than relying solely on generic training. It can support:"
+      tiles={[
+        { icon: 'fas fa-crosshairs', text: 'Targeted development: address specific competency gaps' },
+        { icon: 'fas fa-level-up-alt', text: 'Succession planning: identify capabilities to develop for future roles' },
+        { icon: 'fas fa-puzzle-piece', text: 'Role alignment: connect individual strengths with role requirements' },
+        { icon: 'fas fa-tasks', text: 'Progress reviews: track development against agreed objectives and relevant measures' },
+      ]}
+    />
+
+    <ServiceCta
+      title="Start with a Clear Baseline. Build the Capabilities Your Next Stage Requires."
+      html="<p>By connecting assessment findings with business priorities, VentureBean helps organisations give leadership development a defined purpose and direction.</p>"
+      buttonText="Book a Free Discovery Session"
+      buttonHref="/contact-us/"
+    />
+
+    <ServiceFaqs faqs={faqs} />
+  </div>
+</Layout>

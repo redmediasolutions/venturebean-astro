@@ -1,0 +1,84 @@
+---
+/**
+ * Services landing page → /services/
+ * Content: "Our Services_Landing Page_V1_16thOct26" (client's Drive).
+ * Built from the Consulting page's sections (src/components/service-pages/).
+ */
+import Layout from '../layouts/Layout.astro';
+import ServiceHero from '../components/service-pages/ServiceHero.astro';
+import ServiceText from '../components/service-pages/ServiceText.astro';
+import ServiceAudience from '../components/service-pages/ServiceAudience.astro';
+import ServiceCta from '../components/service-pages/ServiceCta.astro';
+
+const U = '/assets/uploads';
+---
+
+<Layout
+  page="business-consulting"
+  title="Business Consulting, Coaching & Organisational Development Services | VentureBean"
+  description="VentureBean brings together business consulting, coaching, organisational development and assessment to improve performance, develop leaders and build organisations for growth."
+  canonical="https://venturebean.com/services/"
+  image={`https://venturebean.com${U}/2025/06/Venturebean-27.jpeg`}
+>
+  <div data-vb-type="site-page" data-vb-id="19847" class="vb vb-19847 vb-service-page" data-vb-post-type="page">
+    <ServiceHero
+      title="Business Consulting, Coaching and Organisational Development Services"
+      description="Consulting, coaching, organisational development and assessment to improve performance, develop leaders and build organisations for growth."
+      image={`${U}/2025/06/Venturebean-27.jpeg`}
+      imageAlt="Business leaders | VentureBean"
+      buttonText="Book a Discovery Call"
+    />
+
+    <ServiceText
+      title="Strengthen Businesses. Develop Leaders. Build Organisations for Growth."
+      html={`<p>Sustainable business growth requires the right strategy, capable leaders, effective teams and systems that support consistent execution. When these elements are not aligned, organisations can struggle to improve performance, manage complexity and prepare for their next stage of growth.</p>
+<p>VentureBean brings together <b>business consulting, coaching, organisational development and assessment</b> to improve business performance, strengthen leadership capability and build organisations equipped for sustainable growth.</p>
+<p>Our services address business priorities at organisational, team and individual levels. Each engagement is aligned with defined objectives and supported by practical methodologies focused on measurable outcomes.</p>`}
+    />
+
+    <ServiceAudience
+      title="Our Services"
+      intro="<p><b>Four Service Pillars. One Focus on Business and People Performance.</b></p><p>Every organisation has different priorities as it grows. VentureBean brings together business consulting, coaching, organisational development and assessment to help businesses improve performance, develop leaders and build the capabilities required for sustainable growth.</p>"
+      cards={[
+        {
+          title: 'Business Consulting',
+          text: '<b>Improve Business Performance. Strengthen Execution. Prepare for Growth.</b><br />Our business consulting services help organisations strengthen strategic alignment, operational efficiency, financial discipline and management effectiveness. Through business diagnostics, process improvement, growth strategy and transformation advisory, we identify performance gaps and translate business priorities into actionable plans.',
+          image: `${U}/2025/08/business-consultation.jpg`,
+          link: { href: '/business-consulting/', text: 'Explore Business Consulting' },
+        },
+        {
+          title: 'Coaching',
+          text: '<b>Develop Leadership Capability. Improve Decisions. Strengthen Performance.</b><br />Our executive, leadership and professional coaching helps founders, executives, managers and professionals improve self-awareness, decision-making, communication, stakeholder management and accountability. Through focused engagements, we address leadership challenges, strengthen effectiveness and support defined business and career goals.',
+          image: `${U}/2025/08/Solutions01.jpg`,
+          link: { href: '/coaching/', text: 'Explore Coaching' },
+        },
+        {
+          title: 'Organisational Development',
+          text: '<b>Align Leadership. Improve Team Effectiveness. Strengthen Accountability.</b><br />Our organisational development services strengthen leadership alignment, role clarity, delegation, cross-functional collaboration, people management and succession planning. Through leadership development, team coaching and facilitated interventions, we build management capability, improve working relationships and support consistent organisational performance.',
+          image: `${U}/2025/09/smiling-business-lady-working-with-colleagues-scaled.jpg`,
+          link: { href: '/organisational-development/', text: 'Explore Organisational Development' },
+        },
+        {
+          title: 'Assessment',
+          text: '<b>Evaluate Capabilities. Identify Gaps. Define Development Priorities.</b><br />Our assessment services evaluate leadership competencies, behavioural preferences, individual motivations, team effectiveness and organisational maturity. The findings reveal leadership readiness, individual strengths and development needs, team dynamics and capability gaps, guiding leadership development, succession planning, team alignment and organisational improvement.',
+          image: `${U}/2026/01/reportss-scaled.jpg`,
+          link: { href: '/assessments/', text: 'Explore Assessment' },
+        },
+      ]}
+    />
+
+    <ServiceText
+      title="An Integrated Approach to Business and People Performance"
+      html={`<p>Business challenges often extend beyond a single function or individual. Operational inefficiencies may stem from unclear accountability, leadership gaps can affect execution, and team development may require improvements in management practices.</p>
+<p>VentureBean brings consulting, coaching, organisational development and assessment together when business priorities call for a coordinated response. We begin by understanding your requirements, assessing the areas that need attention and agreeing on the actions, responsibilities and outcomes that will guide the engagement.</p>
+<p>Whether delivered as an individual service or an integrated engagement, our focus remains on practical improvements that support business performance and organisational capability.</p>`}
+    />
+
+    <ServiceCta
+      title="Let's Identify the Right Way Forward"
+      html="<p>Whether you want to improve business operations, develop stronger leaders, strengthen team effectiveness or assess critical capability gaps, VentureBean can help you determine the right approach.</p><p>Start with a focused conversation about your business or development priorities.</p>"
+      buttonText="Book a Discovery Call"
+      buttonHref="/contact-us/"
+    />
+  </div>
+</Layout>
