@@ -162,6 +162,8 @@
                     <li><a href="/business-consulting/" class="mobile-sub-link">Consulting</a></li>
                     <li><a href="/coaching/" class="mobile-sub-link">Coaching</a></li>
                     <li><a href="/venturebean-solutions-page/" class="mobile-sub-link">Solutions</a></li>
+                    <li><a href="/organisational-development/" class="mobile-sub-link">Organisational Development</a></li>
+                    <li><a href="/assessments/" class="mobile-sub-link">Assessment</a></li>
                   </ul>
                 </li>
 
@@ -695,18 +697,6 @@
         }
       });
     });
-
-    // Handle clicking "/services/" parent link to expand accordion rather than navigating to missing page
-    const servicesLink = drawer.querySelector<HTMLAnchorElement>('a[href="/services/"]');
-    if (servicesLink) {
-      servicesLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        const accordionBtn = servicesLink.parentElement?.querySelector<HTMLButtonElement>('.mobile-accordion-btn');
-        accordionBtn?.click();
-      });
-    }
 
     // Mark active page in mobile drawer and auto-expand parent accordion
     const norm = (p: string) => (p.endsWith('/') ? p : `${p}/`);

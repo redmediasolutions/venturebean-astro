@@ -1,0 +1,163 @@
+---
+/**
+ * Heading, intro and a grid of cards with a checklist (same design as
+ * "How We Help" on the Consulting page).
+ */
+export interface ServiceCard {
+  title: string;
+  /** Card text (HTML). */
+  text: string;
+  /** Small heading above the checklist, e.g. "Focus areas". */
+  label?: string;
+  items?: string[];
+  link?: { href: string; text: string; external?: boolean };
+}
+interface Props {
+  title: string;
+  intro?: string;
+  cards: ServiceCard[];
+  /** Optional button under the cards. */
+  button?: { text: string; href: string };
+}
+const { title, intro, cards, button } = Astro.props;
+---
+
+<div
+  class="vb-element vb-element-b302700 e-flex e-con-boxed e-con e-parent"
+  data-id="b302700"
+  data-element_type="container"
+  data-e-type="container"
+  data-settings={'{"background_background":"classic"}'}
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-02d74ab e-con-full e-flex e-con e-child"
+      data-id="02d74ab"
+      data-element_type="container"
+      data-e-type="container"
+    >
+      <div
+        class="vb-element vb-element-8371361 vb-widget vb-widget-heading"
+        data-id="8371361"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="heading.default"
+      >
+        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">{title}</h2></div>
+      </div>
+      {intro && (
+<div
+        class="vb-element vb-element-42e16a4 vb-widget vb-widget-text-editor"
+        data-id="42e16a4"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="text-editor.default"
+      >
+        <div class="vb-widget-container"><Fragment set:html={intro} /></div>
+      </div>
+)}
+    </div>
+    <div
+      class="vb-element vb-element-302dbbd e-con-full e-grid e-con e-child"
+      data-id="302dbbd"
+      data-element_type="container"
+      data-e-type="container"
+    >
+      {cards.map((card) => (
+<div
+        class="vb-element vb-element-8b21586 e-con-full e-flex e-con e-child"
+        data-id="8b21586"
+        data-element_type="container"
+        data-e-type="container"
+        data-settings={'{"background_background":"gradient"}'}
+      >
+        <div
+          class="vb-element vb-element-525de68 e-con-full e-flex e-con e-child"
+          data-id="525de68"
+          data-element_type="container"
+          data-e-type="container"
+        >
+          <div
+            class="vb-element vb-element-308682a vb-widget vb-widget-heading"
+            data-id="308682a"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="heading.default"
+          >
+            <div class="vb-widget-container">
+              <h2 class="vb-heading-title vb-size-default">{card.title}</h2>
+            </div>
+          </div>
+        </div>
+        <div
+          class="vb-element vb-element-bfd7d54 vb-widget vb-widget-text-editor"
+          data-id="bfd7d54"
+          data-element_type="widget"
+          data-e-type="widget"
+          data-widget_type="text-editor.default"
+        >
+          <div class="vb-widget-container"><Fragment set:html={card.text} />{card.link && <p class="vb-sp-card-link"><a href={card.link.href} {...(card.link.external ? { target: "_blank", rel: "noopener" } : {})}>{card.link.text} →</a></p>}</div>
+        </div>
+        {card.items?.length ? (
+<>
+<div
+          class="vb-element vb-element-2571760 vb-widget vb-widget-text-editor"
+          data-id="2571760"
+          data-element_type="widget"
+          data-e-type="widget"
+          data-widget_type="text-editor.default"
+        >
+          <div class="vb-widget-container">{card.label ?? "Focus areas"}</div>
+        </div>
+        <div
+          class="vb-element vb-element-06178c0 vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
+          data-id="06178c0"
+          data-element_type="widget"
+          data-e-type="widget"
+          data-widget_type="icon-list.default"
+        >
+          <div class="vb-widget-container">
+            <ul class="vb-icon-list-items">
+              {card.items.map((item) => (
+<li class="vb-icon-list-item">
+                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-check-circle"></i> </span>
+                <span class="vb-icon-list-text">{item}</span>
+              </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+</>
+) : null}
+      </div>
+      ))}
+    </div>
+    {button && (
+<div
+      class="vb-element vb-element-e7e3050 e-con-full e-flex e-con e-child"
+      data-id="e7e3050"
+      data-element_type="container"
+      data-e-type="container"
+    >
+      <div
+        class="vb-element vb-element-2729c08 vb-align-center vb-widget vb-widget-button"
+        data-id="2729c08"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="button.default"
+      >
+        <div class="vb-widget-container">
+          <div class="vb-button-wrapper">
+            <a class="vb-button vb-button-link vb-size-sm" href={button?.href}>
+              <span class="vb-button-content-wrapper">
+                <span class="vb-button-icon"> <i aria-hidden="true" class="teenyicon ti-phonecall"></i> </span>
+                <span class="vb-button-text">{button?.text}</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+)}
+  </div>
+</div>
