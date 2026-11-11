@@ -1,0 +1,41 @@
+---
+/**
+ * Heading + paragraphs (same design as "Business Growth Consulting for SMBs…"
+ * on the Consulting page). `html` is the paragraphs' HTML.
+ */
+interface Props {
+  title: string;
+  html?: string;
+}
+const { title, html = '' } = Astro.props;
+---
+
+<div
+  class="vb-element vb-element-e7467df e-flex e-con-boxed e-con e-parent"
+  data-id="e7467df"
+  data-element_type="container"
+  data-e-type="container"
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-3d71ef0 vb-widget vb-widget-heading"
+      data-id="3d71ef0"
+      data-element_type="widget"
+      data-e-type="widget"
+      data-widget_type="heading.default"
+    >
+      <div class="vb-widget-container">
+        <h2 class="vb-heading-title vb-size-default">{title}</h2>
+      </div>
+    </div>
+    <div
+      class="vb-element vb-element-60d9728 vb-widget vb-widget-text-editor"
+      data-id="60d9728"
+      data-element_type="widget"
+      data-e-type="widget"
+      data-widget_type="text-editor.default"
+    >
+      <div class="vb-widget-container"><Fragment set:html={html} /><slot /></div>
+    </div>
+  </div>
+</div>

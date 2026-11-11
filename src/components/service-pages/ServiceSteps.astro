@@ -1,0 +1,394 @@
+---
+/**
+ * Up to five coloured step cards (same design as "Our Approach" on the
+ * Consulting page). Icons are Font Awesome classes, e.g. "fas fa-search".
+ */
+interface Props {
+  title: string;
+  subtitle?: string;
+  steps: { title: string; icon: string; items: string[]; link?: { href: string; text: string } }[];
+}
+const { title, subtitle = '', steps } = Astro.props;
+---
+
+<div
+  class="vb-element vb-element-b601edd e-flex e-con-boxed e-con e-parent"
+  data-id="b601edd"
+  data-sp-cols={Math.min(steps.length, 5)}
+  data-element_type="container"
+  data-e-type="container"
+  data-settings={'{"background_background":"classic"}'}
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-cef47ab e-con-full e-flex e-con e-child"
+      data-id="cef47ab"
+      data-element_type="container"
+      data-e-type="container"
+    >
+      <div
+        class="vb-element vb-element-88c2e9d vb-widget vb-widget-heading"
+        data-id="88c2e9d"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="heading.default"
+      >
+        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">{title}</h2></div>
+      </div>
+      <div
+        class="vb-element vb-element-807f46a vb-widget vb-widget-heading"
+        data-id="807f46a"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="heading.default"
+      >
+        <div class="vb-widget-container">
+          <h3 class="vb-heading-title vb-size-default">{subtitle}</h3>
+        </div>
+      </div>
+      <div
+        class="vb-element vb-element-bf4d058 e-con-full e-grid e-con e-child"
+        data-id="bf4d058"
+        data-element_type="container"
+        data-e-type="container"
+      >
+{steps[0] && ((step) => (
+<div
+          class="vb-element vb-element-bfd2bed e-con-full e-flex e-con e-child"
+          data-id="bfd2bed"
+          data-element_type="container"
+          data-e-type="container"
+          data-settings={'{"background_background":"classic"}'}
+        >
+          <div
+            class="vb-element vb-element-be92466 e-con-full e-flex e-con e-child"
+            data-id="be92466"
+            data-element_type="container"
+            data-e-type="container"
+            data-settings={'{"background_background":"classic"}'}
+          >
+            <div
+              class="vb-element vb-element-e5ae710 e-con-full e-flex e-con e-child"
+              data-id="e5ae710"
+              data-element_type="container"
+              data-e-type="container"
+              data-settings={'{"background_background":"classic"}'}
+            >
+              <div
+                class="vb-element vb-element-9b5d7a9 vb-view-stacked vb-shape-rounded vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
+                data-id="9b5d7a9"
+                data-element_type="widget"
+                data-e-type="widget"
+                data-widget_type="icon-box.default"
+              >
+                <div class="vb-widget-container">
+                  <div class="vb-icon-box-wrapper">
+                    <div class="vb-icon-box-icon">
+                      <span class="vb-icon"> <i aria-hidden="true" class={step.icon}></i> </span>
+                    </div>
+                    <div class="vb-icon-box-content">
+                      <h3 class="vb-icon-box-title"><span>{step.title}</span></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="vb-element vb-element-9cab451 vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
+            data-id="9cab451"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="icon-list.default"
+          >
+            <div class="vb-widget-container">
+              <ul class="vb-icon-list-items">
+{step.items.map((item) => (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text">{item}</span>
+                </li>
+))}
+{step.link && (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text"><a class="vb-sp-step-link" href={step.link.href}>{step.link.text} →</a></span>
+                </li>
+)}
+</ul>
+            </div>
+          </div>
+        </div>
+))(steps[0])}
+{steps[1] && ((step) => (
+<div
+          class="vb-element vb-element-70a3327 e-con-full e-flex e-con e-child"
+          data-id="70a3327"
+          data-element_type="container"
+          data-e-type="container"
+          data-settings={'{"background_background":"classic"}'}
+        >
+          <div
+            class="vb-element vb-element-1a975ba e-con-full e-flex e-con e-child"
+            data-id="1a975ba"
+            data-element_type="container"
+            data-e-type="container"
+            data-settings={'{"background_background":"classic"}'}
+          >
+            <div
+              class="vb-element vb-element-5d9f33f e-con-full e-flex e-con e-child"
+              data-id="5d9f33f"
+              data-element_type="container"
+              data-e-type="container"
+              data-settings={'{"background_background":"classic"}'}
+            >
+              <div
+                class="vb-element vb-element-2ae9391 vb-view-stacked vb-shape-rounded vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
+                data-id="2ae9391"
+                data-element_type="widget"
+                data-e-type="widget"
+                data-widget_type="icon-box.default"
+              >
+                <div class="vb-widget-container">
+                  <div class="vb-icon-box-wrapper">
+                    <div class="vb-icon-box-icon">
+                      <span class="vb-icon"> <i aria-hidden="true" class={step.icon}></i> </span>
+                    </div>
+                    <div class="vb-icon-box-content">
+                      <h3 class="vb-icon-box-title"><span>{step.title}</span></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="vb-element vb-element-c8bf2c2 vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
+            data-id="c8bf2c2"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="icon-list.default"
+          >
+            <div class="vb-widget-container">
+              <ul class="vb-icon-list-items">
+{step.items.map((item) => (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text">{item}</span>
+                </li>
+))}
+{step.link && (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text"><a class="vb-sp-step-link" href={step.link.href}>{step.link.text} →</a></span>
+                </li>
+)}
+</ul>
+            </div>
+          </div>
+        </div>
+))(steps[1])}
+{steps[2] && ((step) => (
+<div
+          class="vb-element vb-element-53508d0 e-con-full e-flex e-con e-child"
+          data-id="53508d0"
+          data-element_type="container"
+          data-e-type="container"
+          data-settings={'{"background_background":"classic"}'}
+        >
+          <div
+            class="vb-element vb-element-c430bb3 e-con-full e-flex e-con e-child"
+            data-id="c430bb3"
+            data-element_type="container"
+            data-e-type="container"
+            data-settings={'{"background_background":"classic"}'}
+          >
+            <div
+              class="vb-element vb-element-f142bf8 e-con-full e-flex e-con e-child"
+              data-id="f142bf8"
+              data-element_type="container"
+              data-e-type="container"
+              data-settings={'{"background_background":"classic"}'}
+            >
+              <div
+                class="vb-element vb-element-91b4651 vb-view-stacked vb-shape-rounded vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
+                data-id="91b4651"
+                data-element_type="widget"
+                data-e-type="widget"
+                data-widget_type="icon-box.default"
+              >
+                <div class="vb-widget-container">
+                  <div class="vb-icon-box-wrapper">
+                    <div class="vb-icon-box-icon">
+                      <span class="vb-icon"> <i aria-hidden="true" class={step.icon}></i> </span>
+                    </div>
+                    <div class="vb-icon-box-content">
+                      <h3 class="vb-icon-box-title"><span>{step.title}</span></h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="vb-element vb-element-5dda22f vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
+            data-id="5dda22f"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="icon-list.default"
+          >
+            <div class="vb-widget-container">
+              <ul class="vb-icon-list-items">
+{step.items.map((item) => (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text">{item}</span>
+                </li>
+))}
+{step.link && (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text"><a class="vb-sp-step-link" href={step.link.href}>{step.link.text} →</a></span>
+                </li>
+)}
+</ul>
+            </div>
+          </div>
+        </div>
+))(steps[2])}
+{steps[3] && ((step) => (
+<div
+          class="vb-element vb-element-622ae97 e-con-full e-flex e-con e-child"
+          data-id="622ae97"
+          data-element_type="container"
+          data-e-type="container"
+          data-settings={'{"background_background":"classic"}'}
+        >
+          <div
+            class="vb-element vb-element-a20d4ce e-con-full e-flex e-con e-child"
+            data-id="a20d4ce"
+            data-element_type="container"
+            data-e-type="container"
+            data-settings={'{"background_background":"classic"}'}
+          >
+            <div
+              class="vb-element vb-element-8a4fa8e e-con-full e-flex e-con e-child"
+              data-id="8a4fa8e"
+              data-element_type="container"
+              data-e-type="container"
+              data-settings={'{"background_background":"classic"}'}
+            >
+              <div
+                class="vb-element vb-element-6107392 vb-view-stacked vb-shape-rounded vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
+                data-id="6107392"
+                data-element_type="widget"
+                data-e-type="widget"
+                data-widget_type="icon-box.default"
+              >
+                <div class="vb-widget-container">
+                  <div class="vb-icon-box-wrapper">
+                    <div class="vb-icon-box-icon">
+                      <span class="vb-icon"> <i aria-hidden="true" class={step.icon}></i> </span>
+                    </div>
+                    <div class="vb-icon-box-content"><h3 class="vb-icon-box-title"><span>{step.title}</span></h3></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="vb-element vb-element-a1a6bba vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
+            data-id="a1a6bba"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="icon-list.default"
+          >
+            <div class="vb-widget-container">
+              <ul class="vb-icon-list-items">
+{step.items.map((item) => (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text">{item}</span>
+                </li>
+))}
+{step.link && (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text"><a class="vb-sp-step-link" href={step.link.href}>{step.link.text} →</a></span>
+                </li>
+)}
+</ul>
+            </div>
+          </div>
+        </div>
+))(steps[3])}
+{steps[4] && ((step) => (
+<div
+          class="vb-element vb-element-cdfdebe e-con-full e-flex e-con e-child"
+          data-id="cdfdebe"
+          data-element_type="container"
+          data-e-type="container"
+          data-settings={'{"background_background":"classic"}'}
+        >
+          <div
+            class="vb-element vb-element-5a35077 e-con-full e-flex e-con e-child"
+            data-id="5a35077"
+            data-element_type="container"
+            data-e-type="container"
+            data-settings={'{"background_background":"classic"}'}
+          >
+            <div
+              class="vb-element vb-element-9366612 e-con-full e-flex e-con e-child"
+              data-id="9366612"
+              data-element_type="container"
+              data-e-type="container"
+              data-settings={'{"background_background":"classic"}'}
+            >
+              <div
+                class="vb-element vb-element-f8917ba vb-view-stacked vb-shape-rounded vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
+                data-id="f8917ba"
+                data-element_type="widget"
+                data-e-type="widget"
+                data-widget_type="icon-box.default"
+              >
+                <div class="vb-widget-container">
+                  <div class="vb-icon-box-wrapper">
+                    <div class="vb-icon-box-icon">
+                      <span class="vb-icon"> <i aria-hidden="true" class={step.icon}></i> </span>
+                    </div>
+                    <div class="vb-icon-box-content"><h3 class="vb-icon-box-title"><span>{step.title}</span></h3></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="vb-element vb-element-ba92eaf vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
+            data-id="ba92eaf"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="icon-list.default"
+          >
+            <div class="vb-widget-container">
+              <ul class="vb-icon-list-items">
+{step.items.map((item) => (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text">{item}</span>
+                </li>
+))}
+{step.link && (
+<li class="vb-icon-list-item">
+                  <span class="vb-icon-list-icon"> <i aria-hidden="true" class="far fa-dot-circle"></i> </span>
+                  <span class="vb-icon-list-text"><a class="vb-sp-step-link" href={step.link.href}>{step.link.text} →</a></span>
+                </li>
+)}
+</ul>
+            </div>
+          </div>
+        </div>
+))(steps[4])}
+</div>
+    </div>
+  </div>
+</div>
