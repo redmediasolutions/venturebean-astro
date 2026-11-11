@@ -6,6 +6,10 @@
 
 // Shows Content Manager data (client logos), so it renders on request.
 export const prerender = false;
+
+// Old WordPress-style search links (/?s=…) → the search page.
+const wpSearch = Astro.url.searchParams.get('s');
+if (wpSearch !== null) return Astro.redirect(`/search/?s=${encodeURIComponent(wpSearch)}`, 301);
 import Layout from '../layouts/Layout.astro';
 import HeroSlider from '../components/home/HeroSlider.astro';
 import Intro from '../components/home/Intro.astro';

@@ -1,8 +1,5 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-<<<<<<< Updated upstream
-import vercel from '@astrojs/vercel';
-=======
 import { loadEnv } from 'vite';
 import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
@@ -27,23 +24,23 @@ const firebaseDefines = Object.fromEntries(
 if (!firebaseKey('API_KEY')) {
   console.warn('[cms] No Firebase keys found: pages will show their saved content instead of the Content Manager.');
 }
->>>>>>> Stashed changes
 
 export default defineConfig({
   site: 'https://venturebean.com',
   trailingSlash: 'always',
-  
-  // Choose how you want routes rendered:
-  // - 'server': Renders everything dynamically on-demand by default.
-  // - 'static': Keeps pages prerendered by default, allowing you to opt specific routes out.
-  output: 'static', 
 
-  adapter: vercel({
-    webAnalytics: { enabled: true },
-    imagesConfig: {
-      sizes: [320, 640, 1280],
-    },
+  // Pages are built ahead of time, except the ones that show Content Manager
+  // data: those have `export const prerender = false` and render on request on
+  // Cloudflare, so new posts appear without a rebuild.
+  output: 'static',
+  adapter: cloudflare({
+    // Build-time pages run in Node (like before).
+    prerenderEnvironment: 'node',
+    // Images are served as they are (all from S3), so no Cloudflare Images binding.
+    imageService: 'passthrough',
   }),
+  // The site has no logins, so no session storage (and no KV namespace to set up).
+  session: false,
 
   // Sitemap → /sitemap-index.xml (pages) + /sitemap-posts.xml (blog articles,
   // listed live from the Content Manager by src/pages/sitemap-posts.xml.ts).
@@ -52,7 +49,9 @@ export default defineConfig({
       customSitemaps: ['https://venturebean.com/sitemap-posts.xml'],
       // Leave out the duplicate article copies under /knowledge-hub/<section>/<slug>/
       // (each article's real address is /<slug>/, in the posts sitemap).
-      filter: (page) => !/\/knowledge-hub\/(insights|industry-perspectives|toolkit)\/[^/]+\/$/.test(page),
+      filter: (page) =>
+        !page.endsWith('/search/') &&
+        !/\/knowledge-hub\/(insights|industry-perspectives|toolkit)\/[^/]+\/$/.test(page),
     }),
   ],
 
@@ -65,8 +64,9 @@ export default defineConfig({
   },
   // Keep whitespace exactly as written for legacy/WordPress markup
   compressHTML: false,
-  // Snapshot HTML is large; keep Vite from warning about it
   vite: {
+    define: firebaseDefines,
+    // Snapshot HTML is large; keep Vite from warning about it
     build: { chunkSizeWarningLimit: 1500 },
   },
 });

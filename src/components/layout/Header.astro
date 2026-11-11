@@ -39,7 +39,7 @@ import MobileNav from './header/MobileNav.astro';
       hidden
     >
       <div class="header-search-overlay-inner">
-        <form class="overlay-search-form" action="/" method="get">
+        <form class="overlay-search-form" action="/search/" method="get" role="search">
           <label for="overlay-search-input" class="vb-screen-only">Search</label>
           <i class="fas fa-search overlay-search-icon" aria-hidden="true"></i>
           <input
@@ -51,6 +51,7 @@ import MobileNav from './header/MobileNav.astro';
             autocomplete="off"
           />
           <button class="overlay-submit-btn" type="submit">Search</button>
+          <div class="overlay-search-live" id="overlay-search-live" role="listbox" aria-label="Search suggestions" hidden></div>
         </form>
         <button
           id="search-close-btn"
@@ -114,4 +115,72 @@ import MobileNav from './header/MobileNav.astro';
 
   setupSearchOverlay();
   document.addEventListener('astro:page-load', setupSearchOverlay);
+
+  // Live results under the header search box (from /search.json).
+  function setupLiveSearch() {
+    const input = document.getElementById('overlay-search-input') as HTMLInputElement | null;
+    const box = document.getElementById('overlay-search-live');
+    if (!input || !box || input.dataset.live) return;
+    input.dataset.live = '1';
+    let timer: number | undefined;
+    let seq = 0;
+    const esc = (s: string) =>
+      s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] as string);
+    const hide = () => {
+      box.hidden = true;
+      box.innerHTML = '';
+    };
+    input.addEventListener('input', () => {
+      window.clearTimeout(timer);
+      const q = input.value.trim();
+      if (q.length < 2) return hide();
+      timer = window.setTimeout(async () => {
+        const mine = ++seq;
+        try {
+          const res = await fetch(`/search.json?s=${encodeURIComponent(q)}`);
+          const data = (await res.json()) as {
+            total: number;
+            results: { title: string; url: string; kind: string; external: boolean }[];
+          };
+          if (mine !== seq) return;
+          const all = `/search/?s=${encodeURIComponent(q)}`;
+          box.innerHTML = data.results.length
+            ? data.results
+                .map(
+                  (r) =>
+                    `<a class="overlay-live-item" role="option" href="${esc(r.url)}"${r.external ? ' target="_blank" rel="noopener"' : ''}><span class="overlay-live-kind">${esc(r.kind)}</span><span class="overlay-live-title">${esc(r.title)}</span></a>`
+                )
+                .join('') +
+              `<a class="overlay-live-all" href="${all}">See all ${data.total} result${data.total === 1 ? '' : 's'} →</a>`
+            : `<p class="overlay-live-none">No results for “${esc(q)}”</p>`;
+          box.hidden = false;
+        } catch {
+          hide();
+        }
+      }, 200);
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        const first = box.querySelector('a') as HTMLElement | null;
+        if (first) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+    box.addEventListener('keydown', (e) => {
+      const items = Array.from(box.querySelectorAll('a')) as HTMLElement[];
+      const i = items.indexOf(document.activeElement as HTMLElement);
+      if (e.key === 'ArrowDown' && i < items.length - 1) {
+        e.preventDefault();
+        items[i + 1].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        (i > 0 ? items[i - 1] : input).focus();
+      }
+    });
+    document.getElementById('search-close-btn')?.addEventListener('click', hide);
+  }
+  setupLiveSearch();
+  document.addEventListener('astro:page-load', setupLiveSearch);
 </script>
