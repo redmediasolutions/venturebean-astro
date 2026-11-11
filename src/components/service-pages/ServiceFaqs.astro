@@ -1,0 +1,85 @@
+---
+/**
+ * Frequently asked questions (same design as the Consulting page FAQs).
+ */
+interface Props {
+  title?: string;
+  faqs: { q: string; a: string }[];
+}
+const { title = 'Frequently Asked Questions', faqs } = Astro.props;
+---
+
+<div
+  class="vb-element vb-element-47dbeb7 e-flex e-con-boxed e-con e-child"
+  data-id="47dbeb7"
+  data-element_type="container"
+  data-e-type="container"
+  data-settings={'{"background_background":"classic"}'}
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-8951d33 vb-widget vb-widget-heading"
+      data-id="8951d33"
+      data-element_type="widget"
+      data-e-type="widget"
+      data-widget_type="heading.default"
+    >
+      <div class="vb-widget-container">
+        <h2 class="vb-heading-title vb-size-default">{title}</h2>
+      </div>
+    </div>
+    <div
+      class="vb-element vb-element-bef772c vb-widget vb-widget-n-accordion"
+      data-id="bef772c"
+      data-element_type="widget"
+      data-e-type="widget"
+      data-settings={'{"default_state":"expanded","max_items_expended":"one","n_accordion_animation_duration":{"unit":"ms","size":400,"sizes":[]}}'}
+      data-widget_type="nested-accordion.default"
+    >
+      <div class="vb-widget-container">
+        <div
+          class="e-n-accordion"
+          aria-label="Accordion. Open links with Enter or Space, close with Escape, and navigate with Arrow Keys"
+        >
+{faqs.map((faq) => (
+<details class="e-n-accordion-item">
+            <summary
+              class="e-n-accordion-item-title"
+              data-accordion-index="1"
+              tabindex="0"
+              aria-expanded="false"
+             
+            >
+              <span class="e-n-accordion-item-title-header"
+                ><div class="e-n-accordion-item-title-text">{faq.q}</div></span
+              >
+              <span class="e-n-accordion-item-title-icon">
+                <span class="e-opened"><i aria-hidden="true" class="fas fa-minus"></i></span>
+                <span class="e-closed"><i aria-hidden="true" class="fas fa-plus"></i></span>
+              </span>
+            </summary>
+            <div
+              role="region"
+             
+              class="vb-element vb-element-c0d6ede e-con-full e-flex e-con e-child"
+              data-id="c0d6ede"
+              data-element_type="container"
+              data-e-type="container"
+            >
+              <div
+                class="vb-element vb-element-7470105 vb-widget vb-widget-text-editor"
+                data-id="7470105"
+                data-element_type="widget"
+                data-e-type="widget"
+                data-widget_type="text-editor.default"
+              >
+                <div class="vb-widget-container"><p>{faq.a}</p></div>
+              </div>
+            </div>
+          </details>
+))}
+</div>
+      </div>
+    </div>
+  </div>
+</div>

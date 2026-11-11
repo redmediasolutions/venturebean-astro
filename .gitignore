@@ -7,3 +7,6 @@ dist/
 .env
 .env.local
 .vercel
+
+# Cloudflare (wrangler) local data
+.wrangler/

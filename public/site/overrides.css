@@ -456,3 +456,61 @@ header.vb-19568 {
     text-align: center;
   }
 }
+
+/* Service pages (Services, Organisational Development, Assessment):
+   links on cards and steps, intro text under a heading. */
+.vb-sp-card-link {
+  margin: 14px 0 0;
+}
+.vb-sp-card-link a,
+.vb-sp-step-link {
+  color: #100057;
+  font-weight: 600;
+  text-decoration: none;
+}
+.vb-sp-card-link a:hover,
+.vb-sp-step-link:hover {
+  text-decoration: underline;
+}
+.vb-sp-step-link {
+  color: inherit;
+}
+.vb-sp-intro {
+  max-width: 900px;
+  margin: 0 0 24px;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+.vb-sp-intro p {
+  margin: 0 0 10px;
+}
+.vb-sp-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 8px 32px;
+  margin-top: 8px;
+}
+.vb-sp-links h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #100057;
+}
+.vb-sp-links ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.vb-sp-links a {
+  color: #100057;
+  font-weight: 600;
+}
+/* Step cards: with fewer than five steps, share the row between them (desktop). */
+@media (min-width: 1025px) {
+  .vb-19847 .vb-element-b601edd[data-sp-cols='3'] .vb-element-bf4d058 {
+    --e-con-grid-template-columns: repeat(3, 1fr);
+  }
+  .vb-19847 .vb-element-b601edd[data-sp-cols='4'] .vb-element-bf4d058 {
+    --e-con-grid-template-columns: repeat(4, 1fr);
+  }
+}

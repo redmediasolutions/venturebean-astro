@@ -1,0 +1,87 @@
+---
+/**
+ * Heading and icon tiles (same design as "Why Businesses Choose VentureBean"
+ * on the Consulting page). Icons are Font Awesome classes.
+ */
+interface Props {
+  title: string;
+  subtitle?: string;
+  tiles: { icon: string; text: string }[];
+}
+const { title, subtitle = '', tiles } = Astro.props;
+---
+
+<div
+  class="vb-element vb-element-6d8363c e-flex e-con-boxed e-con e-parent"
+  data-id="6d8363c"
+  data-element_type="container"
+  data-e-type="container"
+  data-settings={'{"background_background":"classic"}'}
+>
+  <div class="e-con-inner">
+<div
+      class="vb-element vb-element-2cfa71a e-con-full e-flex e-con e-child"
+      data-id="2cfa71a"
+      data-element_type="container"
+      data-e-type="container"
+    >
+      <div
+        class="vb-element vb-element-978a0c7 vb-widget vb-widget-heading"
+        data-id="978a0c7"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="heading.default"
+      >
+        <div class="vb-widget-container">
+          <h2 class="vb-heading-title vb-size-default">{title}</h2>
+        </div>
+      </div>
+      <div
+        class="vb-element vb-element-5530fd4 vb-widget vb-widget-heading"
+        data-id="5530fd4"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="heading.default"
+      >
+        <div class="vb-widget-container">
+          <h3 class="vb-heading-title vb-size-default">{subtitle}</h3>
+        </div>
+      </div>
+    </div>
+<div
+      class="vb-element vb-element-e67ade1 e-con-full e-grid e-con e-child"
+      data-id="e67ade1"
+      data-element_type="container"
+      data-e-type="container"
+    >
+{tiles.map((tile) => (
+<div
+        class="vb-element vb-element-843794b e-con-full e-flex e-con e-child"
+        data-id="843794b"
+        data-element_type="container"
+        data-e-type="container"
+        data-settings={'{"background_background":"classic"}'}
+      >
+        <div
+          class="vb-element vb-element-4a2464a vb-view-default vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
+          data-id="4a2464a"
+          data-element_type="widget"
+          data-e-type="widget"
+          data-widget_type="icon-box.default"
+        >
+          <div class="vb-widget-container">
+            <div class="vb-icon-box-wrapper">
+              <div class="vb-icon-box-icon">
+                <span class="vb-icon"> <i aria-hidden="true" class={tile.icon}></i> </span>
+              </div>
+              <div class="vb-icon-box-content">
+                <h3 class="vb-icon-box-title"><span>{tile.text}</span></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+))}
+</div>
+  </div>
+</div>

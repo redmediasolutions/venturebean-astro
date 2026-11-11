@@ -1,0 +1,85 @@
+---
+/**
+ * Heading and photo cards (same design as "Who We Help" on the Consulting page).
+ */
+interface Props {
+  title: string;
+  /** Optional text under the heading (HTML). */
+  intro?: string;
+  /** Card text is HTML. */
+  cards: { title: string; text: string; image: string; link?: { href: string; text: string } }[];
+}
+const { title, intro, cards } = Astro.props;
+---
+
+<div
+  class="vb-element vb-element-abaac7f e-flex e-con-boxed e-con e-parent"
+  data-id="abaac7f"
+  data-element_type="container"
+  data-e-type="container"
+  data-settings={'{"background_background":"classic"}'}
+>
+  <div class="e-con-inner">
+    <div
+      class="vb-element vb-element-80c9964 e-con-full e-flex e-con e-child"
+      data-id="80c9964"
+      data-element_type="container"
+      data-e-type="container"
+    >
+      <div
+        class="vb-element vb-element-34685b7 vb-widget vb-widget-heading"
+        data-id="34685b7"
+        data-element_type="widget"
+        data-e-type="widget"
+        data-widget_type="heading.default"
+      >
+        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">{title}</h2></div>
+      </div>
+      {intro && <div class="vb-sp-intro"><Fragment set:html={intro} /></div>}
+      <div
+        class="vb-element vb-element-fa3b7a4 e-con-full e-flex e-con e-child"
+        data-id="fa3b7a4"
+        data-element_type="container"
+        data-e-type="container"
+      >
+        {cards.map((card) => (
+<div
+          class="vb-element vb-element-28207fe e-con-full e-flex e-con e-child"
+          data-id="28207fe"
+          data-element_type="container"
+          data-e-type="container"
+          data-settings={'{"background_background":"classic"}'}
+        >
+          <div
+            class="vb-element vb-element-ebb061a e-con-full e-flex e-con e-child"
+            data-id="ebb061a"
+            style={`background-image:url(${card.image})`}
+            data-element_type="container"
+            data-e-type="container"
+            data-settings={'{"background_background":"classic"}'}
+          >
+          </div>
+          <div
+            class="vb-element vb-element-9c535ba vb-widget vb-widget-heading"
+            data-id="9c535ba"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="heading.default"
+          >
+            <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">{card.title}</h2></div>
+          </div>
+          <div
+            class="vb-element vb-element-f9ff7ff vb-widget vb-widget-text-editor"
+            data-id="f9ff7ff"
+            data-element_type="widget"
+            data-e-type="widget"
+            data-widget_type="text-editor.default"
+          >
+            <div class="vb-widget-container"><p><Fragment set:html={card.text} /></p>{card.link && <p class="vb-sp-card-link"><a href={card.link.href}>{card.link.text} →</a></p>}</div>
+          </div>
+        </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

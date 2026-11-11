@@ -1,8 +1,11 @@
 ---
 /**
  * Home page → /
- * Each section lives in src/components/home/./
+ * Each section lives in src/components/home/.
  */
+
+// Shows Content Manager data (client logos), so it renders on request.
+export const prerender = false;
 import Layout from '../layouts/Layout.astro';
 import HeroSlider from '../components/home/HeroSlider.astro';
 import Intro from '../components/home/Intro.astro';

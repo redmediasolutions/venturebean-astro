@@ -13,8 +13,8 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@astrojs/vercel": "^11.0.21",
-    "astro": "^7.3.5",
+    "@astrojs/cloudflare": "^14.4.7",
+    "astro": "^7.4.10",
     "firebase": "^12.19.0",
     "swiper": "^8.4.7"
   },

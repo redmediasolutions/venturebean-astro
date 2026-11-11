@@ -3,6 +3,9 @@
  * Clients page → /clients/
  * Each section lives in src/components/clients/.
  */
+
+// Shows Content Manager data (client logos), so it renders on request.
+export const prerender = false;
 import Layout from '../layouts/Layout.astro';
 import HeroSliderDesktop from '../components/clients/HeroSliderDesktop.astro';
 import HeroSliderMobile from '../components/clients/HeroSliderMobile.astro';
