@@ -6,3 +6,4 @@ dist/
 # Firebase keys (local only)
 .env
 .env.local
+.vercel
