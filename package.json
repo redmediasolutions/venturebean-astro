@@ -13,15 +13,9 @@
     "node": ">=20"
   },
   "dependencies": {
-<<<<<<< Updated upstream
     "@astrojs/vercel": "^11.0.21",
     "@tailwindcss/vite": "^4.3.5",
     "astro": "^7.3.5",
-=======
-    "@astrojs/cloudflare": "^14.4.7",
-    "@astrojs/sitemap": "^3.7.4",
-    "astro": "^7.4.10",
->>>>>>> Stashed changes
     "firebase": "^12.19.0",
     "swiper": "^8.4.7",
     "tailwindcss": "^4.3.5"
