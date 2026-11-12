@@ -358,3 +358,96 @@
     </div>
   </div>
 </div>
+
+<style is:global>
+  /* 5-Step Coaching Impact Cycle: fix overflowing card content and padding. */
+  .vb-element.vb-element-0d1d226.e-con.e-grid {
+    --e-con-grid-template-columns: repeat(5, minmax(0, 1fr));
+    --e-con-grid-template-rows: auto;
+    --gap: 20px 20px;
+    --row-gap: 20px;
+    --column-gap: 20px;
+    align-items: stretch;
+  }
+
+  .vb-element.vb-element-0d1d226 > .vb-element.e-con.e-child {
+    --padding-top: 28px;
+    --padding-bottom: 24px;
+    --padding-left: 20px;
+    --padding-right: 20px;
+    --justify-content: flex-start;
+    --gap: 12px 12px;
+    --row-gap: 12px;
+    min-width: 0;
+    height: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  /* Step headings: no fixed 44px line-height, no negative margins. */
+  .vb-element.vb-element-0d1d226 .vb-widget-heading > .vb-widget-container {
+    margin: 0 !important;
+  }
+  .vb-element.vb-element-0d1d226 .vb-widget-heading .vb-heading-title {
+    line-height: 1.3 !important;
+    text-align: center;
+  }
+
+  .vb-element.vb-element-0d1d226 .vb-widget-divider > .vb-widget-container {
+    margin: 0 !important;
+  }
+
+  /* Bullet lists: remove negative margins that pushed text outside the card. */
+  .vb-element.vb-element-0d1d226 .vb-widget-text-editor {
+    width: 100%;
+  }
+  .vb-element.vb-element-0d1d226 .vb-widget-text-editor > .vb-widget-container {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .vb-element.vb-element-0d1d226 .vb-widget-text-editor ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+  .vb-element.vb-element-0d1d226 .vb-widget-text-editor li {
+    line-height: 1.5;
+  }
+  .vb-element.vb-element-0d1d226 .vb-widget-text-editor li + li {
+    margin-top: 6px;
+  }
+
+  /* Byline box below the cards ("This ensures coaching translates..."). */
+  .vb-element.vb-element-40ca526.e-con.e-child {
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+    --padding-left: 24px;
+    --padding-right: 24px;
+    --align-items: center;
+    --margin-top: 32px;
+  }
+  .vb-element.vb-element-c1ab280 .vb-icon-box-title {
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 767px) {
+    .vb-element.vb-element-40ca526.e-con.e-child {
+      --padding-left: 18px;
+      --padding-right: 18px;
+    }
+    .vb-element.vb-element-c1ab280 .vb-icon-box-title {
+      font-size: 17px !important;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .vb-element.vb-element-0d1d226.e-con.e-grid {
+      --e-con-grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 767px) {
+    .vb-element.vb-element-0d1d226.e-con.e-grid {
+      --e-con-grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  }
+</style>

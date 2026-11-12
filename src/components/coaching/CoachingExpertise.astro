@@ -199,7 +199,7 @@
         data-e-type="widget"
         data-widget_type="image-box.default"
       >
-        <div class="vb-widget-container">
+        <!-- <div class="vb-widget-container">
           <div class="vb-image-box-wrapper">
             <figure class="vb-image-box-img">
               <a href="#organisational" tabindex="-1"
@@ -220,8 +220,29 @@
               </h3>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </div>
+
+<style is:global>
+  /* Our Coaching Expertise: all 6 boxes in a single row on desktop. */
+  .vb-element.vb-element-ec4fa05.e-con.e-grid.e-child {
+    --e-con-grid-template-columns: repeat(6, minmax(0, 1fr));
+    --e-con-grid-template-rows: repeat(1, auto);
+  }
+
+  @media (max-width: 1024px) {
+    .vb-element.vb-element-ec4fa05.e-con.e-grid.e-child {
+      --e-con-grid-template-columns: repeat(3, minmax(0, 1fr));
+      --e-con-grid-template-rows: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .vb-element.vb-element-ec4fa05.e-con.e-grid.e-child {
+      --e-con-grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  }
+</style>
