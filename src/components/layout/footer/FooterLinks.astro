@@ -1,213 +1,177 @@
+
 ---
-/**
- * Footer: logo, about text, quick links and contact details (“Quick Links”)
- */
+const quickLinks = [
+  { label: 'ABOUT US', href: '/about-us/' },
+  { label: 'CONSULTING', href: '/business-consulting/' },
+  { label: 'COACHING', href: '/coaching/' },
+  { label: 'KNOWLEDGE HUB', href: '/knowledge-hub/' },
+  { label: 'TESTIMONIALS', href: '/testimonials/' },
+  { label: 'REACH US', href: '/contact-us/' },
+];
 ---
 
-<div
-  class="vb-element vb-element-ad12578 e-flex e-con-boxed e-con e-parent"
-  data-id="ad12578"
-  data-element_type="container"
-  data-e-type="container"
-  data-settings={'{"background_background":"classic"}'}
+<section class="bg-vb-footer font-sans">
+  <div
+    class="mx-auto grid w-full max-w-[1600px] grid-cols-1 gap-12 px-6 py-14 sm:grid-cols-2 lg:grid-cols-[1.5fr_0.9fr_1.4fr_1.4fr] lg:gap-14 lg:px-8 lg:py-16"
+  >
+    <!-- Brand -->
+    <div class="flex flex-col items-start">
+      <a
+  href="/"
+  aria-label="VentureBean Home"
+  class="mb-6 inline-flex items-center justify-center rounded-xl border border-white/20 !bg-white p-4 shadow-lg !no-underline"
 >
-  <div class="e-con-inner">
-    <div
-      class="vb-element vb-element-e5146f3 e-con-full e-flex e-con e-child"
-      data-id="e5146f3"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-339dde5 vb-widget__width-initial vb-widget vb-widget-theme-site-logo vb-widget-image"
-        data-id="339dde5"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="theme-site-logo.default"
-      >
-        <div class="vb-widget-container">
-          <a href="/">
-            <img
-              width="100"
-              height="100"
-              src="/assets/uploads/2023/03/Venture-bean-logo.svg"
-              class="attachment-full size-full site-image-23042"
-              alt=""
-            />
-          </a>
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-dc0e747 vb-widget vb-widget-text-editor"
-        data-id="dc0e747"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="text-editor.default"
-      >
-        <div class="vb-widget-container">
-          We partner with businesses and leaders to drive sustainable growth through consulting and coaching
-        </div>
-      </div>
-    </div>
-    <div
-      class="vb-element vb-element-799dd4d e-con-full e-flex e-con e-child"
-      data-id="799dd4d"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-f6284b0 vb-widget vb-widget-heading"
-        data-id="f6284b0"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="heading.default"
-      >
-        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">Quick Links</h2></div>
-      </div>
-      <div
-        class="vb-element vb-element-bccd3f2 vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
-        data-id="bccd3f2"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="icon-list.default"
-      >
-        <div class="vb-widget-container">
-          <ul class="vb-icon-list-items">
-            <li class="vb-icon-list-item">
-              <a href="/about-us/">
-                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fas fa-chevron-circle-right"></i> </span>
-                <span class="vb-icon-list-text">About us</span>
-              </a>
-            </li>
-            <li class="vb-icon-list-item">
-              <a href="/business-consulting/">
-                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fas fa-chevron-circle-right"></i> </span>
-                <span class="vb-icon-list-text">Consulting</span>
-              </a>
-            </li>
-            <li class="vb-icon-list-item">
-              <a href="/coaching/">
-                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fas fa-chevron-circle-right"></i> </span>
-                <span class="vb-icon-list-text">Coaching</span>
-              </a>
-            </li>
-            <li class="vb-icon-list-item">
-              <a href="/knowledge-hub/">
-                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fas fa-chevron-circle-right"></i> </span>
-                <span class="vb-icon-list-text">Knowledge hub</span>
-              </a>
-            </li>
-            <li class="vb-icon-list-item">
-              <a href="/testimonials/">
-                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fas fa-chevron-circle-right"></i> </span>
-                <span class="vb-icon-list-text">Testimonials</span>
-              </a>
-            </li>
-            <li class="vb-icon-list-item">
-              <a href="/contact-us/">
-                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fas fa-chevron-circle-right"></i> </span>
-                <span class="vb-icon-list-text">Reach US</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+  <img
+    src="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794443169084-venture-bean-logo-webp.webp"
+    alt="VentureBean"
+    width="440"
+    height="140"
+    class="h-auto w-[267px] max-w-full object-contain"
+    loading="lazy"
+    decoding="async"
+  />
+</a>
+
+      <p class="max-w-[440px] text-base font-medium leading-relaxed text-white">
+        We partner with businesses and leaders to drive sustainable growth
+        through consulting and coaching
+      </p>
+
+      <!-- Social media -->
+      <div class="mt-7 flex items-center gap-5">
+        <a
+          href="https://www.linkedin.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          class="!text-white !no-underline transition-colors hover:!text-vb-footer-accent"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6" aria-hidden="true">
+            <path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.34 18.34H4.36V9.75h2.98v8.59ZM5.85 8.58a1.73 1.73 0 1 1 0-3.46 1.73 1.73 0 0 1 0 3.46Zm12.49 9.76h-2.98v-4.18c0-1-.02-2.29-1.4-2.29-1.4 0-1.61 1.09-1.61 2.22v4.25H9.37V9.75h2.86v1.17h.04c.4-.76 1.37-1.56 2.82-1.56 3.01 0 3.57 1.98 3.57 4.56v4.42Z"/>
+          </svg>
+        </a>
+
+        <a
+          href="https://www.youtube.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="YouTube"
+          class="!text-white !no-underline transition-colors hover:!text-vb-footer-accent"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6" aria-hidden="true">
+            <path d="M23.5 6.2a3.02 3.02 0 0 0-2.13-2.14C19.49 3.55 12 3.55 12 3.55s-7.49 0-9.37.51A3.02 3.02 0 0 0 .5 6.2C0 8.08 0 12 0 12s0 3.92.5 5.8a3.02 3.02 0 0 0 2.13 2.14c1.88.51 9.37.51 9.37.51s7.49 0 9.37-.51a3.02 3.02 0 0 0 2.13-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.8ZM9.55 15.57V8.43L15.82 12l-6.27 3.57Z"/>
+          </svg>
+        </a>
       </div>
     </div>
-    <div
-      class="vb-element vb-element-f2c93d7 e-con-full e-flex e-con e-child"
-      data-id="f2c93d7"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-3676f54 vb-widget vb-widget-heading"
-        data-id="3676f54"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="heading.default"
-      >
-        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">Our Location</h2></div>
-      </div>
-      <div
-        class="vb-element vb-element-07cb2be vb-widget vb-widget-text-editor"
-        data-id="07cb2be"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="text-editor.default"
-      >
-        <div class="vb-widget-container">
-          <p>
-            <strong>VentureBean Consulting Pvt. Ltd.</strong><br />We Work Salarpuria Symbiosis,<br />Arekere Village<br
-            />Begur Hobli,<br />Bannerghatta Road,<br />Bengaluru – 560076, India
-          </p>
-        </div>
-      </div>
+
+    <!-- Quick Links -->
+    <div>
+            <h2 class="mb-6 !font-heading !text-[24px] font-semibold text-white">
+        Quick Links
+      </h2>
+
+      <ul class="flex flex-col gap-3">
+        {quickLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="group inline-flex items-center gap-2 text-sm font-semibold !text-white !no-underline transition-colors hover:!text-vb-footer-accent"
+            >
+              <span class="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-white text-vb-footer">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3 w-3" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 0 1 .02-1.06L10.94 10 7.23 6.29a.75.75 0 1 1 1.06-1.06l4.24 4.24a.75.75 0 0 1 0 1.06l-4.24 4.24a.75.75 0 0 1-1.08 0Z" clip-rule="evenodd"/>
+                </svg>
+              </span>
+              <span>{link.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
-    <div
-      class="vb-element vb-element-8e05365 e-con-full e-flex e-con e-child"
-      data-id="8e05365"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-70d29b3 vb-widget vb-widget-heading"
-        data-id="70d29b3"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="heading.default"
-      >
-        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">Contact Information</h2></div>
-      </div>
-      <div
-        class="vb-element vb-element-607b248 vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
-        data-id="607b248"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="icon-list.default"
-      >
-        <div class="vb-widget-container">
-          <ul class="vb-icon-list-items">
-            <li class="vb-icon-list-item">
-              <a href="http://mail">
-                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fas fa-phone-alt"></i> </span>
-                <span class="vb-icon-list-text">+91 98109 61665</span>
-              </a>
-            </li>
-            <li class="vb-icon-list-item">
-              <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fas fa-envelope"></i> </span>
-              <span class="vb-icon-list-text">beanie@venturebean.com </span>
-            </li>
-            <li class="vb-icon-list-item">
-              <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fas fa-building"></i> </span>
-              <span class="vb-icon-list-text">CIN: U93000KA2012PTC065441</span>
-            </li>
-          </ul>
+
+    <!-- Location -->
+    <div>
+            <h2 class="mb-6 !font-heading !text-[24px] font-semibold text-white">
+        Our Location
+      </h2>
+
+      <address class="text-base not-italic leading-[1.8] text-white">
+        <strong class="font-semibold">
+          VentureBean Consulting Pvt. Ltd.
+        </strong>
+        <br />
+        We Work Salarpuria Symbiosis,
+        <br />
+        Arekere Village,
+        <br />
+        Begur Hobli,
+        <br />
+        Bannerghatta Road,
+        <br />
+        Bengaluru – 560076, India
+      </address>
+    </div>
+
+    <!-- Contact -->
+    <div>
+            <h2 class="mb-6 !font-heading !text-[24px] font-semibold text-white">
+        Contact Information
+      </h2>
+
+      <div class="flex flex-col gap-3">
+        <a
+          href="tel:+919810961665"
+          class="inline-flex items-center gap-3 text-base !text-white !no-underline transition-colors hover:!text-vb-footer-accent"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 shrink-0" aria-hidden="true">
+            <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.56 3.57.56a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.19 2.45.56 3.57a1 1 0 0 1-.25 1.02l-2.19 2.2Z"/>
+          </svg>
+          <span>+91 98109 61665</span>
+        </a>
+
+        <a
+          href="mailto:beanie@venturebean.com"
+          class="inline-flex items-center gap-3 text-base !text-white !no-underline transition-colors hover:!text-vb-footer-accent"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 shrink-0" aria-hidden="true">
+            <path d="M20 4H4a2 2 0 0 0-2 2v.4l10 6.25L22 6.4V6a2 2 0 0 0-2-2ZM2 8.75V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8.75l-9.47 5.92a1 1 0 0 1-1.06 0L2 8.75Z"/>
+          </svg>
+          <span>beanie@venturebean.com</span>
+        </a>
+
+        <div class="inline-flex items-center gap-3 text-base text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 shrink-0" aria-hidden="true">
+            <path d="M5 2h14a1 1 0 0 1 1 1v18H4V3a1 1 0 0 1 1-1Zm3 4v2h2V6H8Zm0 4v2h2v-2H8Zm0 4v2h2v-2H8Zm6-8v2h2V6h-2Zm0 4v2h2v-2h-2Zm0 4v2h2v-2h-2Zm-2 7v-4h-2v4h2Z"/>
+          </svg>
+          <span>CIN: U93000KA2012PTC065441</span>
         </div>
       </div>
-      <div
-        class="vb-element vb-element-6532f4e vb-icon-list--layout-traditional vb-list-item-link-full_width vb-widget vb-widget-icon-list"
-        data-id="6532f4e"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="icon-list.default"
-      >
-        <div class="vb-widget-container">
-          <ul class="vb-icon-list-items">
-            <li class="vb-icon-list-item">
-              <a href="https://www.linkedin.com/company/venturebean/?viewAsMember=true">
-                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fab fa-linkedin"></i> </span>
-                <span class="vb-icon-list-text">Linkedin</span>
-              </a>
-            </li>
-            <li class="vb-icon-list-item">
-              <a href="https://www.youtube.com/@VentureBeanConsulting">
-                <span class="vb-icon-list-icon"> <i aria-hidden="true" class="fab fa-youtube"></i> </span>
-                <span class="vb-icon-list-text">Youtube</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+
+      <!-- Social links -->
+      <div class="mt-7 flex flex-col gap-3">
+        <a
+          href="https://www.linkedin.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 text-xl font-semibold !text-white !no-underline transition-colors hover:!text-vb-footer-accent"
+        >
+          <span class="text-lg">in</span>
+          <span>Linkedin</span>
+        </a>
+
+        <a
+          href="https://www.youtube.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 text-xl font-semibold !text-white !no-underline transition-colors hover:!text-vb-footer-accent"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5" aria-hidden="true">
+            <path d="M23.5 6.2a3.02 3.02 0 0 0-2.13-2.14C19.49 3.55 12 3.55 12 3.55s-7.49 0-9.37.51A3.02 3.02 0 0 0 .5 6.2C0 8.08 0 12 0 12s0 3.92.5 5.8a3.02 3.02 0 0 0 2.13 2.14c1.88.51 9.37.51 9.37.51s7.49 0 9.37-.51a3.02 3.02 0 0 0 2.13-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.8ZM9.55 15.57V8.43L15.82 12l-6.27 3.57Z"/>
+          </svg>
+          <span>Youtube</span>
+        </a>
       </div>
     </div>
   </div>
-</div>
+</section>

@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.21",
+    "@tailwindcss/vite": "^4.3.5",
     "astro": "^7.3.5",
     "firebase": "^12.19.0",
-    "swiper": "^8.4.7"
+    "swiper": "^8.4.7",
+    "tailwindcss": "^4.3.5"
   },
   "overrides": {
     "@firebase/app": "0.16.2",

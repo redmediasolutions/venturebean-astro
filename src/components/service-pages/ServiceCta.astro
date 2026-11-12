@@ -1,96 +1,128 @@
+
 ---
 /**
- * Call to action (same design as "Ready to Grow, Scale or Transform Your
- * Business?" on the Consulting page).
+ * VentureBean – Premium Call To Action
+ * Astro + Tailwind CSS v4
  */
+
 interface Props {
   title: string;
   html: string;
   buttonText?: string;
   buttonHref?: string;
-  secondary?: { text: string; href: string };
+  secondary?: {
+    text: string;
+    href: string;
+  };
 }
-const { title, html, buttonText = 'Book a Discovery Call', buttonHref = '/contact-us/', secondary } = Astro.props;
+
+const {
+  title,
+  html,
+  buttonText = 'Book a Discovery Call',
+  buttonHref = '/contact-us/',
+  secondary,
+} = Astro.props;
 ---
 
-<div
-  class="vb-element vb-element-f4c2606 e-flex e-con-boxed e-con e-parent"
-  data-id="f4c2606"
-  data-element_type="container"
-  data-e-type="container"
+<section
+  class="relative isolate overflow-hidden bg-gradient-to-br from-[#17245A] via-[#101A4A] to-[#070322] px-5 py-16 font-sans sm:px-8 md:py-20 lg:py-24"
 >
-  <div class="e-con-inner">
+  <!-- Decorative Background -->
+  <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
     <div
-      class="vb-element vb-element-7882f13 e-con-full e-flex e-con e-child"
-      data-id="7882f13"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-3e3cab3 vb-widget vb-widget-heading"
-        data-id="3e3cab3"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="heading.default"
-      >
-        <div class="vb-widget-container">
-          <h2 class="vb-heading-title vb-size-default">{title}</h2>
-        </div>
+      class="absolute -right-32 -top-40 h-[450px] w-[450px] rounded-full bg-[#5276BD]/30 blur-[110px]"
+    ></div>
+
+    <div
+      class="absolute -bottom-48 -left-32 h-[450px] w-[450px] rounded-full bg-[#3155A4]/30 blur-[110px]"
+    ></div>
+
+    <div
+      class="absolute inset-0 bg-gradient-to-tr from-[#3155A4]/15 via-transparent to-white/[0.06]"
+    ></div>
+
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#070322]/30"
+    ></div>
+  </div>
+
+  <div class="mx-auto w-full max-w-[1600px]">
+    <div class="mx-auto flex max-w-[900px] flex-col items-center text-center">
+
+      <!-- Eyebrow -->
+      <div class="mb-6 flex items-center gap-3">
+        <span class="h-[2px] w-8 bg-vb-blue-light"></span>
+
+        <span class="text-[11px] font-bold uppercase tracking-[3px] text-[#B9C9EC]">
+          Let's Work Together
+        </span>
+
+        <span class="h-[2px] w-8 bg-vb-blue-light"></span>
       </div>
-      <div
-        class="vb-element vb-element-2c34a8d vb-widget__width-initial vb-widget vb-widget-text-editor"
-        data-id="2c34a8d"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="text-editor.default"
+
+      <!-- Heading -->
+      <h2
+        class="!m-0 max-w-[800px] !font-heading !text-3xl !font-semibold !leading-[1.2] !tracking-tight !text-white sm:!text-4xl md:!text-5xl lg:!text-[48px]"
       >
-        <div class="vb-widget-container"><Fragment set:html={html} /></div>
+        {title}
+      </h2>
+
+      <!-- Description -->
+      <div
+        class="mt-6 max-w-[760px] text-sm leading-[1.9] text-white/80 md:text-base md:leading-[2] [&_p]:mb-4 [&_p:last-child]:mb-0 [&_strong]:font-bold [&_strong]:text-white [&_b]:font-bold [&_b]:text-white [&_a]:text-white [&_a]:underline [&_a]:underline-offset-4 md:[&_p]:mb-4"
+      >
+        <Fragment set:html={html} />
       </div>
+
+      <!-- Buttons -->
       <div
-        class="vb-element vb-element-0e0cc87 e-con-full e-flex e-con e-child"
-        data-id="0e0cc87"
-        data-element_type="container"
-        data-e-type="container"
+        class="mt-9 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row md:mt-11"
       >
-        <div
-          class="vb-element vb-element-c961061 vb-align-center vb-widget vb-widget-button"
-          data-id="c961061"
-          data-element_type="widget"
-          data-e-type="widget"
-          data-widget_type="button.default"
+        <!-- Primary CTA -->
+        <a
+          href={buttonHref}
+          class="group inline-flex min-h-[54px] w-full items-center justify-center gap-4 rounded-md border-2 border-white !bg-white px-8 py-4 font-sans text-[16px] font-bold !text-[#101044] !no-underline shadow-lg transition-all duration-300 hover:!border-[#8FA9FF] hover:!bg-[#3155A4] hover:!text-white hover:shadow-xl sm:w-auto"
         >
-          <div class="vb-widget-container">
-            <div class="vb-button-wrapper">
-              <a class="vb-button vb-button-link vb-size-sm" href={buttonHref}>
-                <span class="vb-button-content-wrapper">
-                  <span class="vb-button-icon"> <i aria-hidden="true" class="teenyicon ti-phonecall"></i> </span>
-                  <span class="vb-button-text">{buttonText}</span>
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
+          <span>{buttonText}</span>
+
+          <span
+            aria-hidden="true"
+            class="text-lg transition-transform duration-300 group-hover:translate-x-1"
+          >
+            →
+          </span>
+        </a>
+        
+
+        <!-- Secondary CTA -->
         {secondary && (
-<div
-          class="vb-element vb-element-9b03b02 vb-align-center vb-widget vb-widget-button"
-          data-id="9b03b02"
-          data-element_type="widget"
-          data-e-type="widget"
-          data-widget_type="button.default"
-        >
-          <div class="vb-widget-container">
-            <div class="vb-button-wrapper">
-              <a class="vb-button vb-button-link vb-size-sm" href={secondary?.href}>
-                <span class="vb-button-content-wrapper">
-                  <span class="vb-button-icon"> <i aria-hidden="true" class="teenyicon ti-phonecall"></i> </span>
-                  <span class="vb-button-text">{secondary?.text}</span>
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-)}
+          <a
+            href={secondary.href}
+            class="group inline-flex min-h-[54px] w-full items-center justify-center gap-4 rounded-md border-2 border-white/60 !bg-transparent px-8 py-4 font-sans text-[13px] font-bold !text-white !no-underline transition-all duration-300 hover:!border-white hover:!bg-white/10 hover:!text-white sm:w-auto"
+          >
+            <span>{secondary.text}</span>
+
+            <span
+              aria-hidden="true"
+              class="text-lg transition-transform duration-300 group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </a>
+        )}
       </div>
+      <br>
+
+      <!-- Supporting Text -->
+      <p class="mt-8 text-xs tracking-wide text-white/60">
+        Practical insights. Meaningful conversations. Measurable progress.
+      </p>
     </div>
   </div>
-</div>
+
+  <!-- Bottom Accent -->
+  <div
+    class="absolute bottom-0 left-1/2 h-[3px] w-28 -translate-x-1/2 rounded-full bg-gradient-to-r from-[#3155A4] to-[#8FA9FF]"
+  ></div>
+</section>

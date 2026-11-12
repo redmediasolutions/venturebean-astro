@@ -1,85 +1,138 @@
+
 ---
 /**
- * Heading and photo cards (same design as "Who We Help" on the Consulting page).
+ * VentureBean – Our Services
+ * Four-pillar service card layout.
  */
+
 interface Props {
   title: string;
-  /** Optional text under the heading (HTML). */
   intro?: string;
-  /** Card text is HTML. */
-  cards: { title: string; text: string; image: string; link?: { href: string; text: string } }[];
+  cards: {
+    title: string;
+    text: string;
+    image: string;
+    link?: {
+      href: string;
+      text: string;
+    };
+  }[];
 }
+
 const { title, intro, cards } = Astro.props;
 ---
 
-<div
-  class="vb-element vb-element-abaac7f e-flex e-con-boxed e-con e-parent"
-  data-id="abaac7f"
-  data-element_type="container"
-  data-e-type="container"
-  data-settings={'{"background_background":"classic"}'}
->
-  <div class="e-con-inner">
-    <div
-      class="vb-element vb-element-80c9964 e-con-full e-flex e-con e-child"
-      data-id="80c9964"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-34685b7 vb-widget vb-widget-heading"
-        data-id="34685b7"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="heading.default"
-      >
-        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">{title}</h2></div>
+<section class="bg-[#F5F6F8] px-5 py-16 md:px-8 md:py-20 lg:py-24">
+  <div class="mx-auto max-w-[1200px]">
+
+    <!-- Section Header -->
+    <div class="mb-10 grid gap-6 lg:mb-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-16">
+
+      <div>
+        <span class="mb-4 block text-[11px] font-bold uppercase tracking-[2.5px] text-[#3155A4]">
+          What We Do
+        </span>
+
+        <h2 class="max-w-xl text-3xl font-bold leading-tight tracking-tight text-[#101044] md:text-4xl lg:text-[44px]">
+          {title}
+        </h2>
+
+        <span class="mt-6 block h-[3px] w-14 bg-[#3155A4]"></span>
       </div>
-      {intro && <div class="vb-sp-intro"><Fragment set:html={intro} /></div>}
-      <div
-        class="vb-element vb-element-fa3b7a4 e-con-full e-flex e-con e-child"
-        data-id="fa3b7a4"
-        data-element_type="container"
-        data-e-type="container"
-      >
-        {cards.map((card) => (
-<div
-          class="vb-element vb-element-28207fe e-con-full e-flex e-con e-child"
-          data-id="28207fe"
-          data-element_type="container"
-          data-e-type="container"
-          data-settings={'{"background_background":"classic"}'}
-        >
-          <div
-            class="vb-element vb-element-ebb061a e-con-full e-flex e-con e-child"
-            data-id="ebb061a"
-            style={`background-image:url(${card.image})`}
-            data-element_type="container"
-            data-e-type="container"
-            data-settings={'{"background_background":"classic"}'}
-          >
-          </div>
-          <div
-            class="vb-element vb-element-9c535ba vb-widget vb-widget-heading"
-            data-id="9c535ba"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="heading.default"
-          >
-            <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">{card.title}</h2></div>
-          </div>
-          <div
-            class="vb-element vb-element-f9ff7ff vb-widget vb-widget-text-editor"
-            data-id="f9ff7ff"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="text-editor.default"
-          >
-            <div class="vb-widget-container"><p><Fragment set:html={card.text} /></p>{card.link && <p class="vb-sp-card-link"><a href={card.link.href}>{card.link.text} →</a></p>}</div>
-          </div>
+
+      {intro && (
+        <div class="max-w-2xl text-sm leading-8 text-[#626575] md:text-[15px]">
+          <Fragment set:html={intro} />
         </div>
-        ))}
-      </div>
+      )}
+
     </div>
+
+    <!-- Service Cards -->
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+
+      {cards.map((card, index) => (
+        <article class="group flex min-w-0 flex-col overflow-hidden rounded-[5px] border border-[#E9EAF0] bg-white transition-all duration-300 hover:-translate-y-1 hover:border-[#D8DEED] hover:shadow-[0_18px_45px_rgba(16,16,68,0.09)]">
+
+          <!-- Image -->
+          <div class="relative h-[220px] overflow-hidden bg-[#E8EAF0] sm:h-[250px] lg:h-[270px]">
+
+            <img
+              src={card.image}
+              alt={card.title}
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.045]"
+            />
+
+            <span class="absolute bottom-5 right-5 flex h-11 w-11 items-center justify-center border border-white/30 bg-[#101044] text-[13px] font-bold tracking-wider text-white">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+
+          </div>
+
+          <!-- Card Content -->
+          <div class="flex flex-1 flex-col p-6 md:p-7 lg:p-8">
+
+            <div>
+              <span class="mb-3 block text-[10px] font-bold uppercase tracking-[2px] text-[#526CA9]">
+                Service Pillar
+              </span>
+
+              <h3 class="text-xl font-bold leading-snug tracking-tight text-[#101044] md:text-2xl">
+                {card.title}
+              </h3>
+            </div>
+
+            <!-- Description -->
+            <div class="service-card-description mt-5 text-[13.5px] leading-[1.85] text-[#626575] md:text-sm">
+              <Fragment set:html={card.text} />
+            </div>
+
+            <!-- Link -->
+            {card.link && (
+              <a
+                href={card.link.href}
+                class="mt-auto inline-flex w-fit items-center gap-3 pt-7 text-[13px] font-bold text-[#173B88] transition-colors duration-300 hover:text-[#5276BD]"
+              >
+                <span>{card.link.text}</span>
+
+                <span class="flex h-7 w-7 items-center justify-center rounded-full border border-[#CBD3E5] text-base transition-all duration-300 group-hover:translate-x-1 group-hover:border-[#101044] group-hover:bg-[#101044] group-hover:text-white">
+                  →
+                </span>
+              </a>
+            )}
+
+          </div>
+        </article>
+      ))}
+
+    </div>
+
   </div>
-</div>
+</section>
+
+<style>
+  /*
+   * Styling for dynamically supplied HTML inside card descriptions.
+   * All other component styling uses Tailwind.
+   */
+
+  .service-card-description :global(p) {
+    margin: 0 0 12px;
+  }
+
+  .service-card-description :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .service-card-description :global(b),
+  .service-card-description :global(strong) {
+    display: block;
+    margin-bottom: 9px;
+    color: #20234e;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.65;
+  }
+</style>

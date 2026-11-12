@@ -1,16 +1,17 @@
+
 // @ts-check
 import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://venturebean.com',
   trailingSlash: 'always',
-  
-  // Choose how you want routes rendered:
-  // - 'server': Renders everything dynamically on-demand by default.
-  // - 'static': Keeps pages prerendered by default, allowing you to opt specific routes out.
-  output: 'static', 
 
+  // Static site generation
+  output: 'static',
+
+  // Vercel deployment configuration
   adapter: vercel({
     webAnalytics: { enabled: true },
     imagesConfig: {
@@ -18,17 +19,29 @@ export default defineConfig({
     },
   }),
 
+  // URL redirects
   redirects: {
     '/coaching-page/': '/coaching/',
     '/insights/': '/knowledge-hub/insights/',
+    // Case Studies
+    '/coaching-case-studies/': '/case-studies/coaching/',
+    '/consulting-case-studies/': '/case-studies/consulting/',
   },
+
   build: {
     inlineStylesheets: 'never',
   },
+
   // Keep whitespace exactly as written for legacy/WordPress markup
   compressHTML: false,
-  // Snapshot HTML is large; keep Vite from warning about it
+
+  // Vite configuration
   vite: {
-    build: { chunkSizeWarningLimit: 1500 },
+    plugins: [
+      tailwindcss(),
+    ],
+    build: {
+      chunkSizeWarningLimit: 1500,
+    },
   },
 });

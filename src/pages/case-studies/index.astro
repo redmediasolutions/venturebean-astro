@@ -7,11 +7,24 @@ import Layout from '../../layouts/Layout.astro';
 import PageTitle from '../../components/case-studies/PageTitle.astro';
 import ClientSuccessStories from '../../components/case-studies/ClientSuccessStories.astro';
 import CaseStudyLinks from '../../components/case-studies/CaseStudyLinks.astro';
+import GlobalHero from '../../components/global/global-hero.astro';
 ---
 
-<Layout page="case-studies">
+<Layout
+  page="case-studies"
+  title="Case Studies | VentureBean: Consulting & Coaching Results"
+  description="Real outcomes from real engagements, see how VentureBean's consulting and coaching approach solved business challenges."
+  canonical="https://venturebean.com/case-studies/"
+  image="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794445069817-vb-casestudies.jpeg"
+>
   <div data-vb-type="site-page" data-vb-id="26764" class="vb vb-26764" data-vb-post-type="page">
-    <PageTitle />
+  <GlobalHero
+    title="Case Studies | VentureBean: Consulting & Coaching Results"
+    description="Real outcomes from real engagements, see how VentureBean's consulting and coaching approach solved business challenges."
+    image="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794445069817-vb-casestudies.jpeg"
+    showButton={false}
+
+ />
     <ClientSuccessStories />
     <CaseStudyLinks />
   </div>
