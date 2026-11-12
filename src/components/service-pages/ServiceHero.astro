@@ -1,7 +1,10 @@
+
 ---
 /**
- * Page banner (same design as the Consulting page banner).
+ * VentureBean – Premium Service Hero
+ * Astro + Tailwind CSS v4
  */
+
 interface Props {
   title: string;
   description: string;
@@ -10,57 +13,80 @@ interface Props {
   buttonText?: string;
   buttonHref?: string;
 }
-const { title, description, image, imageAlt, buttonText = 'Book a Discovery Call', buttonHref = '/contact-us/' } = Astro.props;
+
+const {
+  title,
+  description,
+  image,
+  imageAlt,
+  buttonText = 'Book a Discovery Call',
+  buttonHref = '/contact-us/',
+} = Astro.props;
 ---
 
-<div
-  class="vb-element vb-element-d36d096 e-con-full e-flex e-con e-parent"
-  data-id="d36d096"
-  data-element_type="container"
-  data-e-type="container"
+<section
+  class="group relative isolate flex min-h-[540px] w-full items-center overflow-hidden bg-[#101044] sm:min-h-[580px] lg:min-h-[650px]"
+  aria-label={title}
 >
+  <!-- Background Image -->
   <div
-    class="vb-element vb-element-adea9a4 e-con-full e-flex e-con e-child"
-    data-id="adea9a4"
-    data-element_type="container"
-    data-e-type="container"
-  >
-    <div
-      class="vb-element vb-element-5a891a4 vb--v-position-bottom vb--h-position-center vb-arrows-position-inside vb-pagination-position-inside vb-widget vb-widget-slides"
-      data-id="5a891a4"
-      data-element_type="widget"
-      data-e-type="widget"
-      data-settings={'{"navigation":"both","autoplay":"yes","pause_on_hover":"yes","pause_on_interaction":"yes","autoplay_speed":5000,"infinite":"yes","transition":"slide","transition_speed":500}'}
-      data-widget_type="slides.default"
-    >
-      <div class="vb-widget-container">
-        <div class="vb-swiper">
-          <div
-            class="vb-slides-wrapper vb-main-swiper swiper"
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="Slides"
-            dir="ltr"
-            data-animation="fadeInUp"
-          >
-            <div class="swiper-wrapper vb-slides">
-              <div class="vb-repeater-item-0a583bb swiper-slide" role="group" aria-roledescription="slide">
-                <div
-                  class="swiper-slide-bg vb-ken-burns vb-ken-burns--in"
-                  style={`background-image:url(${image})`}
-                  role="img"
-                  aria-label={imageAlt || title}
-                >
-                </div><div class="vb-background-overlay"></div><div class="swiper-slide-inner">
-                  <div class="swiper-slide-contents">
-                    <h1 class="vb-slide-heading">{title}</h1><div class="vb-slide-description">{description}</div><a href={buttonHref} class="vb-button vb-slide-button vb-size-sm">{buttonText}</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    class="absolute inset-0 -z-30 bg-cover bg-center bg-no-repeat transition-transform duration-[1500ms] ease-out group-hover:scale-[1.025]"
+    style={`background-image: url("${image}")`}
+    role="img"
+    aria-label={imageAlt || title}
+  ></div>
+
+  <!-- Main Overlay -->
+  <div class="absolute inset-0 -z-20 bg-gradient-to-r from-[#101044]/95 via-[#101044]/80 to-[#101044]/35"></div>
+
+  <!-- Bottom Image Overlay -->
+  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-[#101044]/45 via-transparent to-[#101044]/15"></div>
+
+  <!-- Hero Content -->
+  <div class="mx-auto w-full max-w-[1600px] px-6 py-24 sm:px-8 md:py-28 lg:px-10 lg:py-32">
+
+    <div class="max-w-[850px]">
+
+      <!-- Eyebrow -->
+      <div class="mb-7 flex items-center gap-4">
+        <span class="h-[2px] w-11 bg-[#8CA9E8]"></span>
+
+        <span class="!text-[#D1DDF8] text-[11px] font-bold uppercase tracking-[3px]">
+          VentureBean
+        </span>
       </div>
+
+      <!-- Heading -->
+      <h1 class="!text-white max-w-[820px] text-4xl font-bold leading-[1.13] tracking-[-1.2px] sm:text-5xl md:text-[56px] lg:text-[62px]">
+        {title}
+      </h1>
+
+      <!-- Description -->
+      <p class="!text-white/90 mt-7 max-w-[660px] text-[15px] leading-[1.9] sm:text-base md:text-lg md:leading-[1.85]">
+        {description}
+      </p>
+
+      <!-- CTA -->
+      <div class="mt-10 md:mt-12">
+        <a
+          href={buttonHref}
+          class="group/button !inline-flex !min-h-[54px] !items-center !justify-center !gap-5 !border !border-white !bg-white !px-8 !py-4 !text-[13px] !font-bold !text-[#101044] !no-underline transition-all duration-300 hover:!border-[#3155A4] hover:!bg-[#3155A4] hover:!text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+        >
+          <span>{buttonText}</span>
+
+          <span
+            aria-hidden="true"
+            class="text-lg transition-transform duration-300 group-hover/button:translate-x-1"
+          >
+            →
+          </span>
+        </a>
+      </div>
+
     </div>
   </div>
-</div>
+
+  <!-- Bottom Accent -->
+  <div class="absolute bottom-0 left-0 h-[4px] w-28 bg-[#3155A4] md:w-36"></div>
+
+</section>

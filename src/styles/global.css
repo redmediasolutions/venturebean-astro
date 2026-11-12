@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  /* ========================================
+     BRAND COLORS
+  ======================================== */
+
+  --color-vb-navy: #101044;
+  --color-vb-blue: #3155A4;
+  --color-vb-light: #F5F6F8;
+  --color-vb-text: #626575;
+
+  --color-vb-blue-light: #8CA9E8;
+  --color-vb-blue-muted: #5276BD;
+  --color-vb-blue-soft: #E8EDF8;
+
+  /* Footer */
+  --color-vb-footer: #0B0633;
+  --color-vb-footer-deep: #070322;
+  --color-vb-footer-surface: #17245A;
+  --color-vb-footer-text: #FFFFFF;
+  --color-vb-footer-muted: #C6C3D8;
+  --color-vb-footer-subtle: #AAA6C4;
+  --color-vb-footer-accent: #8FA9FF;
+
+  /* Legacy VentureBean brand colors */
+  --color-vb-brown: #733416;
+  --color-vb-deep-blue: #100057;
+  --color-vb-dark-blue: #00053F;
+  --color-vb-accent-blue: #4791FA;
+
+  /* ========================================
+     TYPOGRAPHY
+  ======================================== */
+
+  --font-heading: "League Spartan", sans-serif;
+  --font-sans: "Barlow", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+  --font-roboto-slab: "Roboto Slab", serif;
+  --font-footer: "Barlow", sans-serif;
+
+  /* ========================================
+     LAYOUT
+  ======================================== */
+
+  --container-vb: 1600px;
+
+  /* ========================================
+     BORDER RADIUS
+  ======================================== */
+
+  --radius-vb: 5px;
+  --radius-vb-lg: 12px;
+
+  /* ========================================
+     SHADOWS
+  ======================================== */
+
+  --shadow-vb-card: 0 18px 45px rgba(16, 16, 68, 0.09);
+}
+
+/* ========================================
+   GLOBAL BASE STYLES
+======================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-vb-text);
+    background-color: #FFFFFF;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--color-vb-navy);
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: var(--font-sans);
+  }
+}

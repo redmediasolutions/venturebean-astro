@@ -1,94 +1,106 @@
+
 ---
 /**
- * Case Studies page: “Consulting” section.
+ * Case Studies – Consulting, Coaching and Organisational Development.
+ * Built with Astro + Tailwind CSS v4.
  */
+
+const caseStudies = [
+  {
+    title: 'Consulting',
+    href: 'consulting/',
+    image: '/assets/uploads/2024/07/vb2.jpg',
+    alt: 'Consulting case studies',
+    number: '01',
+  },
+  {
+    title: 'Coaching',
+    href: 'coaching/',
+    image: '/assets/uploads/2024/07/vb3.jpg',
+    alt: 'Coaching case studies',
+    number: '02',
+  },
+  {
+    title: 'Organisational Development Programs',
+    href: 'organisational-development/',
+    image: 'https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794446894766-organisational-developement-programs.webp',
+    alt: 'Organisational development programs',
+    number: '03',
+  },
+];
 ---
 
-<div
-  class="vb-element vb-element-eaf2439 e-flex e-con-boxed e-con e-parent"
-  data-id="eaf2439"
-  data-element_type="container"
-  data-e-type="container"
->
-  <div class="e-con-inner">
-    <div
-      class="vb-element vb-element-75e4985 e-con-full e-flex e-con e-child"
-      data-id="75e4985"
-      data-element_type="container"
-      data-e-type="container"
-      data-settings={'{"background_background":"classic"}'}
-    >
-      <div
-        class="vb-element vb-element-618d319 vb-widget vb-widget-image"
-        data-id="618d319"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="image.default"
-      >
-        <div class="vb-widget-container">
-          <a href="/consulting-case-studies/">
-            <img
-              fetchpriority="high"
-              decoding="async"
-              width="800"
-              height="672"
-              src="/assets/uploads/2024/07/vb2.jpg"
-              class="attachment-large size-large site-image-16252"
-              alt=""
-              srcset="/assets/uploads/2024/07/vb2.jpg 802w, /assets/uploads/2024/07/vb2-357x300.jpg 357w, /assets/uploads/2024/07/vb2-768x645.jpg 768w"
-              sizes="(max-width: 800px) 100vw, 800px"
-            />
-          </a>
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-4d09d65 vb-widget vb-widget-heading"
-        data-id="4d09d65"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="heading.default"
-      >
-        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">Consulting</h2></div>
-      </div>
+<section class="w-full bg-vb-light py-16 sm:py-20 lg:py-24">
+  <div class="mx-auto w-full max-w-[1600px] px-6 sm:px-8 lg:px-10">
+
+    <!-- Section Intro -->
+    <div class="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+      <span class="mb-4 inline-flex items-center gap-3 font-sans text-xs font-bold uppercase tracking-[3px] text-vb-blue">
+        <span class="h-[2px] w-8 bg-vb-blue"></span>
+        Explore Our Work
+        <span class="h-[2px] w-8 bg-vb-blue"></span>
+      </span>
+
+      <h2 class="font-heading text-4xl font-bold leading-tight tracking-tight text-vb-navy sm:text-5xl">
+        Our Areas of Expertise
+      </h2>
+
+      <p class="mt-5 font-sans text-base leading-relaxed text-vb-text sm:text-lg">
+        Discover how VentureBean partners with organisations to create meaningful
+        change through consulting, coaching and organisational development.
+      </p>
     </div>
-    <div
-      class="vb-element vb-element-817dc2e e-con-full e-flex e-con e-child"
-      data-id="817dc2e"
-      data-element_type="container"
-      data-e-type="container"
-      data-settings={'{"background_background":"classic"}'}
-    >
-      <div
-        class="vb-element vb-element-263da18 vb-widget vb-widget-image"
-        data-id="263da18"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="image.default"
-      >
-        <div class="vb-widget-container">
-          <a href="/coaching-case-studies/">
-            <img
-              decoding="async"
-              width="800"
-              height="672"
-              src="/assets/uploads/2024/07/vb3.jpg"
-              class="attachment-large size-large site-image-16253"
-              alt=""
-              srcset="/assets/uploads/2024/07/vb3.jpg 802w, /assets/uploads/2024/07/vb3-357x300.jpg 357w, /assets/uploads/2024/07/vb3-768x645.jpg 768w"
-              sizes="(max-width: 800px) 100vw, 800px"
-            />
-          </a>
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-4b736c5 vb-widget vb-widget-heading"
-        data-id="4b736c5"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="heading.default"
-      >
-        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">Coaching</h2></div>
-      </div>
+
+    <!-- Three Column Grid -->
+    <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      {caseStudies.map((item) => (
+        <a
+          href={item.href}
+          aria-label={`Explore ${item.title} case studies`}
+          class="group relative isolate flex min-h-[420px] flex-col !text-white text-semibold justify-end overflow-hidden rounded-2xl bg-vb-navy shadow-vb-card transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vb-blue"
+        >
+          <!-- Background Image -->
+          <img
+            src={item.image}
+            alt={item.alt}
+            width="800"
+            height="672"
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+
+          <!-- Image Overlay -->
+          <div class="absolute inset-0 -z-10 bg-gradient-to-t from-[#08082F]/95 via-[#101044]/45 to-[#101044]/5 transition-all duration-500 group-hover:from-[#08082F]/95 group-hover:via-[#101044]/60"></div>
+
+          <!-- Card Content -->
+          <div class="relative p-7 sm:p-8 lg:p-9">
+
+            <!-- Number -->
+            <span class="mb-5 inline-flex h-9 min-w-9 items-center justify-center rounded-full border border-white/40 px-3 font-sans text-xs font-semibold tracking-wider text-white">
+              {item.number}
+            </span>
+
+            <!-- Title and Arrow -->
+            <div class="flex items-end justify-between gap-4">
+              <h3 class="max-w-[280px] font-heading text-3xl font-bold leading-tight text-white sm:text-4xl">
+                {item.title}
+              </h3>
+
+              <span
+                aria-hidden="true"
+                class="mb-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/50 text-xl text-white transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-vb-navy group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </div>
+
+            <!-- Accent -->
+            <div class="mt-6 h-[3px] w-12 bg-vb-blue-light transition-all duration-500 group-hover:w-20"></div>
+          </div>
+        </a>
+      ))}
     </div>
+
   </div>
-</div>
+</section>

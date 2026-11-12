@@ -1,41 +1,79 @@
+
 ---
 /**
- * Heading + paragraphs (same design as "Business Growth Consulting for SMBs…"
- * on the Consulting page). `html` is the paragraphs' HTML.
+ * VentureBean – Service Text Section
+ * Elegant heading and rich-text content.
  */
+
 interface Props {
   title: string;
   html?: string;
 }
+
 const { title, html = '' } = Astro.props;
 ---
 
-<div
-  class="vb-element vb-element-e7467df e-flex e-con-boxed e-con e-parent"
-  data-id="e7467df"
-  data-element_type="container"
-  data-e-type="container"
->
-  <div class="e-con-inner">
-    <div
-      class="vb-element vb-element-3d71ef0 vb-widget vb-widget-heading"
-      data-id="3d71ef0"
-      data-element_type="widget"
-      data-e-type="widget"
-      data-widget_type="heading.default"
-    >
-      <div class="vb-widget-container">
-        <h2 class="vb-heading-title vb-size-default">{title}</h2>
+<section class="bg-white px-5 py-16 md:px-8 md:py-20 lg:py-24">
+  <div class="mx-auto max-w-[1200px]">
+
+    <div class="max-w-[1000px]">
+
+      <!-- Section Heading -->
+      <div class="mb-8 md:mb-10">
+
+        <h2 class="max-w-[950px] text-3xl font-bold leading-[1.2] tracking-tight text-[#101044] sm:text-4xl lg:text-[42px]">
+          {title}
+        </h2>
+
+        <span class="mt-6 block h-[3px] w-14 bg-[#3155A4]"></span>
+
       </div>
+
+      <!-- Rich Text Content -->
+      <div class="service-text-content max-w-[900px] text-[14px] leading-[1.9] text-[#626575] md:text-[15px] md:leading-[2]">
+
+        {html && <Fragment set:html={html} />}
+
+        <slot />
+
+      </div>
+
     </div>
-    <div
-      class="vb-element vb-element-60d9728 vb-widget vb-widget-text-editor"
-      data-id="60d9728"
-      data-element_type="widget"
-      data-e-type="widget"
-      data-widget_type="text-editor.default"
-    >
-      <div class="vb-widget-container"><Fragment set:html={html} /><slot /></div>
-    </div>
+
   </div>
-</div>
+</section>
+
+<style>
+  /* Rich text formatting for dynamically supplied HTML */
+
+  .service-text-content :global(p) {
+    margin-bottom: 20px;
+  }
+
+  .service-text-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .service-text-content :global(b),
+  .service-text-content :global(strong) {
+    color: #101044;
+    font-weight: 700;
+  }
+
+  .service-text-content :global(a) {
+    color: #3155a4;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .service-text-content :global(a:hover) {
+    color: #101044;
+  }
+
+  @media (max-width: 640px) {
+    .service-text-content :global(p) {
+      margin-bottom: 16px;
+    }
+  }
+</style>

@@ -6,6 +6,7 @@
  * Per-page SEO tags and stylesheets are in src/data/pages.json (copied from
  * the WordPress site), keyed by the `page` prop.
  */
+import '../styles/global.css';
 import pages from '../data/pages.json';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
@@ -16,32 +17,60 @@ export type PageId = keyof typeof pages;
 
 interface Props {
   page: PageId;
-  /** Overrides for article pages. */
   title?: string;
   description?: string;
   canonical?: string;
   image?: string;
 }
 
-const { page: id, title, description, canonical, image } = Astro.props;
-const page = pages[id as PageId];
-if (!page) throw new Error(`No SEO data for page "${id}" in src/data/pages.json.`);
+const {
+  page: id,
+  title,
+  description,
+  canonical,
+  image,
+} = Astro.props;
 
-const attr = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+const page = pages[id];
+
+if (!page) {
+  throw new Error(`No SEO data for page "${id}" in src/data/pages.json.`);
+}
+
+const attr = (s: string) =>
+  s.replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;');
+
 let head = page.head;
-if (title) head = head.replace(/<title>[\s\S]*?<\/title>/, `<title>${attr(title)}</title>`);
-if (description)
+
+if (title) {
+  head = head.replace(
+    /<title>[\s\S]*?<\/title>/,
+    `<title>${attr(title)}</title>`
+  );
+}
+
+if (description) {
   head = head.replace(
     /<meta name="description" content="[^"]*">/,
-    `<meta name="description" content="${attr(description)}">`,
+    `<meta name="description" content="${attr(description)}">`
   );
-if (canonical)
-  head = head.replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${attr(canonical)}">`);
-if (image)
+}
+
+if (canonical) {
+  head = head.replace(
+    /<link rel="canonical" href="[^"]*">/,
+    `<link rel="canonical" href="${attr(canonical)}">`
+  );
+}
+
+if (image) {
   head = head.replace(
     /<meta property="og:image" content="[^"]*">/,
-    `<meta property="og:image" content="${attr(image)}">`,
+    `<meta property="og:image" content="${attr(image)}">`
   );
+}
 ---
 
 <!doctype html>
@@ -68,8 +97,16 @@ if (image)
       gtag('js', new Date());
       gtag('config', 'GT-NFBZ386N');
     </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=League+Spartan:wght@400;500;600;700;800&family=Roboto:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
   </head>
-  <body class={page.bodyClass}>
+  <body class="min-h-screen bg-white font-sans antialiased">
     <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
     <Header />
     <slot />
