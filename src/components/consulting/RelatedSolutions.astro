@@ -259,7 +259,9 @@
           data-widget_type="heading.default"
         >
           <div class="vb-widget-container">
-            <h3 class="vb-heading-title vb-size-default">Organisational Leadership Development</h3>
+            <h3 class="vb-heading-title vb-size-default">
+              <a href="/organisational-development/" class="related-solution-link">Organisational Development</a>
+            </h3>
           </div>
         </div>
       </div>
@@ -303,3 +305,21 @@
     </div>
   </div>
 </div>
+
+<style is:global>
+  /* Linked Related Solutions cards: whole card is clickable, text keeps its colour. */
+  .vb-element.vb-element-a1c822b > .e-con:has(.related-solution-link) {
+    position: relative;
+    cursor: pointer;
+  }
+  .vb-element.vb-element-a1c822b .related-solution-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .vb-element.vb-element-a1c822b .related-solution-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+</style>

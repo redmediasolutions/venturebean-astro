@@ -9,11 +9,9 @@ import GlobalHero from '../components/global/global-hero.astro';
 import ServiceText from '../components/service-pages/ServiceText.astro';
 import ServiceAudience from '../components/service-pages/ServiceAudience.astro';
 import ServiceCards from '../components/service-pages/ServiceCards.astro';
-import ServiceSteps from '../components/service-pages/ServiceSteps.astro';
 import ServiceTiles from '../components/service-pages/ServiceTiles.astro';
 import ServiceCta from '../components/service-pages/ServiceCta.astro';
 import ServiceFaqs from '../components/service-pages/ServiceFaqs.astro';
-import LearningGames from '../components/coaching/LearningGames.astro';
 
 const U = '/assets/uploads';
 const list = (s: string) => s.split(/,\s*|\s+and\s+(?=[^,]*$)/).map((x) => x.trim()).filter(Boolean).map((x) => x[0].toUpperCase() + x.slice(1));
@@ -79,8 +77,6 @@ const programmes = [
     text: '',
     label: 'Programmes',
     items: [
-      'Sales leadership development and coaching',
-      'Sales manager coaching skills',
       'Consultative selling and customer engagement',
       'Sales funnel and pipeline management',
       'Negotiation and objection-handling workshops',
@@ -180,18 +176,6 @@ const faqs = [
       cards={programmes}
     />
 
-    <ServiceSteps
-      title="Our Approach"
-      steps={[
-        { title: 'Baseline', icon: 'fas fa-search', items: ['Assess the organisational context, leadership dynamics, team effectiveness and current development needs.'] },
-        { title: 'Benchmark', icon: 'far fa-chart-bar', items: ['Identify capability gaps, establish priorities and align development objectives with organisational goals.'] },
-        { title: 'Analyse & Action Plan', icon: 'fas fa-clipboard-list', items: ['Translate findings into a structured development plan with clear activities, responsibilities and success measures.'] },
-        { title: 'Implement', icon: 'fas fa-cogs', items: ['Deliver targeted workshops, coaching and experiential interventions that address identified needs and build practical workplace capabilities.'] },
-        { title: 'Sustain', icon: 'fas fa-sync-alt', items: ['Track progress, reinforce desired behaviours and integrate learning into everyday leadership and management practices.'] },
-      ]}
-    />
-    <LearningGames />
-
     <ServiceTiles
       title="Outcomes We Work Towards"
       subtitle="Our organisational development programmes strengthen leadership, teamwork and business performance. Success measures are agreed at the beginning of each engagement and aligned with the organisation’s specific development objectives."
@@ -206,7 +190,7 @@ const faqs = [
     />
 
     <ServiceText
-      title="Why VentureBean? Connecting People Development with Business Performance"
+      title="Connecting People Development with Business Performance"
       html={`<p>Organisational challenges often require more than training alone. They may involve unclear structures, overlapping responsibilities, inconsistent management practices or gaps in leadership capability.</p>
 <p>VentureBean brings together <a href="/business-consulting/">business consulting</a>, <a href="/coaching/">executive coaching</a> and leadership development to address these connected challenges. This allows us to work on both the capabilities people need and the organisational practices that enable them to perform effectively.</p>
 <p>Our approach combines structured assessment, facilitated learning, practical business situations and experiential methods. Development activities are linked to organisational priorities, with an emphasis on workplace application, accountability and sustained improvement.</p>
