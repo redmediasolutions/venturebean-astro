@@ -73,36 +73,14 @@ import CoachingCards from '../../blog/saved/CoachingCards.astro';
                 data-id="65149b6"
                 data-element_type="widget"
                 data-e-type="widget"
-                data-settings={'{"pagination_type":"numbers_and_prev_next","cards_columns":"3","cards_columns_tablet":"2","cards_columns_mobile":"1","cards_row_gap":{"unit":"px","size":35,"sizes":[]},"cards_row_gap_tablet":{"unit":"px","size":"","sizes":[]},"cards_row_gap_mobile":{"unit":"px","size":"","sizes":[]}}'}
+                data-settings={'{"cards_columns":"3","cards_columns_tablet":"2","cards_columns_mobile":"1","cards_row_gap":{"unit":"px","size":35,"sizes":[]},"cards_row_gap_tablet":{"unit":"px","size":"","sizes":[]},"cards_row_gap_mobile":{"unit":"px","size":"","sizes":[]}}'}
                 data-widget_type="posts.cards"
               >
                 <div class="vb-widget-container">
                   <div class="vb-posts-container vb-posts vb-posts--skin-cards vb-grid" role="list">
                     <PostCardList category="consulting"><ConsultingCards /></PostCardList>
                   </div>
-
-                  <div
-                    class="e-load-more-anchor"
-                    data-page="1"
-                    data-max-page="11"
-                    data-next-page="/knowledge-hub/insights/"
-                  >
-                  </div>
-                  <nav class="vb-pagination" aria-label="Pagination">
-                    <span class="page-numbers prev">« Previous</span>
-                    <span aria-current="page" class="page-numbers current"
-                      ><span class="vb-screen-only">Page</span>1</span
-                    >
-                    <a class="page-numbers" href="/knowledge-hub/insights/"><span class="vb-screen-only">Page</span>2</a
-                    >
-                    <a class="page-numbers" href="/knowledge-hub/insights/"><span class="vb-screen-only">Page</span>3</a
-                    >
-                    <span class="page-numbers dots">…</span>
-                    <a class="page-numbers" href="/knowledge-hub/insights/"
-                      ><span class="vb-screen-only">Page</span>11</a
-                    >
-                    <a class="page-numbers next" href="/knowledge-hub/insights/">Next »</a>
-                  </nav>
+                  <div class="vb-load-more-sentinel" aria-hidden="true"></div>
                 </div>
               </div>
             </div>
@@ -122,35 +100,14 @@ import CoachingCards from '../../blog/saved/CoachingCards.astro';
                 data-id="0b54ffe"
                 data-element_type="widget"
                 data-e-type="widget"
-                data-settings={'{"pagination_type":"numbers_and_prev_next","cards_columns":"3","cards_columns_tablet":"2","cards_columns_mobile":"1","cards_row_gap":{"unit":"px","size":35,"sizes":[]},"cards_row_gap_tablet":{"unit":"px","size":"","sizes":[]},"cards_row_gap_mobile":{"unit":"px","size":"","sizes":[]}}'}
+                data-settings={'{"cards_columns":"3","cards_columns_tablet":"2","cards_columns_mobile":"1","cards_row_gap":{"unit":"px","size":35,"sizes":[]},"cards_row_gap_tablet":{"unit":"px","size":"","sizes":[]},"cards_row_gap_mobile":{"unit":"px","size":"","sizes":[]}}'}
                 data-widget_type="posts.cards"
               >
                 <div class="vb-widget-container">
                   <div class="vb-posts-container vb-posts vb-posts--skin-cards vb-grid" role="list">
                     <PostCardList category="coaching"><CoachingCards /></PostCardList>
                   </div>
-
-                  <div
-                    class="e-load-more-anchor"
-                    data-page="1"
-                    data-max-page="7"
-                    data-next-page="/knowledge-hub/insights/"
-                  >
-                  </div>
-                  <nav class="vb-pagination" aria-label="Pagination">
-                    <span class="page-numbers prev">« Previous</span>
-                    <span aria-current="page" class="page-numbers current"
-                      ><span class="vb-screen-only">Page</span>1</span
-                    >
-                    <a class="page-numbers" href="/knowledge-hub/insights/"><span class="vb-screen-only">Page</span>2</a
-                    >
-                    <a class="page-numbers" href="/knowledge-hub/insights/"><span class="vb-screen-only">Page</span>3</a
-                    >
-                    <span class="page-numbers dots">…</span>
-                    <a class="page-numbers" href="/knowledge-hub/insights/"><span class="vb-screen-only">Page</span>7</a
-                    >
-                    <a class="page-numbers next" href="/knowledge-hub/insights/">Next »</a>
-                  </nav>
+                  <div class="vb-load-more-sentinel" aria-hidden="true"></div>
                 </div>
               </div>
             </div>
@@ -160,3 +117,39 @@ import CoachingCards from '../../blog/saved/CoachingCards.astro';
     </div>
   </div>
 </div>
+
+<style is:global>
+  /* Load-as-you-scroll: cards beyond the first batch stay hidden until reached. */
+  .vb-posts-container > .vb-post.vb-lazy-hidden {
+    display: none;
+  }
+  .vb-load-more-sentinel {
+    height: 1px;
+  }
+</style>
+
+<script>
+  // Insights: show 9 articles, then 9 more each time the reader nears the end
+  // of the list — instead of page numbers. All articles are in the page (good
+  // for search engines); this only reveals them in batches.
+  const BATCH = 9;
+  for (const grid of document.querySelectorAll<HTMLElement>('.vb-widget-posts .vb-posts-container')) {
+    const cards = [...grid.querySelectorAll<HTMLElement>(':scope > .vb-post')];
+    const sentinel = grid.parentElement?.querySelector<HTMLElement>('.vb-load-more-sentinel');
+    if (cards.length <= BATCH || !sentinel) continue;
+    let shown = BATCH;
+    cards.slice(BATCH).forEach((c) => c.classList.add('vb-lazy-hidden'));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        cards.slice(shown, shown + BATCH).forEach((c) => c.classList.remove('vb-lazy-hidden'));
+        shown += BATCH;
+        observer.unobserve(sentinel);
+        // Re-check: on tall screens the end can still be in view after a batch.
+        if (shown < cards.length) observer.observe(sentinel);
+      },
+      { rootMargin: '600px 0px' }
+    );
+    observer.observe(sentinel);
+  }
+</script>

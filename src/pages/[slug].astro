@@ -1,6 +1,6 @@
 ---
 /**
- * Blog article → /<slug>/  (same addresses as on WordPress)
+ * Blog article → /<slug>/  (same addresses as on WordPress), rendered on request
  * One page per published Coaching, Consulting, Industry Perspectives and
  * Framework (Toolkit) post in the Content Manager.
  * The pieces are in src/components/blog/article/.
@@ -13,37 +13,16 @@ import RelatedPosts from '../components/blog/article/RelatedPosts.astro';
 import { getArticlePosts, postPath, reportPdfOf, type BlogPost } from '../lib/posts';
 import { formatDate, prepareContent } from '../lib/article';
 
-export async function getStaticPaths() {
-  // Slugs already used by site pages.
-  const reserved = new Set([
-    'about-us',
-    'business-consulting',
-    'case-studies',
-    'clients',
-    'coaching',
-    'coaching-case-studies',
-    'consulting-case-studies',
-    'contact-us',
-    'knowledge-hub',
-    'testimonials',
-    'venturebean-solutions-page',
-    'insights',
-    'media-spotlight',
-    'industry-perspectives',
-    'toolkit',
-  ]);
-  const posts = await getArticlePosts();
-  return posts
-    .filter((post) => !reserved.has(post.slug))
-    .map((post) => ({ params: { slug: post.slug }, props: { post } }));
-}
+// Rendered on request (Cloudflare), so a post published in the Content
+// Manager has its page straight away.
+export const prerender = false;
 
-interface Props {
-  post: BlogPost;
-}
-
-const { post } = Astro.props;
+const slug = String(Astro.params.slug ?? '').toLowerCase();
 const all = await getArticlePosts();
+const post: BlogPost | undefined = all.find((p) => p.slug.toLowerCase() === slug);
+if (!post) {
+  return new Response('Page not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+}
 const { html: content, toc } = prepareContent(post.content);
 // "Continue reading" shows more posts from the article's own category.
 const category =

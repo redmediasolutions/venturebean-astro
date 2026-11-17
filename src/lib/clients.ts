@@ -12,8 +12,7 @@
  *         hide_on_home         yes/no   hide from the home-page logo strip
  *         hide_on_clients_page yes/no   hide from the Clients page
  */
-import { collection, getDocs, query, Timestamp, where } from 'firebase/firestore/lite';
-import { getDb, isCmsConfigured } from './firebase';
+import { isCmsConfigured, loadCms, toDate } from './cms';
 
 export const CLIENTS_CATEGORY_SLUG = 'clients';
 
@@ -39,34 +38,18 @@ export interface ClientsData {
   industries: Industry[];
 }
 
-const TIMEOUT_MS = 20_000;
-
-function withTimeout<T>(promise: Promise<T>): Promise<T> {
-  return Promise.race([
-    promise,
-    new Promise<T>((_, reject) => setTimeout(() => reject(new Error(`timed out after ${TIMEOUT_MS / 1000}s`)), TIMEOUT_MS)),
-  ]);
-}
-
 async function load(): Promise<ClientsData | null> {
   if (!isCmsConfigured) {
-    console.warn('[cms] Firebase keys missing (.env) — using the built-in client logos.');
+    console.warn('[cms] Firebase keys missing — using the built-in client logos.');
     return null;
   }
-  const db = getDb();
-  const [catSnap, postSnap] = await withTimeout(
-    Promise.all([
-      getDocs(collection(db, 'categories')),
-      // Only published posts are readable by the public (see firestore.rules).
-      getDocs(query(collection(db, 'posts'), where('status', '==', 'published'))),
-    ])
-  );
-
-  const categories = catSnap.docs.map((d) => ({
-    id: d.id,
-    name: String(d.data().name ?? ''),
-    slug: String(d.data().slug ?? ''),
-    parentId: (d.data().parentId as string | null) ?? null,
+  const data = await loadCms();
+  if (!data) return null;
+  const categories = data.categories.map((c) => ({
+    id: c.id,
+    name: String(c.name ?? ''),
+    slug: String(c.slug ?? ''),
+    parentId: (c.parentId as string | null) ?? null,
   }));
   const root = categories.find((c) => c.slug === CLIENTS_CATEGORY_SLUG);
   if (!root) {
@@ -96,11 +79,11 @@ async function load(): Promise<ClientsData | null> {
   const num = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
 
   const clients: ClientLogo[] = [];
-  for (const d of postSnap.docs) {
-    const p = d.data();
+  for (const p of data.posts as (Record<string, any> & { id: string })[]) {
     const catIds: string[] = Array.isArray(p.categoryIds) ? p.categoryIds : [];
     if (!catIds.some((id) => tree.has(id))) continue;
-    if (p.publishedAt instanceof Timestamp && p.publishedAt.toMillis() > now) continue; // scheduled
+    const publishedAt = toDate(p.publishedAt);
+    if (publishedAt && publishedAt.getTime() > now) continue; // scheduled
     const img = p.featuredImage;
     if (!img?.url) {
       console.warn(`[cms] Client "${p.title}" has no featured image (logo) — skipped.`);
@@ -109,7 +92,7 @@ async function load(): Promise<ClientsData | null> {
     const f = (p.customFields ?? {}) as Record<string, unknown>;
     const name = String(p.title ?? '').trim();
     clients.push({
-      id: d.id,
+      id: p.id,
       name,
       logo: { url: img.url, alt: img.alt || name, width: num(img.width), height: num(img.height) },
       industryIds: [...new Set(catIds.filter((id) => tree.has(id) && id !== root.id).map(industryOf).filter(Boolean) as string[])],
@@ -129,13 +112,18 @@ async function load(): Promise<ClientsData | null> {
   return { clients, industries };
 }
 
-let cached: Promise<ClientsData | null> | undefined;
+let parsed: { source: unknown; result: ClientsData | null } | null = null;
 
-/** Fetched once per build. Returns null (→ keep the original logos) if anything goes wrong. */
-export function getClientsData(): Promise<ClientsData | null> {
-  cached ??= load().catch((err) => {
-    console.warn(`[cms] Could not load client logos from Firebase (${err?.message ?? err}) — using the built-in logos.`);
+/** Client logos from the Content Manager, or null (→ keep the original logos). */
+export async function getClientsData(): Promise<ClientsData | null> {
+  try {
+    const data = await loadCms();
+    if (data && parsed?.source === data) return parsed.result;
+    const result = await load();
+    if (data) parsed = { source: data, result };
+    return result;
+  } catch (err) {
+    console.warn(`[cms] Could not load client logos (${(err as Error)?.message ?? err}) — using the built-in logos.`);
     return null;
-  });
-  return cached;
+  }
 }

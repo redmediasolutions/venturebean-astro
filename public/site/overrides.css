@@ -329,7 +329,7 @@ html {
 .overlay-search-input {
   width: 100%;
   height: 48px;
-  padding: 0 110px 0 46px;
+  padding: 0 110px 0 46px !important;
   font-size: 1.05rem;
   border: 1px solid #dcdcdc;
   border-radius: 24px;
@@ -364,6 +364,73 @@ html {
   opacity: 0.9;
 }
 
+/* Live results under the header search box */
+.overlay-search-live {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #e4e4ea;
+  border-radius: 14px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.14);
+  padding: 6px;
+  max-height: 70vh;
+  overflow-y: auto;
+  z-index: 1001;
+  text-align: left;
+}
+.overlay-search-live[hidden] {
+  display: none;
+}
+.overlay-live-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #1d1d2c;
+}
+.overlay-live-item:hover,
+.overlay-live-item:focus {
+  background: #f4f4f8;
+  outline: none;
+}
+.overlay-live-kind {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8b2332;
+}
+.overlay-live-title {
+  font-size: 0.98rem;
+  line-height: 1.35;
+  color: #100057;
+}
+.overlay-live-all {
+  display: block;
+  margin-top: 4px;
+  padding: 10px 14px;
+  border-top: 1px solid #eeeef3;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #8b2332;
+  text-decoration: none;
+}
+.overlay-live-all:hover,
+.overlay-live-all:focus {
+  text-decoration: underline;
+  outline: none;
+}
+.overlay-live-none {
+  margin: 0;
+  padding: 12px 14px;
+  color: #6b6b80;
+  font-size: 0.95rem;
+}
+
 .header-search-close-btn {
   background: transparent;
   border: none;
@@ -392,7 +459,7 @@ html {
   .overlay-search-input {
     height: 40px;
     font-size: 0.95rem;
-    padding: 0 82px 0 38px;
+    padding: 0 82px 0 38px !important;
   }
   .overlay-search-icon {
     left: 12px;
@@ -454,5 +521,63 @@ header.vb-19568 {
   .vb-element-c603dd9 .vb-counter-number-wrapper {
     justify-content: center;
     text-align: center;
+  }
+}
+
+/* Service pages (Services, Organisational Development, Assessment):
+   links on cards and steps, intro text under a heading. */
+.vb-sp-card-link {
+  margin: 14px 0 0;
+}
+.vb-sp-card-link a,
+.vb-sp-step-link {
+  color: #100057;
+  font-weight: 600;
+  text-decoration: none;
+}
+.vb-sp-card-link a:hover,
+.vb-sp-step-link:hover {
+  text-decoration: underline;
+}
+.vb-sp-step-link {
+  color: inherit;
+}
+.vb-sp-intro {
+  max-width: 900px;
+  margin: 0 0 24px;
+  font-family: "Arial", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+.vb-sp-intro p {
+  margin: 0 0 10px;
+}
+.vb-sp-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 8px 32px;
+  margin-top: 8px;
+}
+.vb-sp-links h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #100057;
+}
+.vb-sp-links ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.vb-sp-links a {
+  color: #100057;
+  font-weight: 600;
+}
+/* Step cards: with fewer than five steps, share the row between them (desktop). */
+@media (min-width: 1025px) {
+  .vb-19847 .vb-element-b601edd[data-sp-cols='3'] .vb-element-bf4d058 {
+    --e-con-grid-template-columns: repeat(3, 1fr);
+  }
+  .vb-19847 .vb-element-b601edd[data-sp-cols='4'] .vb-element-bf4d058 {
+    --e-con-grid-template-columns: repeat(4, 1fr);
   }
 }

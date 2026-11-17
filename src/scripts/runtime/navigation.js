@@ -146,7 +146,7 @@ function initActions() {
       });
     });
     // Navigation link click closes the off-canvas before navigating
-    el.querySelectorAll('a[href]:not([href^="#"]):not([href="/services/"])').forEach((link) => {
+    el.querySelectorAll('a[href]:not([href^="#"])').forEach((link) => {
       link.addEventListener('click', () => {
         closeOffCanvas(el);
       });

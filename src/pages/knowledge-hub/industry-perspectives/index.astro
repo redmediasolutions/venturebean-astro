@@ -3,7 +3,7 @@
  * Industry Perspectives page (Knowledge Hub → Industry Perspectives) → /knowledge-hub/industry-perspectives/
  * Each section lives in src/components/knowledge-hub/industry-perspectives/.
  */
-export const prerender = false; // Renders on-demand on Vercel so new Firebase entries display instantly
+export const prerender = false; // Rendered on request (Cloudflare), so new Content Manager posts appear straight away
 
 import Layout from '../../../layouts/Layout.astro';
 import HeroSlider from '../../../components/knowledge-hub/industry-perspectives/HeroSlider.astro';
