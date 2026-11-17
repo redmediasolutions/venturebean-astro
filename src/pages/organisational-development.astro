@@ -12,6 +12,7 @@ import ServiceCards from '../components/service-pages/ServiceCards.astro';
 import ServiceTiles from '../components/service-pages/ServiceTiles.astro';
 import ServiceCta from '../components/service-pages/ServiceCta.astro';
 import ServiceFaqs from '../components/service-pages/ServiceFaqs.astro';
+import LearningGames from '../components/coaching/LearningGames.astro';
 
 const U = '/assets/uploads';
 const list = (s: string) => s.split(/,\s*|\s+and\s+(?=[^,]*$)/).map((x) => x.trim()).filter(Boolean).map((x) => x[0].toUpperCase() + x.slice(1));
@@ -202,7 +203,7 @@ const faqs = [
     <li><a href="/assessments/">Leadership Assessment</a></li>
   </ul></div>
   <div><h3>Explore our work</h3><ul>
-    <li><a href="/coaching-case-studies/">Organisational Development Case Studies</a></li>
+    <li><a href="/case-studies/organisational-development/">Organisational Development Case Studies</a></li>
     <li><a href="/consulting-case-studies/">Consulting Case Studies</a></li>
     <li><a href="/testimonials/">Client Testimonials</a></li>
   </ul></div>
@@ -217,6 +218,7 @@ const faqs = [
       secondary={{ text: 'Testimonials', href: '/testimonials/' }}
     />
 
+    <LearningGames />
     <ServiceFaqs faqs={faqs} />
   </div>
 </Layout>
