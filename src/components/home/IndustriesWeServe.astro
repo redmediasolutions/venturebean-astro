@@ -1,276 +1,132 @@
+
 ---
 /**
  * Home page: “Industries We Serve” section.
  */
+
+const industries = [
+  {
+    title: "Technology",
+    description: "IT, SaaS, ITES, Analytics, Digital Platforms",
+    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794912910147-technology.jpg",
+    alt: "Digital technology and global connectivity",
+    position: "center",
+  },
+  {
+    title: "BFSI",
+    description: "Banking, Financial Services, Insurance, FinTech",
+    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794912971315-fmcg.jpg",
+    alt: "Modern commercial and financial district",
+    position: "center",
+  },
+  {
+    title: "Consumer",
+    description: "FMCG, Retail, Travel, Leisure & Entertainment",
+    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913018433-hosoi.jpg",
+    alt: "Consumer retail and hospitality",
+    position: "center",
+  },
+  {
+    title: "Healthcare",
+    description: "MedTech, Pharma, Healthcare Providers",
+    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913055625-healthcare.jpg",
+    alt: "Healthcare professionals",
+    position: "center",
+  },
+  {
+    title: "Education",
+    description: "EdTech, Universities, Institutions",
+    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913101479-education.jpg",
+    alt: "Education and learning environment",
+    position: "center",
+  },
+  {
+    title: "Professional Services",
+    description: "Consulting, Shared Services, BPO/KPO, Hospitality",
+    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913200922-professional-services.webp",
+    alt: "Professional business meeting",
+    position: "center",
+  },
+  {
+    title: "Infrastructure & Manufacturing",
+    description: "Realty, Telecom, Industrial, Automotive, Chemicals",
+    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913259446-manufacturing.jpg",
+    alt: "Industrial infrastructure and manufacturing",
+    position: "center",
+  },
+  {
+    title: "Energy & Utilities",
+    description: "Power, Renewables, Utilities, Oil & Gas",
+    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913311535-4.jpg",
+    alt: "Energy production and renewable power",
+    position: "center",
+  },
+];
 ---
 
-<div
-  class="vb-element vb-element-4958272 e-flex e-con-boxed e-con e-parent"
-  data-id="4958272"
-  data-element_type="container"
-  data-e-type="container"
-  data-settings={'{"background_background":"classic"}'}
->
-  <div class="e-con-inner">
-    <div
-      class="vb-element vb-element-04266b2 e-con-full e-flex e-con e-child"
-      data-id="04266b2"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-0d98348 vb-widget vb-widget-heading"
-        data-id="0d98348"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="heading.default"
-      >
-        <div class="vb-widget-container"><h2 class="vb-heading-title vb-size-default">Industries We Serve</h2></div>
-      </div>
-      <div
-        class="vb-element vb-element-bf7785e vb-widget vb-widget-text-editor"
-        data-id="bf7785e"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="text-editor.default"
-      >
-        <div class="vb-widget-container">Comprehensive Solutions Tailored for Every Industry</div>
-      </div>
-      <div
-        class="vb-element vb-element-6d91b00 vb-widget vb-widget-text-editor"
-        data-id="6d91b00"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="text-editor.default"
-      >
-        <div class="vb-widget-container">
-          Our experience spans multiple industries, enabling us to bring cross-sector insights while addressing
-          industry-specific challenges.
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-de87aaa e-con-full e-grid e-con e-child"
-        data-id="de87aaa"
-        data-element_type="container"
-        data-e-type="container"
-      >
-        <div
-          class="vb-element vb-element-656c524 e-con-full e-flex e-con e-child"
-          data-id="656c524"
-          data-element_type="container"
-          data-e-type="container"
-          data-settings={'{"background_background":"classic"}'}
-        >
-          <div
-            class="vb-element vb-element-1cc6539 vb-view-default vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-            data-id="1cc6539"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="icon-box.default"
-          >
-            <div class="vb-widget-container">
-              <div class="vb-icon-box-wrapper">
-                <div class="vb-icon-box-icon">
-                  <span class="vb-icon"> <i aria-hidden="true" class="remixicon ri-gradienter-fill"></i> </span>
-                </div>
-                <div class="vb-icon-box-content">
-                  <h3 class="vb-icon-box-title"><span> Technology </span></h3>
-                  <p class="vb-icon-box-description">IT, SaaS, ITES, Analytics, Digital Platforms</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="vb-element vb-element-c51e6c4 e-con-full e-flex e-con e-child"
-          data-id="c51e6c4"
-          data-element_type="container"
-          data-e-type="container"
-          data-settings={'{"background_background":"classic"}'}
-        >
-          <div
-            class="vb-element vb-element-3a0afe5 vb-view-default vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-            data-id="3a0afe5"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="icon-box.default"
-          >
-            <div class="vb-widget-container">
-              <div class="vb-icon-box-wrapper">
-                <div class="vb-icon-box-icon">
-                  <span class="vb-icon"> <i aria-hidden="true" class="feather icon-command"></i> </span>
-                </div>
-                <div class="vb-icon-box-content">
-                  <h3 class="vb-icon-box-title"><span> BFSI </span></h3>
-                  <p class="vb-icon-box-description">Banking, Financial Services, Insurance, FinTech</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="vb-element vb-element-c5cbe36 e-con-full e-flex e-con e-child"
-          data-id="c5cbe36"
-          data-element_type="container"
-          data-e-type="container"
-          data-settings={'{"background_background":"classic"}'}
-        >
-          <div
-            class="vb-element vb-element-c777476 vb-view-default vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-            data-id="c777476"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="icon-box.default"
-          >
-            <div class="vb-widget-container">
-              <div class="vb-icon-box-wrapper">
-                <div class="vb-icon-box-icon">
-                  <span class="vb-icon"> <i aria-hidden="true" class="fab fa-servicestack"></i> </span>
-                </div>
-                <div class="vb-icon-box-content">
-                  <h3 class="vb-icon-box-title"><span> Consumer </span></h3>
-                  <p class="vb-icon-box-description">FMCG, Retail, Travel, Leisure &amp; Entertainment</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="vb-element vb-element-00b5b11 e-con-full e-flex e-con e-child"
-          data-id="00b5b11"
-          data-element_type="container"
-          data-e-type="container"
-          data-settings={'{"background_background":"classic"}'}
-        >
-          <div
-            class="vb-element vb-element-0ed41ce vb-view-default vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-            data-id="0ed41ce"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="icon-box.default"
-          >
-            <div class="vb-widget-container">
-              <div class="vb-icon-box-wrapper">
-                <div class="vb-icon-box-icon">
-                  <span class="vb-icon"> <i aria-hidden="true" class="fas fa-heartbeat"></i> </span>
-                </div>
-                <div class="vb-icon-box-content">
-                  <h3 class="vb-icon-box-title"><span> Healthcare </span></h3>
-                  <p class="vb-icon-box-description">MedTech, Pharma, Healthcare Providers</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="vb-element vb-element-bb77929 e-con-full e-flex e-con e-child"
-          data-id="bb77929"
-          data-element_type="container"
-          data-e-type="container"
-          data-settings={'{"background_background":"classic"}'}
-        >
-          <div
-            class="vb-element vb-element-6b256c1 vb-view-default vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-            data-id="6b256c1"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="icon-box.default"
-          >
-            <div class="vb-widget-container">
-              <div class="vb-icon-box-wrapper">
-                <div class="vb-icon-box-icon">
-                  <span class="vb-icon"> <i aria-hidden="true" class="fas fa-chalkboard-teacher"></i> </span>
-                </div>
-                <div class="vb-icon-box-content">
-                  <h3 class="vb-icon-box-title"><span> Education </span></h3>
-                  <p class="vb-icon-box-description">EdTech, Universities, Institutions</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="vb-element vb-element-5cfdc27 e-con-full e-flex e-con e-child"
-          data-id="5cfdc27"
-          data-element_type="container"
-          data-e-type="container"
-          data-settings={'{"background_background":"classic"}'}
-        >
-          <div
-            class="vb-element vb-element-84bc637 vb-view-default vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-            data-id="84bc637"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="icon-box.default"
-          >
-            <div class="vb-widget-container">
-              <div class="vb-icon-box-wrapper">
-                <div class="vb-icon-box-icon">
-                  <span class="vb-icon"> <i aria-hidden="true" class="fas fa-chalkboard-teacher"></i> </span>
-                </div>
-                <div class="vb-icon-box-content">
-                  <h3 class="vb-icon-box-title"><span> Professional Services </span></h3>
-                  <p class="vb-icon-box-description">Consulting, Shared Services, BPO/KPO, Hospitality</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="vb-element vb-element-553f760 e-con-full e-flex e-con e-child"
-          data-id="553f760"
-          data-element_type="container"
-          data-e-type="container"
-          data-settings={'{"background_background":"classic"}'}
-        >
-          <div
-            class="vb-element vb-element-27066b9 vb-view-default vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-            data-id="27066b9"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="icon-box.default"
-          >
-            <div class="vb-widget-container">
-              <div class="vb-icon-box-wrapper">
-                <div class="vb-icon-box-icon">
-                  <span class="vb-icon"> <i aria-hidden="true" class="remixicon ri-building-fill"></i> </span>
-                </div>
-                <div class="vb-icon-box-content">
-                  <h3 class="vb-icon-box-title"><span> Infrastructure &amp; Manufacturing </span></h3>
-                  <p class="vb-icon-box-description">Realty, Telecom, Industrial, Automotive, Chemicals</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="vb-element vb-element-b149b5f e-con-full e-flex e-con e-child"
-          data-id="b149b5f"
-          data-element_type="container"
-          data-e-type="container"
-          data-settings={'{"background_background":"classic"}'}
-        >
-          <div
-            class="vb-element vb-element-27a0bc1 vb-view-default vb-position-block-start vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-            data-id="27a0bc1"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="icon-box.default"
-          >
-            <div class="vb-widget-container">
-              <div class="vb-icon-box-wrapper">
-                <div class="vb-icon-box-icon">
-                  <span class="vb-icon"> <i aria-hidden="true" class="remixicon ri-building-fill"></i> </span>
-                </div>
-                <div class="vb-icon-box-content">
-                  <h3 class="vb-icon-box-title"><span> Energy &amp; Utilities </span></h3>
-                  <p class="vb-icon-box-description">Power, Renewables, Utilities, Oil &amp; Gas</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<section class="bg-[#F1F2F5] py-16 md:py-20 lg:py-24">
+  <div class="mx-auto w-full max-w-[1600px] px-6 lg:px-8">
+
+    <!-- Section Introduction -->
+    <div class="mb-8 md:mb-10">
+      <h2 class="font-heading text-3xl font-bold leading-tight tracking-tight text-vb-navy md:text-4xl lg:text-5xl">
+        Industries We Serve
+      </h2>
+
+      <p class="mt-2 font-heading text-lg font-semibold text-[#333333] md:text-xl">
+        Comprehensive Solutions Tailored for Every Industry
+      </p>
+
+      <p class="mt-6 max-w-5xl text-base leading-relaxed text-[#444444] md:text-lg">
+        Our experience spans multiple industries, enabling us to bring
+        cross-sector insights while addressing industry-specific challenges.
+      </p>
     </div>
+
+    <!-- Industry Image Grid -->
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {industries.map((industry) => (
+        <article
+          class="group relative isolate flex aspect-[1.65/1] min-h-[230px] items-end overflow-hidden rounded-vb-lg bg-[#151A35]"
+        >
+          <!-- Background Image -->
+          <img
+            src={industry.image}
+            alt={industry.alt}
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 -z-20 h-full w-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
+            style={`object-position: ${industry.position};`}
+          />
+
+          <!-- Cool Navy Gradient Overlay -->
+          <div
+            class="absolute inset-0 -z-10 bg-gradient-to-t
+            from-[#101044]/95
+            via-[#101044]/55
+            to-[#101044]/10
+            transition-all duration-500
+            group-hover:from-[#101044]/90
+            group-hover:via-[#101044]/40
+            group-hover:to-[#101044]/5"
+          ></div>
+
+          <!-- Subtle Slate Tint -->
+          <div class="absolute inset-0 -z-10 bg-gradient-to-br from-slate-900/15 via-transparent to-blue-950/20"></div>
+
+          <!-- Card Content -->
+          <div class="w-full p-6 md:p-7">
+            <h3 class="font-heading !text-[22px] !font-bold leading-tight !text-white md:text-3xl">
+              {industry.title}
+            </h3>
+
+            <p class="mt-4 max-w-sm !text-sm leading-relaxed text-white/95 md:text-base">
+              {industry.description}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+
   </div>
-</div>
+</section>
