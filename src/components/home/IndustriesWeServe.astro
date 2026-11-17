@@ -10,56 +10,56 @@ const industries = [
     description: "IT, SaaS, ITES, Analytics, Digital Platforms",
     image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794912910147-technology.jpg",
     alt: "Digital technology and global connectivity",
-    position: "center",
+    imagePosition: "center",
   },
   {
     title: "BFSI",
     description: "Banking, Financial Services, Insurance, FinTech",
     image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794912971315-fmcg.jpg",
     alt: "Modern commercial and financial district",
-    position: "center",
+    imagePosition: "center 40%",
   },
   {
     title: "Consumer",
     description: "FMCG, Retail, Travel, Leisure & Entertainment",
     image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913018433-hosoi.jpg",
     alt: "Consumer retail and hospitality",
-    position: "center",
+    imagePosition: "center",
   },
   {
     title: "Healthcare",
     description: "MedTech, Pharma, Healthcare Providers",
     image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913055625-healthcare.jpg",
     alt: "Healthcare professionals",
-    position: "center",
+    imagePosition: "center 35%",
   },
   {
     title: "Education",
     description: "EdTech, Universities, Institutions",
     image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913101479-education.jpg",
     alt: "Education and learning environment",
-    position: "center",
+    imagePosition: "center",
   },
   {
     title: "Professional Services",
     description: "Consulting, Shared Services, BPO/KPO, Hospitality",
     image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913200922-professional-services.webp",
     alt: "Professional business meeting",
-    position: "center",
+    imagePosition: "center",
   },
   {
     title: "Infrastructure & Manufacturing",
     description: "Realty, Telecom, Industrial, Automotive, Chemicals",
     image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913259446-manufacturing.jpg",
     alt: "Industrial infrastructure and manufacturing",
-    position: "center",
+    imagePosition: "center",
   },
   {
     title: "Energy & Utilities",
     description: "Power, Renewables, Utilities, Oil & Gas",
-    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913311535-4.jpg",
+    image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794914511806-1794913311535-4.webp",
     alt: "Energy production and renewable power",
-    position: "center",
+    imagePosition: "center 30%",
   },
 ];
 ---
@@ -90,14 +90,14 @@ const industries = [
           class="group relative isolate flex aspect-[1.65/1] min-h-[230px] items-end overflow-hidden rounded-vb-lg bg-[#151A35]"
         >
           <!-- Background Image -->
-          <img
-            src={industry.image}
-            alt={industry.alt}
-            loading="lazy"
-            decoding="async"
-            class="absolute inset-0 -z-20 h-full w-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:brightness-110"
-            style={`object-position: ${industry.position};`}
-          />
+        <img
+  src={industry.image}
+  alt={industry.alt}
+  loading="lazy"
+  decoding="async"
+  class="absolute inset-0 -z-20 block h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+  style={`object-position: ${industry.imagePosition ?? "center"};`}
+/>
 
           <!-- Cool Navy Gradient Overlay -->
           <div
