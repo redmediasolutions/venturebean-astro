@@ -1,8 +1,6 @@
-
 ---
 /**
  * Knowledge Hub page → /knowledge-hub/
- * Preserve legacy wrappers for existing component styling.
  */
 
 import Layout from "../../layouts/Layout.astro";
@@ -12,27 +10,32 @@ import MediaSpotlight from "../../components/knowledge-hub/MediaSpotlight.astro"
 import RecentUploadsHeading from "../../components/knowledge-hub/RecentUploadsHeading.astro";
 import RecentUploads from "../../components/knowledge-hub/RecentUploads.astro";
 import StayConnected from "../../components/knowledge-hub/StayConnected.astro";
+import GlobalHero from "../../components/global/global-hero.astro";
 ---
 
 <Layout page="knowledge-hub">
   <main
     id="content"
-    class="site-main post-24043 page type-page status-publish hentry w-full"
+    class="w-full min-w-0 overflow-hidden bg-white"
   >
-    <div class="page-content !w-full !max-w-none">
-      <div
-        data-vb-type="site-page"
-        data-vb-id="24043"
-        class="vb vb-24043 !mx-0 !w-full !max-w-none"
-        data-vb-post-type="page"
-      >
-        <HeroSlider />
-        <HubIntro />
-        <MediaSpotlight />
-        <RecentUploadsHeading />
-        <RecentUploads />
-        <StayConnected />
-      </div>
-    </div>
+  <GlobalHero
+      title="Strategic Intelligence Central"
+      description="Your central repository for strategic insights, market analysis, and performance reports."
+      subtitle="Knowledge Hub"
+      image="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1795028271274-solutions-banner-2.webp"
+      showButton={true}
+      buttonHref="/contact-us/"
+      buttonText="Talk to Experts"
+    />
+
+    <HubIntro />
+
+    <MediaSpotlight />
+
+    <RecentUploadsHeading />
+
+    <RecentUploads />
+
+    <StayConnected />
   </main>
 </Layout>

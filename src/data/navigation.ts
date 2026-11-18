@@ -38,6 +38,19 @@ export const navigation: NavItem[] = [
       { label: "Assessments", href: "/assessments/" },
     ],
   },
+    {
+  label: "Solutions",
+  href: "/solutions/",
+  icon: "fas fa-lightbulb",
+  children: [
+    { label: "Launch Right", href: "/solutions/launch-right/" },
+    { label: "ScaleWise", href: "/solutions/scale-wise/" },
+    { label: "LegacyNext", href: "/solutions/legacy-next/" },
+    { label: "LeadershipEdge", href: "/solutions/leadership-edge/" },
+    { label: "Impact360", href: "/solutions/impact360/" },
+    { label: "GCCEdge360", href: "/solutions/gcc/" },
+  ],
+},
   {
     label: "Knowledge Hub",
     href: "/knowledge-hub/",
@@ -55,19 +68,7 @@ export const navigation: NavItem[] = [
       { label: "Insights", href: "/knowledge-hub/insights/" },
     ],
   },
-  {
-  label: "Solutions",
-  href: "/solutions/",
-  icon: "fas fa-lightbulb",
-  children: [
-    { label: "Launch Right", href: "/solutions/launch-right/" },
-    { label: "ScaleWise", href: "/solutions/scale-wise/" },
-    { label: "LegacyNext", href: "/solutions/legacy-next/" },
-    { label: "LeadershipEdge", href: "/solutions/leadership-edge/" },
-    { label: "Impact360", href: "/solutions/impact360/" },
-    { label: "GCCEdge360", href: "/solutions/gcc/" },
-  ],
-},
+
   {
     label: "Reach Us",
     href: "/contact-us/",

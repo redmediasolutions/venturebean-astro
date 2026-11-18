@@ -23,6 +23,8 @@ import IndustriesWeServe from '../components/home/IndustriesWeServe.astro';
 import ClientLogos from '../components/home/ClientLogos.astro';
 import KnowledgeHub from '../components/home/KnowledgeHub.astro';
 import Testimonials from '../components/home/Testimonials.astro';
+import MediaSpotlight from '../components/knowledge-hub/MediaSpotlight.astro';
+import SectionTitle from '../components/global/SectionTitle.astro';
 ---
 
 <Layout page="home">
@@ -35,7 +37,13 @@ import Testimonials from '../components/home/Testimonials.astro';
     <HowWeHelp />
     <IndustriesWeServe />
     <ClientLogos />
-    <KnowledgeHub />
+    <SectionTitle
+  title="Knowledge Hub"
+  subtitle="Thinking that helps you decide better"
+  background="bg-gray-100"
+  compact
+/>
+    <MediaSpotlight />
     <Testimonials />
   </div>
 </Layout>

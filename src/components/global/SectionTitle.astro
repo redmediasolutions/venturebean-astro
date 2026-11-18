@@ -1,0 +1,44 @@
+
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  background?: string;
+  align?: "left" | "center";
+  compact?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  background = "bg-white",
+  align = "left",
+  compact = false,
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    "w-full px-5 sm:px-8",
+    background,
+    compact ? "py-6 md:py-8" : "py-8 md:py-12",
+  ]}
+  aria-label={title}
+>
+  <div
+    class:list={[
+      "mx-auto w-full max-w-vb",
+      align === "center" ? "text-center" : "text-left",
+    ]}
+  >
+    <h2 class="font-heading text-3xl font-bold leading-tight text-vb-navy sm:text-4xl">
+      {title}
+    </h2>
+
+    {subtitle && (
+      <p class="mt-1 font-sans text-base italic text-vb-blue sm:text-lg">
+        {subtitle}
+      </p>
+    )}
+  </div>
+</section>

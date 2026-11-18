@@ -1,7 +1,8 @@
+
 ---
 /**
- * Article page header (desktop): "BLOG", title, date; the featured image is
- * set as the background of the right-hand box by the article page.
+ * Article page desktop hero.
+ * Full-width featured background with a left-to-right gradient.
  */
 
 interface Props {
@@ -12,83 +13,35 @@ interface Props {
 const { title, date } = Astro.props;
 ---
 
-<div
-  class="vb-element vb-element-b399b4d vb-hidden-tablet vb-hidden-mobile e-flex e-con-boxed e-con e-parent"
-  data-id="b399b4d"
-  data-element_type="container"
-  data-e-type="container"
-  data-settings={'{"background_background":"classic"}'}
+<section
+  class="relative hidden min-h-[440px] w-full overflow-hidden bg-vb-navy bg-cover bg-center bg-no-repeat md:flex lg:min-h-[500px]"
+  style="background-image: var(--article-hero-image, none);"
 >
-  <div class="e-con-inner">
-    <div
-      class="vb-element vb-element-ac260df e-con-full e-flex e-con e-child"
-      data-id="ac260df"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-e9cc142 vb-widget vb-widget-text-editor"
-        data-id="e9cc142"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="text-editor.default"
-      >
-        <div class="vb-widget-container">
-          <p>BLOG</p>
-        </div>
+  <!-- Left-to-right gradient overlay -->
+  <div class="absolute inset-0 bg-gradient-to-r from-vb-navy via-vb-navy/90 to-vb-navy/20"></div>
+
+  <!-- Additional subtle bottom overlay -->
+  <div class="absolute inset-0 bg-gradient-to-t from-vb-navy/30 via-transparent to-transparent"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 mx-auto flex w-full max-w-vb items-center px-8 py-16 lg:px-14 xl:px-20">
+    <div class="max-w-3xl">
+
+      <p class="mb-5 font-sans text-xs font-bold uppercase tracking-[0.2em] text-vb-blue-light">
+        Blog
+      </p>
+
+      <h1 class="font-heading text-4xl font-bold leading-tight !text-white lg:text-5xl xl:text-6xl">
+        {title}
+      </h1>
+
+      <div class="mt-7 h-px w-16 bg-vb-blue-light"></div>
+
+      <div class="mt-5 flex items-center gap-2.5 font-sans text-sm font-medium text-white/80">
+        <i class="fas fa-calendar text-vb-blue-light" aria-hidden="true"></i>
+        <time>{date}</time>
       </div>
-      <div
-        class="vb-element vb-element-c93bac8 vb-widget vb-widget-theme-post-title vb-page-title vb-widget-heading"
-        data-id="c93bac8"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="theme-post-title.default"
-      >
-        <div class="vb-widget-container"><h1 class="vb-heading-title vb-size-default">{title}</h1></div>
-      </div>
-      <div
-        class="vb-element vb-element-4d68a17 vb-widget-divider--view-line vb-widget vb-widget-divider"
-        data-id="4d68a17"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="divider.default"
-      >
-        <div class="vb-widget-container">
-          <div class="vb-divider">
-            <span class="vb-divider-separator"> </span>
-          </div>
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-f8dc98a vb-widget vb-widget-post-info"
-        data-id="f8dc98a"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="post-info.default"
-      >
-        <div class="vb-widget-container">
-          <ul class="vb-inline-items vb-icon-list-items vb-post-info">
-            <li class="vb-icon-list-item vb-repeater-item-e52f00d vb-inline-item" itemprop="datePublished">
-              <a href="/knowledge-hub/insights/">
-                <span class="vb-icon-list-icon">
-                  <i aria-hidden="true" class="fas fa-calendar"></i>
-                </span>
-                <span class="vb-icon-list-text vb-post-info__item vb-post-info__item--type-date">
-                  <time>{date}</time>
-                </span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div
-      class="vb-element vb-element-474937f e-con-full e-flex e-con e-child"
-      data-id="474937f"
-      data-element_type="container"
-      data-e-type="container"
-      data-settings={'{"background_background":"classic"}'}
-    >
+
     </div>
   </div>
-</div>
+</section>
