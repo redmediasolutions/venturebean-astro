@@ -1,0 +1,43 @@
+---
+import ChallengeCard from "./ChallengeCard.astro";
+
+interface ChallengeItem {
+  title: string;
+  icon?: "legal" | "calendar" | "talent" | "systems" | "reporting" | "leadership" | "alignment" | "scalable";
+}
+
+interface Props {
+  items: ChallengeItem[];
+  heading?: string;
+}
+
+const { items, heading = "What Challenges It Solves" } = Astro.props;
+
+const middle = Math.ceil(items.length / 2);
+---
+
+<section class="w-full bg-[#050A46] py-12 md:py-14 lg:py-16">
+  <div class="mx-auto w-full max-w-vb px-6 sm:px-8 lg:px-12">
+
+    <h2 class="mb-8 font-heading text-3xl font-bold !text-white sm:text-4xl md:mb-10">
+      {heading}
+    </h2>
+
+    <div class="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2 lg:gap-x-8">
+      <!-- Left Column -->
+      <div class="flex flex-col gap-3 sm:gap-4">
+        {items.slice(0, middle).map((item: ChallengeItem) => (
+          <ChallengeCard title={item.title} icon={item.icon} />
+        ))}
+      </div>
+
+      <!-- Right Column -->
+      <div class="flex flex-col gap-3 sm:gap-4">
+        {items.slice(middle).map((item: ChallengeItem) => (
+          <ChallengeCard title={item.title} icon={item.icon} />
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

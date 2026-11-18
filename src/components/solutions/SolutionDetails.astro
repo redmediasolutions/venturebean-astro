@@ -1,0 +1,96 @@
+
+---
+interface Props {
+  challenges: string[];
+  included: string[];
+  challengesHeading?: string;
+  includedHeading?: string;
+}
+
+const {
+  challenges,
+  included,
+  challengesHeading = "What Challenges It Solves",
+  includedHeading = "What's Included",
+} = Astro.props;
+---
+
+<section class="w-full bg-vb-light py-8 md:py-10 lg:py-12">
+  <div class="mx-auto w-full max-w-vb px-6 sm:px-8 lg:px-12">
+    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
+
+      <!-- Challenges Card -->
+      <article class="rounded-vb-lg border border-vb-blue-soft/70 bg-white p-5 shadow-vb-card sm:p-6 lg:p-7">
+        <div class="mb-5">
+          <span class="mb-2 block h-1 w-8 rounded-full bg-vb-blue"></span>
+
+          <h2 class="font-heading !text-[24px] font-bold leading-tight text-vb-navy md:text-2xl">
+            {challengesHeading}
+          </h2>
+
+          <p class="mt-1.5 text-xs text-vb-text sm:text-sm">
+            Key obstacles this solution helps address.
+          </p>
+        </div>
+
+        <ul class="flex flex-col gap-3">
+          {challenges.map((item: string) => (
+            <li class="flex items-start gap-2">
+              <span class="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 border-vb-blue">
+                <span class="h-1.5 w-1.5 rounded-full bg-vb-blue"></span>
+              </span>
+
+              <span class="font-sans !text-[16px] font-medium leading-relaxed text-vb-navy md:text-base">
+                {item}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      <!-- Included Card -->
+      <article class="rounded-vb-lg border border-vb-blue-soft/70 bg-white p-5 shadow-vb-card sm:p-6 lg:p-7">
+        <div class="mb-5">
+          <span class="mb-2 block h-1 w-8 rounded-full bg-vb-blue"></span>
+
+          <h2 class="font-heading !text-[24px] font-bold leading-tight text-vb-navy md:text-2xl">
+            {includedHeading}
+          </h2>
+
+          <p class="mt-1.5 text-xs text-vb-text sm:text-sm">
+            The key areas covered in this solution.
+          </p>
+        </div>
+
+        <ul class="flex flex-col gap-3">
+          {included.map((item: string) => (
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-vb-blue">
+                <svg
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-2.5 w-2.5"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M7 4.5L12.5 10L7 15.5"
+                    stroke="white"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+
+              <span class="font-sans text-sm font-medium leading-relaxed text-vb-navy md:text-base">
+                {item}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>

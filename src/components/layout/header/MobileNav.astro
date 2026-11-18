@@ -1,19 +1,28 @@
+
 ---
 /**
- * Mobile header: search button, hamburger menu button,
- * and the modern interactive slide-out off-canvas drawer.
- * Visible on mobile (< 768px) and tablet (768px - 1024px).
- * Hidden on desktop (>= 1025px).
+ * VentureBean – Mobile & Tablet Header
+ * Shared navigation data with desktop header.
  */
+
+import { navigation } from "../../../data/navigation";
+
+const mobileNavigation = navigation.filter(
+  (item) => !item.mobileOnly ? true : true
+);
+
+const reachUs = mobileNavigation.find(
+  (item) => item.label === "Reach Us"
+);
+
+const menuItems = mobileNavigation.filter(
+  (item) => item.label !== "Reach Us"
+);
 ---
 
-<div
-  class="vb-element vb-element-dff3e0d e-con-full vb-hidden-desktop e-flex e-con e-child"
-  data-id="dff3e0d"
-  data-element_type="container"
-  data-e-type="container"
->
-  <!-- Search trigger button -->
+<div class="vb-mobile-header">
+
+  <!-- Search Button -->
   <div class="mobile-header-btn-wrap">
     <button
       id="mobile-search-open-btn"
@@ -24,230 +33,267 @@
       aria-expanded="false"
       aria-controls="header-search-overlay"
     >
-      <i class="fas fa-search" aria-hidden="true"></i>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-5 w-5"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="7" />
+        <path d="m20 20-4-4" />
+      </svg>
     </button>
   </div>
 
-  <!-- Hamburger trigger button -->
+  <!-- Hamburger Button -->
   <div class="mobile-header-btn-wrap">
-    <a
+    <button
       id="mobile-menu-toggle-btn"
       class="mobile-header-icon-btn"
-      href="#vb-action%3Aaction%3Doff_canvas%3Aopen%26settings%3DeyJpZCI6IjgyZjUxMDEiLCJkaXNwbGF5TW9kZSI6Im9wZW4ifQ%3D%3D"
-      role="button"
+      type="button"
       aria-label="Open navigation menu"
       aria-haspopup="dialog"
+      aria-expanded="false"
       aria-controls="off-canvas-82f5101"
     >
-      <i class="fas fa-bars" aria-hidden="true"></i>
-    </a>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="h-6 w-6"
+        aria-hidden="true"
+      >
+        <path d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
   </div>
 
-  <!-- Off-Canvas Drawer -->
+  <!-- Off Canvas Drawer -->
   <div
-    class="vb-element vb-element-82f5101 vb-widget vb-widget-off-canvas"
-    data-id="82f5101"
-    data-element_type="widget"
-    data-e-type="widget"
-    data-settings={'{"entrance_animation":"slideInLeft","exit_animation":"slideInLeft"}'}
-    data-widget_type="off-canvas.default"
+    id="off-canvas-82f5101"
+    class="mobile-drawer"
+    role="dialog"
+    aria-hidden="true"
+    aria-label="Navigation Menu"
+    aria-modal="true"
+    inert
   >
-    <div class="vb-widget-container">
-      <div
-        id="off-canvas-82f5101"
-        class="e-off-canvas"
-        role="dialog"
-        aria-hidden="true"
-        aria-label="Navigation Menu"
-        aria-modal="true"
-        inert=""
-        data-delay-child-handlers="true"
-      >
-        <div class="e-off-canvas__overlay"></div>
-        <div class="e-off-canvas__main">
-          <div class="e-off-canvas__content mobile-drawer-content">
-            <!-- 1. Drawer Header: Logo + Close 'X' Button -->
-            <div class="mobile-drawer-header">
-              <a href="/" class="mobile-drawer-logo" aria-label="VentureBean Home">
-                <img
-                  src="/assets/uploads/2023/03/Venture-bean-logo.svg"
-                  alt="VentureBean"
-                  width="135"
-                  height="34"
-                />
-              </a>
-              <a
-                id="mobile-drawer-close-btn"
-                class="mobile-drawer-close-btn"
-                href="#vb-action%3Aaction%3Doff_canvas%3Aclose%26settings%3DeyJpZCI6IjgyZjUxMDEifQ%3D%3D"
-                role="button"
-                aria-label="Close navigation menu"
-              >
-                <i class="fas fa-times" aria-hidden="true"></i>
-              </a>
-            </div>
+    <!-- Overlay -->
+    <button
+      class="mobile-drawer-overlay"
+      type="button"
+      aria-label="Close navigation menu"
+      data-drawer-close
+    ></button>
 
-            <!-- 2. Drawer Search Form -->
-            <div class="mobile-drawer-search">
-              <form class="mobile-drawer-search-form" action="/" method="get">
-                <i class="fas fa-search mobile-drawer-search-icon" aria-hidden="true"></i>
-                <input
-                  type="search"
-                  name="s"
-                  placeholder="Search VentureBean..."
-                  class="mobile-drawer-search-input"
-                  autocomplete="off"
-                />
-                <button type="submit" class="mobile-drawer-search-submit" aria-label="Submit Search">
-                  <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                </button>
-              </form>
-            </div>
+    <!-- Drawer Panel -->
+    <div class="mobile-drawer-panel">
 
-            <!-- 3. Drawer Navigation Menu -->
-            <nav class="mobile-drawer-nav" aria-label="Mobile Navigation">
-              <ul class="mobile-nav-list">
-                <!-- Home -->
-                <li class="mobile-nav-item">
-                  <a href="/" class="mobile-nav-link">
-                    <span class="mobile-nav-text">
-                      <i class="fas fa-home mobile-nav-icon" aria-hidden="true"></i>Home
-                    </span>
-                  </a>
-                </li>
+      <!-- Drawer Header -->
+      <div class="mobile-drawer-header">
 
-                <!-- About Us Accordion -->
-                <li class="mobile-nav-item has-accordion">
-                  <div class="mobile-nav-row">
-                    <a href="/about-us/" class="mobile-nav-link">
-                      <span class="mobile-nav-text">
-                        <i class="fas fa-info-circle mobile-nav-icon" aria-hidden="true"></i>About Us
-                      </span>
-                    </a>
-                    <button
-                      type="button"
-                      class="mobile-accordion-btn"
-                      aria-expanded="false"
-                      aria-label="Toggle About Us submenu"
-                    >
-                      <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  <ul class="mobile-sub-menu" hidden>
-                    <li><a href="/about-us/" class="mobile-sub-link">About Us Overview</a></li>
-                    <li><a href="/clients/" class="mobile-sub-link">Clients</a></li>
-                    <li><a href="/testimonials/" class="mobile-sub-link">Testimonials</a></li>
-                    <li><a href="/case-studies/" class="mobile-sub-link">Case Studies</a></li>
-                  </ul>
-                </li>
+        <a href="/" class="mobile-drawer-logo" aria-label="VentureBean Home">
+          <img
+            src="/assets/uploads/2023/03/Venture-bean-logo.svg"
+            alt="VentureBean"
+            width="135"
+            height="34"
+          />
+        </a>
 
-                <!-- Services Accordion -->
-                <li class="mobile-nav-item has-accordion">
-                  <div class="mobile-nav-row">
-                    <a href="/services/" class="mobile-nav-link">
-                      <span class="mobile-nav-text">
-                        <i class="fas fa-briefcase mobile-nav-icon" aria-hidden="true"></i>Services
-                      </span>
-                    </a>
-                    <button
-                      type="button"
-                      class="mobile-accordion-btn"
-                      aria-expanded="false"
-                      aria-label="Toggle Services submenu"
-                    >
-                      <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  <ul class="mobile-sub-menu" hidden>
-                    <li><a href="/business-consulting/" class="mobile-sub-link">Consulting</a></li>
-                    <li><a href="/coaching/" class="mobile-sub-link">Coaching</a></li>
-                    <li><a href="/organisational-development/" class="mobile-sub-link">Organisational Development</a></li>
-                    <li><a href="/assessments/" class="mobile-sub-link">Assessment</a></li>
-                  </ul>
-                </li>
+        <button
+          id="mobile-drawer-close-btn"
+          class="mobile-drawer-close-btn"
+          type="button"
+          aria-label="Close navigation menu"
+          data-drawer-close
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            class="h-5 w-5"
+            aria-hidden="true"
+          >
+            <path d="m18 6-12 12M6 6l12 12" />
+          </svg>
+        </button>
 
-                <!-- Solutions Accordion -->
-                <li class="mobile-nav-item has-accordion">
-                  <div class="mobile-nav-row">
-                    <a href="/venturebean-solutions-page/" class="mobile-nav-link">
-                      <span class="mobile-nav-text">
-                        <i class="fas fa-layer-group mobile-nav-icon" aria-hidden="true"></i>Solutions
-                      </span>
-                    </a>
-                    <button
-                      type="button"
-                      class="mobile-accordion-btn"
-                      aria-expanded="false"
-                      aria-label="Toggle Solutions submenu"
-                    >
-                      <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  <ul class="mobile-sub-menu" hidden>
-                    <li><a href="/venturebean-solutions-page/" class="mobile-sub-link">Solutions Overview</a></li>
-                    <li><a href="/solutions-launch-right/" class="mobile-sub-link">Launch Right</a></li>
-                    <li><a href="/solutions-page-scalewise/" class="mobile-sub-link">ScaleWise</a></li>
-                    <li><a href="/soltuions-legacynext/" class="mobile-sub-link">LegacyNext</a></li>
-                    <li><a href="/solutions-leadershipedge/" class="mobile-sub-link">LeadershipEdge</a></li>
-                    <li><a href="/solutions-impact360/" class="mobile-sub-link">Impact360</a></li>
-                    <li><a href="/gcc/" class="mobile-sub-link">GCCEdge360</a></li>
-                  </ul>
-                </li>
-
-                <!-- Knowledge Hub Accordion -->
-                <li class="mobile-nav-item has-accordion">
-                  <div class="mobile-nav-row">
-                    <a href="/knowledge-hub/" class="mobile-nav-link">
-                      <span class="mobile-nav-text">
-                        <i class="fas fa-book-open mobile-nav-icon" aria-hidden="true"></i>Knowledge Hub
-                      </span>
-                    </a>
-                    <button
-                      type="button"
-                      class="mobile-accordion-btn"
-                      aria-expanded="false"
-                      aria-label="Toggle Knowledge Hub submenu"
-                    >
-                      <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  <ul class="mobile-sub-menu" hidden>
-                    <li><a href="/knowledge-hub/" class="mobile-sub-link">Knowledge Hub Overview</a></li>
-                    <li><a href="/knowledge-hub/media-spotlight/" class="mobile-sub-link">Media Spotlight</a></li>
-                    <li><a href="/knowledge-hub/industry-perspectives/" class="mobile-sub-link">Industry Perspectives</a></li>
-                    <li><a href="/knowledge-hub/toolkit/" class="mobile-sub-link">Toolkit</a></li>
-                    <li><a href="/knowledge-hub/insights/" class="mobile-sub-link">Insights</a></li>
-                  </ul>
-                </li>
-
-                <!-- Reach Us CTA -->
-                <li class="mobile-nav-cta">
-                  <a href="/contact-us/" class="mobile-cta-btn">
-                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
-                    <span>Reach Us</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-
-            <!-- 4. Drawer Footer Contact Info -->
-            <div class="mobile-drawer-footer">
-              <p class="mobile-company-title">VentureBean Consulting Pvt. Ltd.</p>
-              <p class="mobile-company-address">
-                We Work Salarpuria Symbiosis,<br />
-                Arekere Village, Begur Hobli,<br />
-                Bannerghatta Road, Bengaluru – 560076, India
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
+
+      <!-- Drawer Search -->
+      <div class="mobile-drawer-search">
+        <form
+          class="mobile-drawer-search-form"
+          action="/search/"
+          method="get"
+          role="search"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="mobile-drawer-search-icon"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-4-4" />
+          </svg>
+
+          <input
+            type="search"
+            name="s"
+            placeholder="Search VentureBean..."
+            class="mobile-drawer-search-input"
+            autocomplete="off"
+          />
+
+          <button
+            type="submit"
+            class="mobile-drawer-search-submit"
+            aria-label="Submit Search"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="mobile-drawer-nav" aria-label="Mobile navigation">
+        <ul class="mobile-nav-list">
+
+          {menuItems.map((item) => (
+            <li class:list={["mobile-nav-item", { "has-accordion": item.children?.length }]}>
+
+              <div class="mobile-nav-row">
+
+                <a href={item.href} class="mobile-nav-link">
+                  <span class="mobile-nav-text">
+                    {item.icon && (
+                      <i class={`${item.icon} mobile-nav-icon`} aria-hidden="true"></i>
+                    )}
+                    {item.label}
+                  </span>
+                </a>
+
+                {item.children?.length && (
+                  <button
+                    type="button"
+                    class="mobile-accordion-btn"
+                    aria-expanded="false"
+                    aria-label={`Toggle ${item.label} submenu`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="h-4 w-4"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.22 7.47a.75.75 0 0 1 1.06 0L10 11.19l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 8.53a.75.75 0 0 1 0-1.06Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                )}
+
+              </div>
+
+              {item.children?.length && (
+                <ul class="mobile-sub-menu" hidden>
+                  {item.children.map((child) => (
+                    <li>
+                      <a href={child.href} class="mobile-sub-link">
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+            </li>
+          ))}
+
+          <!-- Reach Us CTA -->
+          {reachUs && (
+            <li class="mobile-nav-cta">
+              <a href={reachUs.href} class="mobile-cta-btn">
+                <i class={reachUs.icon || "fas fa-paper-plane"} aria-hidden="true"></i>
+                <span>{reachUs.label}</span>
+              </a>
+            </li>
+          )}
+
+        </ul>
+      </nav>
+
+      <!-- Drawer Footer -->
+      <div class="mobile-drawer-footer">
+        <p class="mobile-company-title">
+          VentureBean Consulting Pvt. Ltd.
+        </p>
+
+        <p class="mobile-company-address">
+          We Work Salarpuria Symbiosis,<br />
+          Arekere Village, Begur Hobli,<br />
+          Bannerghatta Road, Bengaluru – 560076, India
+        </p>
+      </div>
+
     </div>
   </div>
+
 </div>
 
 <style>
-  /* Mobile Header Action Buttons in Top Bar */
+  /* ========================================
+     MOBILE HEADER
+  ======================================== */
+
+  .vb-mobile-header {
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    .vb-mobile-header {
+      display: flex;
+    }
+  }
+
   .mobile-header-btn-wrap {
     display: flex;
     align-items: center;
@@ -260,50 +306,96 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    padding: 0;
     border: none;
+    border-radius: 50%;
     background: transparent;
     color: #1a1a1a;
-    font-size: 1.15rem;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    transition: background-color .2s ease, color .2s ease, transform .15s ease;
   }
 
   .mobile-header-icon-btn:hover,
   .mobile-header-icon-btn:focus-visible {
-    background-color: #f7f7f7;
+    background: #f7f7f7;
     color: #8b2332;
   }
 
   .mobile-header-icon-btn:active {
-    transform: scale(0.94);
+    transform: scale(.94);
   }
 
-  /* Drawer Container & Content Panel */
-  .mobile-drawer-content {
-    background-color: #ffffff !important;
-    width: min(340px, 86vw) !important;
-    max-width: 100vw !important;
-    height: 100vh !important;
-    height: 100dvh !important;
-    display: flex !important;
-    flex-direction: column !important;
-    overflow-y: auto !important;
+  /* ========================================
+     DRAWER
+  ======================================== */
+
+  .mobile-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .mobile-drawer.is-open {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .mobile-drawer-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(0, 0, 0, .48);
+    opacity: 0;
+    cursor: default;
+    transition: opacity .3s ease;
+  }
+
+  .mobile-drawer.is-open .mobile-drawer-overlay {
+    opacity: 1;
+  }
+
+  .mobile-drawer-panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: min(340px, 86vw);
+    max-width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: #ffffff;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, .16);
+    transform: translateX(-100%);
+    transition: transform .3s ease;
     -webkit-overflow-scrolling: touch;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.16) !important;
-    box-sizing: border-box !important;
   }
 
-  /* 1. Drawer Header */
+  .mobile-drawer.is-open .mobile-drawer-panel {
+    transform: translateX(0);
+  }
+
+  /* ========================================
+     DRAWER HEADER
+  ======================================== */
+
   .mobile-drawer-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-shrink: 0;
     padding: 16px 20px;
     border-bottom: 1px solid #eeeeee;
-    background-color: #ffffff;
-    flex-shrink: 0;
+    background: #ffffff;
   }
 
   .mobile-drawer-logo {
@@ -313,43 +405,44 @@
   }
 
   .mobile-drawer-logo img {
-    height: 34px;
+    display: block;
     width: auto;
+    height: 34px;
     max-width: 150px;
     object-fit: contain;
-    display: block;
   }
 
   .mobile-drawer-close-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 1px solid #e5e5e5;
-    background: #fafafa;
-    color: #444444;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid #e5e5e5;
+    border-radius: 50%;
+    background: #fafafa;
+    color: #444444;
     cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
+    transition: all .2s ease;
   }
 
   .mobile-drawer-close-btn:hover,
   .mobile-drawer-close-btn:focus-visible {
-    background-color: #fcf4f5;
-    color: #8b2332;
     border-color: #8b2332;
+    background: #fcf4f5;
+    color: #8b2332;
     transform: rotate(90deg);
   }
 
-  /* 2. Quick Search */
+  /* ========================================
+     SEARCH
+  ======================================== */
+
   .mobile-drawer-search {
-    padding: 14px 20px 8px;
-    background-color: #ffffff;
     flex-shrink: 0;
+    padding: 14px 20px 8px;
+    background: #ffffff;
   }
 
   .mobile-drawer-search-form {
@@ -362,73 +455,77 @@
   .mobile-drawer-search-icon {
     position: absolute;
     left: 14px;
+    width: 17px;
+    height: 17px;
     color: #888888;
-    font-size: 0.9rem;
     pointer-events: none;
   }
 
   .mobile-drawer-search-input {
+    box-sizing: border-box;
     width: 100%;
     height: 42px;
     padding: 0 44px 0 38px;
-    font-size: 0.92rem;
-    color: #1a1a1a;
-    background-color: #f8f9fa;
     border: 1px solid #dedede;
     border-radius: 21px;
     outline: none;
-    box-sizing: border-box;
-    transition: all 0.2s ease;
+    background: #f8f9fa;
+    color: #1a1a1a;
+    font-size: .92rem;
+    transition: all .2s ease;
   }
 
   .mobile-drawer-search-input:focus {
-    background-color: #ffffff;
     border-color: #8b2332;
-    box-shadow: 0 0 0 3px rgba(139, 35, 50, 0.12);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(139, 35, 50, .12);
   }
 
   .mobile-drawer-search-submit {
     position: absolute;
     right: 4px;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: none;
-    background-color: #8b2332;
-    color: #ffffff;
-    font-size: 0.85rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #8b2332;
+    color: #ffffff;
     cursor: pointer;
-    transition: opacity 0.2s ease, transform 0.15s ease;
+    transition: opacity .2s ease, transform .15s ease;
   }
 
   .mobile-drawer-search-submit:hover {
-    opacity: 0.9;
+    opacity: .9;
   }
 
   .mobile-drawer-search-submit:active {
-    transform: scale(0.92);
+    transform: scale(.92);
   }
 
-  /* 3. Navigation Menu */
+  /* ========================================
+     NAVIGATION
+  ======================================== */
+
   .mobile-drawer-nav {
     flex: 1 1 auto;
     padding: 8px 0;
   }
 
   .mobile-nav-list {
-    list-style: none;
     margin: 0;
     padding: 0;
+    list-style: none;
   }
 
   .mobile-nav-item {
-    list-style: none;
     margin: 0;
     padding: 0;
     border-bottom: 1px solid #f2f2f2;
+    list-style: none;
   }
 
   .mobile-nav-row {
@@ -442,14 +539,15 @@
     display: flex;
     align-items: center;
     flex: 1;
+    min-width: 0;
     padding: 13px 20px;
     color: #1a1a1a;
-    text-decoration: none;
-    font-size: 0.95rem;
+    font-size: .95rem;
     font-weight: 700;
+    letter-spacing: .03em;
+    text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
-    transition: all 0.18s ease;
+    transition: all .18s ease;
   }
 
   .mobile-nav-text {
@@ -459,59 +557,89 @@
   }
 
   .mobile-nav-icon {
-    font-size: 1rem;
-    color: #8b2332;
     width: 18px;
+    color: #8b2332;
+    font-size: 1rem;
     text-align: center;
   }
 
   .mobile-nav-link:hover,
   .mobile-nav-link:focus-visible,
   .mobile-nav-link.is-active {
+    background: #fcf4f5;
     color: #8b2332;
-    background-color: #fcf4f5;
   }
 
-  /* Accordion Chevron Button */
+  /* Accordion Button */
+
   .mobile-accordion-btn {
-    width: 48px;
-    height: 48px;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    background: transparent;
+    width: 48px;
+    height: 48px;
+    padding: 0;
     border: none;
+    background: transparent;
     color: #777777;
-    font-size: 0.82rem;
     cursor: pointer;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
+    transition: all .2s ease;
   }
 
   .mobile-accordion-btn:hover,
   .mobile-accordion-btn:focus-visible {
+    background: #fcf4f5;
     color: #8b2332;
-    background-color: #fcf4f5;
   }
 
-  .mobile-accordion-btn.is-open i,
-  .mobile-accordion-btn[aria-expanded="true"] i {
+  .mobile-accordion-btn svg {
+    transition: transform .2s ease;
+  }
+
+  .mobile-accordion-btn[aria-expanded="true"] svg {
     transform: rotate(180deg);
     color: #8b2332;
   }
 
-  /* Submenus */
+  /* ========================================
+     SUBMENU
+  ======================================== */
+
   .mobile-sub-menu {
-    list-style: none;
     margin: 0 0 0 20px;
     padding: 4px 0 8px;
-    background-color: #fbfbfb;
     border-left: 3px solid #8b2332;
-    animation: mobileSlideDown 0.2s ease-out;
+    background: #fbfbfb;
+    list-style: none;
+    animation: mobileSlideDown .2s ease-out;
   }
 
   .mobile-sub-menu[hidden] {
     display: none !important;
+  }
+
+  .mobile-sub-menu li {
+    margin: 0;
+    list-style: none;
+  }
+
+  .mobile-sub-link {
+    display: block;
+    padding: 10px 18px;
+    color: #333333;
+    font-size: .9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all .18s ease;
+  }
+
+  .mobile-sub-link:hover,
+  .mobile-sub-link:focus-visible,
+  .mobile-sub-link.is-active {
+    padding-left: 22px;
+    background: #f4eaec;
+    color: #8b2332;
   }
 
   @keyframes mobileSlideDown {
@@ -525,110 +653,13 @@
     }
   }
 
-  .mobile-sub-menu li {
-    list-style: none;
-    margin: 0;
-  }
+  /* ========================================
+     REACH US CTA
+  ======================================== */
 
-  .mobile-sub-link {
-    display: block;
-    padding: 10px 18px;
-    color: #333333;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.18s ease;
-  }
-
-  .mobile-sub-link:hover,
-  .mobile-sub-link:focus-visible,
-  .mobile-sub-link.is-active {
-    color: #8b2332;
-    background-color: #f4eaec;
-    padding-left: 22px;
-  }
-
-  /* Nested Accordions */
-  .mobile-sub-nested {
-    border-top: 1px solid #f0f0f0;
-    margin-top: 4px;
-    padding-top: 2px;
-  }
-
-  .mobile-nested-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .mobile-nested-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #222222;
-    padding: 10px 18px;
-    flex: 1;
-  }
-
-  .mobile-nested-accordion-btn {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    color: #777777;
-    font-size: 0.78rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .mobile-nested-accordion-btn.is-open i,
-  .mobile-nested-accordion-btn[aria-expanded="true"] i {
-    transform: rotate(180deg);
-    color: #8b2332;
-  }
-
-  .mobile-nested-menu {
-    list-style: none;
-    margin: 0 0 6px 18px;
-    padding: 4px 0;
-    background-color: #f4f4f4;
-    border-left: 2px solid #b84050;
-    animation: mobileSlideDown 0.2s ease-out;
-  }
-
-  .mobile-nested-menu[hidden] {
-    display: none !important;
-  }
-
-  .mobile-nested-menu li {
-    list-style: none;
-  }
-
-  .mobile-nested-link {
-    display: block;
-    padding: 8px 16px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #444444;
-    text-decoration: none;
-    transition: all 0.18s ease;
-  }
-
-  .mobile-nested-link:hover,
-  .mobile-nested-link:focus-visible,
-  .mobile-nested-link.is-active {
-    color: #8b2332;
-    background-color: #ece0e2;
-    padding-left: 20px;
-  }
-
-  /* 4. Reach Us CTA Button */
   .mobile-nav-cta {
-    list-style: none;
     padding: 20px 20px 10px;
+    list-style: none;
   }
 
   .mobile-cta-btn {
@@ -636,138 +667,191 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    box-sizing: border-box;
     width: 100%;
     height: 46px;
     border-radius: 6px;
-    background-color: #8b2332;
+    background: #8b2332;
+    box-shadow: 0 4px 12px rgba(139, 35, 50, .26);
     color: #ffffff !important;
-    text-decoration: none;
-    font-size: 0.95rem;
+    font-size: .95rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: .04em;
+    text-decoration: none;
     text-transform: uppercase;
-    box-shadow: 0 4px 12px rgba(139, 35, 50, 0.26);
-    transition: all 0.2s ease;
-    box-sizing: border-box;
+    transition: all .2s ease;
   }
 
   .mobile-cta-btn:hover,
   .mobile-cta-btn:focus-visible {
-    background-color: #721c28;
-    box-shadow: 0 6px 16px rgba(139, 35, 50, 0.38);
+    background: #721c28;
+    box-shadow: 0 6px 16px rgba(139, 35, 50, .38);
     transform: translateY(-1px);
   }
 
-  .mobile-cta-btn:active {
-    transform: translateY(0);
-  }
+  /* ========================================
+     DRAWER FOOTER
+  ======================================== */
 
-  /* 5. Drawer Footer */
   .mobile-drawer-footer {
+    flex-shrink: 0;
     padding: 18px 20px 24px;
     border-top: 1px solid #eeeeee;
-    background-color: #fafafa;
-    flex-shrink: 0;
+    background: #fafafa;
   }
 
   .mobile-company-title {
-    font-size: 0.85rem;
-    font-weight: 700;
+    margin: 0 0 6px;
     color: #1a1a1a;
-    margin: 0 0 6px 0;
+    font-size: .85rem;
+    font-weight: 700;
     line-height: 1.3;
   }
 
   .mobile-company-address {
-    font-size: 0.78rem;
-    line-height: 1.5;
-    color: #666666;
     margin: 0;
+    color: #666666;
+    font-size: .78rem;
+    line-height: 1.5;
+  }
+
+  body.mobile-drawer-open {
+    overflow: hidden;
   }
 </style>
 
 <script>
   function setupMobileNav() {
-    const drawer = document.getElementById('off-canvas-82f5101');
-    if (!drawer) return;
+    const drawer = document.getElementById("off-canvas-82f5101");
+    const openButton = document.getElementById("mobile-menu-toggle-btn");
 
-    // Toggle accordions on chevron click
-    const accordionBtns = drawer.querySelectorAll<HTMLButtonElement>('.mobile-accordion-btn, .mobile-nested-accordion-btn');
+    if (!drawer || !openButton) return;
 
-    accordionBtns.forEach((btn) => {
-      btn.replaceWith(btn.cloneNode(true));
+    if (drawer.dataset.initialized === "true") return;
+    drawer.dataset.initialized = "true";
+
+    const closeButtons = drawer.querySelectorAll<HTMLButtonElement>(
+      "[data-drawer-close]"
+    );
+
+    const closeDrawer = () => {
+      drawer.classList.remove("is-open");
+      drawer.setAttribute("aria-hidden", "true");
+      drawer.setAttribute("inert", "");
+
+      openButton.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("mobile-drawer-open");
+    };
+
+    const openDrawer = () => {
+      drawer.classList.add("is-open");
+      drawer.removeAttribute("inert");
+      drawer.setAttribute("aria-hidden", "false");
+
+      openButton.setAttribute("aria-expanded", "true");
+      document.body.classList.add("mobile-drawer-open");
+
+      const closeButton = drawer.querySelector<HTMLButtonElement>(
+        "#mobile-drawer-close-btn"
+      );
+
+      closeButton?.focus();
+    };
+
+    openButton.addEventListener("click", openDrawer);
+
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", closeDrawer);
     });
 
-    const refreshedBtns = drawer.querySelectorAll<HTMLButtonElement>('.mobile-accordion-btn, .mobile-nested-accordion-btn');
+    // Close with Escape
+    drawer.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeDrawer();
+        openButton.focus();
+      }
+    });
 
-    refreshedBtns.forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // Accordion handling
+    const accordionButtons = drawer.querySelectorAll<HTMLButtonElement>(
+      ".mobile-accordion-btn"
+    );
 
-        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-        const parentLi = btn.closest('li');
-        const targetSubmenu = parentLi?.querySelector<HTMLElement>(':scope > .mobile-sub-menu, :scope > .mobile-nested-menu');
+    accordionButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const parent = button.closest("li");
+        const submenu = parent?.querySelector<HTMLElement>(
+          ":scope > .mobile-sub-menu"
+        );
 
-        if (!targetSubmenu) return;
+        if (!submenu) return;
 
-        if (isExpanded) {
-          btn.setAttribute('aria-expanded', 'false');
-          targetSubmenu.setAttribute('hidden', '');
-          btn.classList.remove('is-open');
-          targetSubmenu.classList.remove('is-open');
+        const expanded =
+          button.getAttribute("aria-expanded") === "true";
+
+        button.setAttribute("aria-expanded", String(!expanded));
+
+        if (expanded) {
+          submenu.setAttribute("hidden", "");
         } else {
-          btn.setAttribute('aria-expanded', 'true');
-          targetSubmenu.removeAttribute('hidden');
-          btn.classList.add('is-open');
-          targetSubmenu.classList.add('is-open');
+          submenu.removeAttribute("hidden");
         }
       });
     });
 
-    // Handle clicking "/services/" parent link to expand accordion rather than navigating to missing page
-    const servicesLink = drawer.querySelector<HTMLAnchorElement>('a[href="/services/"]');
-    if (servicesLink) {
-      servicesLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        const accordionBtn = servicesLink.parentElement?.querySelector<HTMLButtonElement>('.mobile-accordion-btn');
-        accordionBtn?.click();
-      });
-    }
+    // Active page highlighting
+    const normalizePath = (path: string) => {
+      if (path === "/") return "/";
+      return path.endsWith("/") ? path : `${path}/`;
+    };
 
-    // Mark active page in mobile drawer and auto-expand parent accordion
-    const norm = (p: string) => (p.endsWith('/') ? p : `${p}/`);
-    const currentPath = norm(window.location.pathname);
-    drawer.querySelectorAll<HTMLAnchorElement>('.mobile-nav-link, .mobile-sub-link, .mobile-nested-link').forEach((a) => {
+    const currentPath = normalizePath(window.location.pathname);
+
+    const links = drawer.querySelectorAll<HTMLAnchorElement>(
+      ".mobile-nav-link, .mobile-sub-link"
+    );
+
+    links.forEach((link) => {
       try {
-        const url = new URL(a.href, window.location.href);
-        if (url.origin === window.location.origin && norm(url.pathname) === currentPath) {
-          a.classList.add('is-active');
-          a.setAttribute('aria-current', 'page');
-          const subMenu = a.closest('.mobile-sub-menu, .mobile-nested-menu');
-          if (subMenu) {
-            subMenu.removeAttribute('hidden');
-            subMenu.classList.add('is-open');
-            const parentBtn = subMenu.parentElement?.querySelector('.mobile-accordion-btn, .mobile-nested-accordion-btn');
-            parentBtn?.setAttribute('aria-expanded', 'true');
-            parentBtn?.classList.add('is-open');
+        const url = new URL(link.href, window.location.href);
 
-            const ancestorMenu = subMenu.parentElement?.closest('.mobile-sub-menu');
-            if (ancestorMenu) {
-              ancestorMenu.removeAttribute('hidden');
-              ancestorMenu.classList.add('is-open');
-              const ancestorBtn = ancestorMenu.parentElement?.querySelector('.mobile-accordion-btn');
-              ancestorBtn?.setAttribute('aria-expanded', 'true');
-              ancestorBtn?.classList.add('is-open');
-            }
+        if (
+          url.origin === window.location.origin &&
+          normalizePath(url.pathname) === currentPath
+        ) {
+          link.classList.add("is-active");
+          link.setAttribute("aria-current", "page");
+
+          const submenu = link.closest<HTMLElement>(".mobile-sub-menu");
+
+          if (submenu) {
+            submenu.removeAttribute("hidden");
+
+            const parentItem = submenu.parentElement;
+            const parentButton =
+              parentItem?.querySelector<HTMLButtonElement>(
+                ":scope > .mobile-nav-row .mobile-accordion-btn"
+              );
+
+            parentButton?.setAttribute("aria-expanded", "true");
           }
         }
-      } catch {}
+      } catch {
+        // Ignore invalid navigation URLs.
+      }
     });
+
+    // Close drawer when a navigation link is selected
+    drawer.querySelectorAll<HTMLAnchorElement>(
+      ".mobile-nav-link, .mobile-sub-link, .mobile-cta-btn"
+    ).forEach((link) => {
+      link.addEventListener("click", () => {
+        closeDrawer();
+      });
+    });
+
   }
 
   setupMobileNav();
-  document.addEventListener('astro:page-load', setupMobileNav);
+  document.addEventListener("astro:page-load", setupMobileNav);
 </script>

@@ -1,0 +1,95 @@
+
+---
+/**
+ * VentureBean Business Solutions
+ * Route: /solutions-leadershipedge/
+ */
+
+import GlobalHero from "../../components/global/global-hero.astro";
+import ChallengesWeSolve from "../../components/solutions/ChallengesWeSolve.astro";
+import Idealfor from "../../components/solutions/Idealfor.astro";
+import OutcomeSection from "../../components/solutions/OutcomeSection.astro";
+import SolutionDetails from "../../components/solutions/SolutionDetails.astro";
+import Layout from "../../layouts/Layout.astro";
+import SolutionCTA from "../../components/solutions/SolutionCTA.astro";
+
+import VBButton from "../../components/global/VBButton.astro";
+---
+
+<Layout page="case-studies">
+  <main id="content" class="w-full min-w-0 overflow-x-clip">
+
+    <!-- HERO -->
+    <GlobalHero
+      title="Build Leaders Who Drive Growth and Culture"
+      subtitle="LeadershipEdge"
+      image="/images/solutions/leadershipedge.jpg"
+      showButton={false}
+    />
+
+    <!-- IDEAL FOR + BEST SUITED -->
+    <Idealfor
+      idealHeading="Ideal for"
+      idealFor={[
+        { title: "Business leaders and CXOs" },
+        { title: "Functional managers" },
+        { title: "High-potential professionals" },
+        { title: "Leadership teams and organisations" },
+      ]}
+      bestSuited="The organisation needs stronger leadership capability, better team alignment, and a scalable leadership pipeline."
+    />
+
+    <!-- CHALLENGES + WHAT'S INCLUDED -->
+    <SolutionDetails
+      challenges={[
+        "Weak leadership bench strength",
+        "Low engagement and retention",
+        "Poor collaboration and accountability",
+        "Leadership capability gaps",
+        "Leadership readiness challenges",
+      ]}
+      included={[
+        "Leadership development workshops",
+        "360° leadership assessments including global tool-based benchmarking assessments like Motivation-Code (used by NASA) and Motivation Factor – for individuals and Teams",
+        "Executive and leadership coaching – 1:1, small groups / Teams",
+        "Leadership competency frameworks",
+        "Stakeholder management support",
+        "Team effectiveness interventions",
+        "Coaching culture enablement",
+        "Stakeholder review and progress tracking",
+      ]}
+    />
+
+    <!-- OUTCOME -->
+    <OutcomeSection
+      heading="Outcome"
+      description="Develop leaders who inspire performance, alignment, and lasting business impact."
+      backgroundImage="/images/solutions/outcome-background.jpg"
+      outcomes={[
+        {
+          icon: "direction",
+          description: "Confident leaders equipped to drive growth and manage change",
+        },
+        {
+          icon: "structure",
+          description: "Stronger collaboration, accountability, and team effectiveness",
+        },
+        {
+          icon: "growth",
+          description: "A sustainable leadership pipeline that supports future business success",
+        },
+      ]}
+    />
+
+    <!-- CALL TO ACTION -->
+    <SolutionCTA
+      heading="Ready to Strengthen Your Organisation?"
+      description="Let's start with a simple, strategic conversation to understand what your business needs."
+      ctaLabel="Book a Discovery Call"
+      ctaHref="/contact/"
+      backLabel="Back to Solutions"
+      backHref="/solutions/"
+    />
+
+  </main>
+</Layout>

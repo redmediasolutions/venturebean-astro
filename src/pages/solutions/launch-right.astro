@@ -1,0 +1,92 @@
+
+---
+/**
+ * VentureBean Business Solutions
+ * Route: /solutions/
+ */
+
+import GlobalHero from "../../components/global/global-hero.astro";
+import ChallengesWeSolve from "../../components/solutions/ChallengesWeSolve.astro";
+import Idealfor from "../../components/solutions/Idealfor.astro";
+import OutcomeSection from "../../components/solutions/OutcomeSection.astro";
+import SolutionDetails from "../../components/solutions/SolutionDetails.astro";
+import Layout from "../../layouts/Layout.astro";
+import SolutionCTA from "../../components/solutions/SolutionCTA.astro";
+
+import VBButton from "../../components/global/VBButton.astro";
+
+
+
+---
+
+<Layout page="case-studies">
+  <main id="content" class="w-full min-w-0 overflow-x-clip">
+
+    <!-- HERO -->
+    <GlobalHero
+      title="Build the Business Right from Day One"
+      subtitle="Launch Right"
+      image="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913200922-professional-services.webp"
+      showButton={false}
+    />
+
+    <Idealfor
+  idealFor={[
+    { title: "Early-stage startups" },
+    { title: "First-generation entrepreneurs" },
+    { title: "New business ventures" },
+    { title: "MSMEs building for growth" },
+  ]}
+  bestSuited="The business has an idea, early traction, or a growing opportunity but lacks clarity, structure, direction, or operational discipline."
+/>
+
+<SolutionDetails
+  challenges={[
+    "Lack of business clarity and focus",
+    "Undefined business model and growth direction",
+    "Founder role confusion",
+    "Weak execution structure",
+    "Difficulty building accountability in early teams",
+  ]}
+  included={[
+    "Vision, mission, and business model clarity",
+    "GTM and growth planning",
+    "Founder and team role alignment",
+    "Early-stage organisation structuring",
+    "KPI and execution tracking setup",
+    "Founder coaching and decision support",
+    "Review systems and operating rhythm",
+  ]}
+/>
+
+<OutcomeSection
+  heading="Outcome"
+  description="Build your business on a strong foundation designed for sustainable growth."
+  backgroundImage="/images/solutions/outcome-background.jpg"
+  outcomes={[
+    {
+      icon: "direction",
+      description: "Clear business direction with defined priorities and founder alignment",
+    },
+    {
+      icon: "structure",
+      description: "Structured systems, processes, and accountability from the outset",
+    },
+    {
+      icon: "growth",
+      description: "A scalable operating foundation that supports long-term growth",
+    },
+  ]}
+/>
+
+<SolutionCTA
+  heading="Ready to Strengthen Your Organisation?"
+  description="Let's start with a simple, strategic conversation to understand what your business needs."
+  ctaLabel="Book a Discovery Call"
+  ctaHref="/contact/"
+  backLabel="Back to Solutions"
+  backHref="/solutions/"
+/>
+  
+  </main>
+</Layout>

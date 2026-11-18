@@ -1,152 +1,100 @@
+
 ---
 /**
- * Solutions page: “Business Challenges our Solutions Solve” section.
+ * VentureBean – Business Challenges
+ * Self-contained Astro component
  */
+
+const challenges = [
+  {
+    title: "Founder dependency and leadership overload",
+    icon: "signal",
+  },
+  {
+    title: "Organisational inefficiencies affecting growth and profitability",
+    icon: "calendar",
+  },
+  {
+    title: "Weak operational systems, accountability, governance frameworks",
+    icon: "briefcase",
+  },
+  {
+    title: "Leadership capability or succession planning, team collaboration",
+    icon: "leadership",
+  },
+  {
+    title: "GCC setup, operational scaling and sustenance",
+    icon: "globe",
+  },
+];
+
+const icons: Record<string, string> = {
+  signal: "M4 20V10m5 10V4m5 16v-7m5 7V7",
+  calendar:
+    "M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2Z",
+  briefcase:
+    "M3 7h18v14H3zM8 7V4h8v3M3 12h18m-11 0v2h4v-2",
+  leadership:
+    "M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2m6-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm7-4h5m-2.5-2.5v5",
+  globe:
+    "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm0-20c2.5 2.7 3.7 6 3.7 10s-1.2 7.3-3.7 10c-2.5-2.7-3.7-6-3.7-10S9.5 4.7 12 2Zm-9 10h18",
+};
 ---
 
-<div
-  class="vb-element vb-element-2291de8 e-flex e-con-boxed e-con e-parent"
-  data-id="2291de8"
-  data-element_type="container"
-  data-e-type="container"
-  data-settings={'{"background_background":"classic"}'}
->
-  <div class="e-con-inner">
-    <div
-      class="vb-element vb-element-2f5264b e-con-full e-flex e-con e-child"
-      data-id="2f5264b"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-1db0f90 vb-widget vb-widget-heading"
-        data-id="1db0f90"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="heading.default"
+<section class="w-full bg-vb-navy py-16 text-white md:py-20 lg:py-10">
+  <div
+    class="mx-auto grid w-full max-w-vb grid-cols-1 items-center gap-12 px-6 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:px-10"
+  >
+    <!-- Left: Introduction -->
+    <div>
+      <h2
+        class="max-w-2xl font-heading text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-5xl xl:text-[56px]"
       >
-        <div class="vb-widget-container">
-          <h2 class="vb-heading-title vb-size-default">Business Challenges<br /> our Solutions Solve</h2>
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-d6412a7 vb-widget vb-widget-text-editor"
-        data-id="d6412a7"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="text-editor.default"
-      >
-        <div class="vb-widget-container">
-          <p>Every structured, customised engagement is practical, execution-focused and outcome-driven.</p><p>
-            We are flexible – either the whole solution could be opted for to get optimal, comprehensive results, else,
-            specific modules with function-focus could be chosen. Each assignment is customised to maximise relevant
-            impact.
-          </p>
-        </div>
-      </div>
+        Business Challenges
+        <span class="block">our Solutions Solve</span>
+      </h2>
+
+      <p class="mt-6 max-w-2xl font-sans text-base leading-relaxed text-vb-footer-text md:text-lg">
+        Every structured, customised engagement is practical,
+        execution-focused and outcome-driven.
+      </p>
+
+      <p class="mt-4 max-w-2xl font-sans text-base leading-relaxed text-vb-footer-text md:text-lg">
+        We are flexible – either the whole solution could be opted for to
+        get optimal, comprehensive results, else, specific modules with
+        function-focus could be chosen. Each assignment is customised to
+        maximise relevant impact.
+      </p>
     </div>
-    <div
-      class="vb-element vb-element-15fc39f e-con-full e-flex e-con e-child"
-      data-id="15fc39f"
-      data-element_type="container"
-      data-e-type="container"
-    >
-      <div
-        class="vb-element vb-element-2d6df06 vb-position-inline-start vb-view-default vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-        data-id="2d6df06"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="icon-box.default"
-      >
-        <div class="vb-widget-container">
-          <div class="vb-icon-box-wrapper">
-            <div class="vb-icon-box-icon">
-              <span class="vb-icon"> <i aria-hidden="true" class="fas fa-broadcast-tower"></i> </span>
-            </div>
-            <div class="vb-icon-box-content">
-              <h3 class="vb-icon-box-title"><span> Founder dependency and leadership overload </span></h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-99ca02c vb-position-inline-start vb-view-default vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-        data-id="99ca02c"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="icon-box.default"
-      >
-        <div class="vb-widget-container">
-          <div class="vb-icon-box-wrapper">
-            <div class="vb-icon-box-icon">
-              <span class="vb-icon"> <i aria-hidden="true" class="fas fa-calendar-alt"></i> </span>
-            </div>
-            <div class="vb-icon-box-content">
-              <h3 class="vb-icon-box-title">
-                <span> Organisational inefficiencies affecting growth and profitability </span>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-156980c vb-position-inline-start vb-view-default vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-        data-id="156980c"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="icon-box.default"
-      >
-        <div class="vb-widget-container">
-          <div class="vb-icon-box-wrapper">
-            <div class="vb-icon-box-icon">
-              <span class="vb-icon"> <i aria-hidden="true" class="fas fa-car-battery"></i> </span>
-            </div>
-            <div class="vb-icon-box-content">
-              <h3 class="vb-icon-box-title">
-                <span> Weak operational systems, accountability, governance frameworks </span>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-99e4854 vb-position-inline-start vb-view-default vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-        data-id="99e4854"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="icon-box.default"
-      >
-        <div class="vb-widget-container">
-          <div class="vb-icon-box-wrapper">
-            <div class="vb-icon-box-icon">
-              <span class="vb-icon"> <i aria-hidden="true" class="fas fa-chalkboard-teacher"></i> </span>
-            </div>
-            <div class="vb-icon-box-content">
-              <h3 class="vb-icon-box-title">
-                <span> Leadership capability or succession planning, team collaboration </span>
-              </h3>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        class="vb-element vb-element-b95895a vb-position-inline-start vb-view-default vb-mobile-position-block-start vb-widget vb-widget-icon-box"
-        data-id="b95895a"
-        data-element_type="widget"
-        data-e-type="widget"
-        data-widget_type="icon-box.default"
-      >
-        <div class="vb-widget-container">
-          <div class="vb-icon-box-wrapper">
-            <div class="vb-icon-box-icon">
-              <span class="vb-icon"> <i aria-hidden="true" class="fas fa-certificate"></i> </span>
-            </div>
-            <div class="vb-icon-box-content">
-              <h3 class="vb-icon-box-title"><span> GCC setup, operational scaling and sustenance </span></h3>
-            </div>
-          </div>
-        </div>
-      </div>
+
+    <!-- Right: Business Challenges -->
+    <div class="flex flex-col gap-4">
+      {challenges.map((challenge) => (
+        <article
+          class="flex min-h-[40px] items-center gap-5 bg-vb-footer-surface px-5 py-5 transition-colors duration-300 hover:bg-vb-blue/50 sm:px-6"
+        >
+          <span class="flex size-6 shrink-0 items-center justify-center text-vb-blue-soft">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="23"
+              height="23"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d={icons[challenge.icon]} />
+            </svg>
+          </span>
+
+          <p class="font-sans text-sm font-medium leading-[22px] text-vb-footer-muted sm:text-base md:text-[17px]">
+            {challenge.title}
+          </p>
+        </article>
+      ))}
     </div>
   </div>
-</div>
+</section>
