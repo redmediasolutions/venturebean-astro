@@ -1,136 +1,102 @@
+
 ---
 /**
- * Industry Perspectives: one card per post in the "Industry Perspectives"
- * category of the Content Manager (newest first). Title, date, a short
- * excerpt and a button to the full article.
+ * Industry Perspectives
  *
- * If the Content Manager has no posts here, the saved cards (children) show.
+ * Displays posts from the Industry Perspectives category,
+ * newest first. Falls back to saved cards when no posts exist.
  */
-import { getSectionPosts, postPath } from '../../../lib/posts';
-import { excerptWords, formatDate } from '../../../lib/article';
 
-const posts = await getSectionPosts('industryPerspectives');
+import { getSectionPosts } from "../../../lib/posts";
+import { excerptWords, formatDate } from "../../../lib/article";
+import VBButton from "../../../components/global/VBButton.astro";
+
+const posts = await getSectionPosts("industryPerspectives");
 ---
 
-{
-  posts ? (
-    posts.map((post) => {
-      const href = `/knowledge-hub/industry-perspectives/${post.slug}/`;
-      const image = post.featuredImage?.url;
-      return (
-        <div
-          data-vb-type="loop-item"
-          data-vb-id="25438"
-          class={`vb vb-25438 e-loop-item e-loop-item-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-industry-perspectives`}
-          data-vb-post-type="vb_library"
+{posts && posts.length > 0 ? (
+  posts.map((post) => {
+    const href = `/knowledge-hub/industry-perspectives/${post.slug}/`;
+    const image = post.featuredImage?.url;
+
+    const publishedDate = post.publishedAt;
+    const dateTime = publishedDate
+      ? publishedDate.toISOString()
+      : undefined;
+
+    return (
+      <article
+        data-vb-type="loop-item"
+        data-vb-id="25438"
+        data-vb-post-type="post"
+        class="group flex h-full min-w-0 flex-col overflow-hidden rounded-vb-lg bg-white shadow-vb-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(16,16,68,0.16)]"
+      >
+        <!-- Featured Image -->
+        <a
+          href={href}
+          class="relative block h-[220px] w-full shrink-0 overflow-hidden bg-vb-blue-soft sm:h-[235px]"
+          aria-label={`Read ${post.title}`}
         >
-          <div
-            class="vb-element vb-element-75230c7 e-flex e-con-boxed e-con e-parent"
-            data-id="75230c7"
-            data-element_type="container"
-            data-e-type="container"
-          >
-            <div class="e-con-inner">
-              <div
-                class="vb-element vb-element-e7a4e37 e-con-full e-flex e-con e-child"
-                data-id="e7a4e37"
-                data-element_type="container"
-                data-e-type="container"
-                style={image ? `background-image:url(${JSON.stringify(image)})` : undefined}
-              />
-              <div
-                class="vb-element vb-element-c634425 e-con-full e-flex e-con e-child"
-                data-id="c634425"
-                data-element_type="container"
-                data-e-type="container"
-              >
-                <div
-                  class="vb-element vb-element-e6ae944 e-con-full e-flex e-con e-child"
-                  data-id="e6ae944"
-                  data-element_type="container"
-                  data-e-type="container"
-                >
-                  <div
-                    class="vb-element vb-element-0e39db2 vb-widget vb-widget-heading"
-                    data-id="0e39db2"
-                    data-element_type="widget"
-                    data-e-type="widget"
-                    data-widget_type="heading.default"
-                  >
-                    <div class="vb-widget-container">
-                      <h2 class="vb-heading-title vb-size-default">
-                        <a href={href}>{post.title}</a>
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="vb-element vb-element-8cc365c e-con-full e-flex e-con e-child"
-                  data-id="8cc365c"
-                  data-element_type="container"
-                  data-e-type="container"
-                >
-                  <div
-                    class="vb-element vb-element-c1af106 vb-widget vb-widget-post-info"
-                    data-id="c1af106"
-                    data-element_type="widget"
-                    data-e-type="widget"
-                    data-widget_type="post-info.default"
-                  >
-                    <div class="vb-widget-container">
-                      <ul class="vb-inline-items vb-icon-list-items vb-post-info">
-                        <li class="vb-icon-list-item vb-repeater-item-2c3b621 vb-inline-item" itemprop="datePublished">
-                          <span class="vb-icon-list-icon">
-                            <i aria-hidden="true" class="fas fa-calendar" />
-                          </span>
-                          <span class="vb-icon-list-text vb-post-info__item vb-post-info__item--type-date">
-                            <time>{formatDate(post.publishedAt)}</time>
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="vb-element vb-element-ee75cb9 e-con-full e-flex e-con e-child"
-                  data-id="ee75cb9"
-                  data-element_type="container"
-                  data-e-type="container"
-                >
-                  <div
-                    class="vb-element vb-element-1c43056 vb-widget vb-widget-theme-post-excerpt"
-                    data-id="1c43056"
-                    data-element_type="widget"
-                    data-e-type="widget"
-                    data-widget_type="theme-post-excerpt.default"
-                  >
-                    <div class="vb-widget-container">{excerptWords(post, 25)}</div>
-                  </div>
-                </div>
-                <div
-                  class="vb-element vb-element-0e456aa vb-widget vb-widget-button"
-                  data-id="0e456aa"
-                  data-element_type="widget"
-                  data-e-type="widget"
-                  data-widget_type="button.default"
-                >
-                  <div class="vb-widget-container">
-                    <div class="vb-button-wrapper">
-                      <a class="vb-button vb-button-link vb-size-sm" href={href}>
-                        <span class="vb-button-content-wrapper">
-                          <span class="vb-button-text">Download PDF</span>
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {image ? (
+            <img
+              src={image}
+              alt={post.featuredImage?.alt || post.title}
+              loading="lazy"
+              class="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-vb-navy to-vb-blue">
+              <span class="font-heading text-2xl font-bold text-white/80">
+                VentureBean
+              </span>
             </div>
+          )}
+
+          <div class="absolute inset-0 bg-gradient-to-t from-vb-navy/25 to-transparent opacity-60"></div>
+        </a>
+
+        <!-- Card Content -->
+        <div class="flex flex-1 flex-col px-5 pb-6 pt-5 sm:px-6">
+
+          <!-- Title -->
+          <h2 class="font-heading text-xl font-semibold leading-snug !text-vb-navy transition-colors duration-200 group-hover:text-vb-blue md:text-[21px]">
+            <a
+              href={href}
+              class="!text-vb-navy !no-underline text-[23px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vb-blue"
+            >
+              {post.title}
+            </a>
+          </h2>
+
+          <!-- Published Date -->
+          {publishedDate && (
+            <div class="mt-3 flex items-center gap-2 text-xs font-semibold text-vb-text">
+              <i class="fas fa-calendar text-vb-blue" aria-hidden="true"></i>
+              <time datetime={dateTime}>
+                {formatDate(publishedDate)}
+              </time>
+            </div>
+          )}
+
+          <!-- Excerpt -->
+          <div class="mt-4 flex-1 font-sans text-sm leading-relaxed text-vb-text">
+            {excerptWords(post, 25)}
           </div>
+
+          <!-- VB Button -->
+          <div class="mt-6">
+            <VBButton
+              href={href}
+              label="Read Article"
+              size="sm"
+              arrow
+            />
+          </div>
+
         </div>
-      );
-    })
-  ) : (
-    <slot />
-  )
-}
+      </article>
+    );
+  })
+) : (
+  <slot />
+)}

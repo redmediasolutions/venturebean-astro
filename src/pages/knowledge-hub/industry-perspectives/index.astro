@@ -1,26 +1,42 @@
+
 ---
 /**
- * Industry Perspectives page (Knowledge Hub → Industry Perspectives) → /knowledge-hub/industry-perspectives/
- * Each section lives in src/components/knowledge-hub/industry-perspectives/.
+ * Industry Perspectives page
+ * Knowledge Hub → Industry Perspectives
+ * Route: /knowledge-hub/industry-perspectives/
+ *
+ * Each section lives in:
+ * src/components/knowledge-hub/industry-perspectives/
  */
-export const prerender = false; // Rendered on request (Cloudflare), so new Content Manager posts appear straight away
 
-import Layout from '../../../layouts/Layout.astro';
-import HeroSlider from '../../../components/knowledge-hub/industry-perspectives/HeroSlider.astro';
-import FeaturedInsightsHeading from '../../../components/knowledge-hub/industry-perspectives/FeaturedInsightsHeading.astro';
-import PerspectiveList from '../../../components/knowledge-hub/industry-perspectives/PerspectiveList.astro';
-import StayConnected from '../../../components/knowledge-hub/industry-perspectives/StayConnected.astro';
+export const prerender = false;
+
+import Layout from "../../../layouts/Layout.astro";
+import HeroSlider from "../../../components/knowledge-hub/industry-perspectives/HeroSlider.astro";
+import FeaturedInsightsHeading from "../../../components/knowledge-hub/industry-perspectives/FeaturedInsightsHeading.astro";
+import PerspectiveList from "../../../components/knowledge-hub/industry-perspectives/PerspectiveList.astro";
+import StayConnected from "../../../components/knowledge-hub/industry-perspectives/StayConnected.astro";
+import GlobalHero from "../../../components/global/global-hero.astro";
 ---
 
 <Layout page="industry-perspectives">
-  <main id="content" class="site-main post-24152 page type-page status-publish hentry">
-    <div class="page-content">
-      <div data-vb-type="site-page" data-vb-id="24152" class="vb vb-24152" data-vb-post-type="page">
-        <HeroSlider />
-        <FeaturedInsightsHeading />
-        <PerspectiveList />
-        <StayConnected />
-      </div>
-    </div>
+  <main
+    id="content"
+    class="w-full min-w-0 overflow-hidden"
+    data-vb-type="site-page"
+    data-vb-id="24152"
+    data-vb-post-type="page"
+  >
+    <GlobalHero
+      title="Industry Perspectives"
+      subtitle="Knowledge Hub"
+      description="Explore our curated collection of insights, research, and thought leadership articles on business strategy, leadership, and organisational development. Gain valuable perspectives from our experts to stay informed and inspired."
+      image="/images/knowledge-hub/industry-perspectives/industry-perspectives-hero.jpg"
+      showButton={false}
+    />
+
+    <PerspectiveList />
+
+    <StayConnected />
   </main>
 </Layout>

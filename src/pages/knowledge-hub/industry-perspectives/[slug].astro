@@ -1,93 +1,209 @@
+
 ---
 /**
- * Blog article → /<slug>/  (same addresses as on WordPress)
- * One page per published Coaching, Consulting, Industry Perspectives and
- * Framework (Toolkit) post in the Content Manager.
- * The pieces are in src/components/blog/article/.
+ * Blog article → /<slug>/
+ *
+ * Dynamically renders published Coaching, Consulting,
+ * Industry Perspectives and Toolkit articles from Firebase.
+ *
+ * Uses on-demand rendering on Vercel.
  */
-import Layout from '../../../layouts/Layout.astro';
-import ArticleHero from '../../../components/blog/article/ArticleHero.astro';
-import ArticleHeroMobile from '../../../components/blog/article/ArticleHeroMobile.astro';
-import ArticleBody from '../../../components/blog/article/ArticleBody.astro';
-import RelatedPosts from '../../../components/blog/article/RelatedPosts.astro';
-import { getArticlePosts, postPath, reportPdfOf, type BlogPost } from '../../../lib/posts';
-import { formatDate, prepareContent } from '../../../lib/article';
 
-export async function getStaticPaths() {
-  // Slugs already used by site pages.
-  const reserved = new Set([
-    'about-us',
-    'business-consulting',
-    'case-studies',
-    'clients',
-    'coaching',
-    'coaching-case-studies',
-    'consulting-case-studies',
-    'contact-us',
-    'knowledge-hub',
-    'testimonials',
-    'venturebean-solutions-page',
-    'insights',
-    'media-spotlight',
-    'industry-perspectives',
-    'toolkit',
-  ]);
-  const posts = await getArticlePosts();
-  return posts
-    .filter((post) => !reserved.has(post.slug))
-    .map((post) => ({ params: { slug: post.slug }, props: { post } }));
-}
+export const prerender = false;
 
-interface Props {
-  post: BlogPost;
-}
+import Layout from "../../../layouts/Layout.astro";
+import ArticleHero from "../../../components/blog/article/ArticleHero.astro";
+import ArticleHeroMobile from "../../../components/blog/article/ArticleHeroMobile.astro";
+import ArticleBody from "../../../components/blog/article/ArticleBody.astro";
+import RelatedPosts from "../../../components/blog/article/RelatedPosts.astro";
 
-const { post } = Astro.props;
+import {
+  getArticlePosts,
+  postPath,
+  reportPdfOf,
+} from "../../../lib/posts";
+
+import type { BlogPost } from "../../../lib/posts";
+import { formatDate, prepareContent } from "../../../lib/article";
+
+// --------------------------------------------------
+// LOAD ARTICLE AT REQUEST TIME
+// --------------------------------------------------
+
+const slug = Astro.params.slug?.toLowerCase();
+
 const all = await getArticlePosts();
-const { html: content, toc } = prepareContent(post.content);
-// "Continue reading" shows more posts from the article's own category.
-const category =
-  ['coaching', 'consulting'].find((c) => post.categorySlugs.includes(c)) ??
-  post.categorySlugs.find((c) => all.some((p) => p !== post && p.categorySlugs.includes(c))) ??
-  post.categorySlugs[0] ??
-  'consulting';
-const related = all.filter((p) => p.slug !== post.slug && p.categorySlugs.includes(category)).slice(0, 4);
-const date = formatDate(post.publishedAt);
-const reportPdf = reportPdfOf(post);
-const download = reportPdf ? { pdf: reportPdf, postId: post.id, slug: post.slug, title: post.title } : null;
 
-// Featured image as the background of the header's image box (desktop + mobile).
-const image = post.featuredImage?.url;
+const post: BlogPost | null =
+  all.find((item) => item.slug.toLowerCase() === slug) ?? null;
+
+// Return a proper 404 when the article doesn't exist.
+if (!post) {
+  Astro.response.status = 404;
+}
+
+// --------------------------------------------------
+// ARTICLE DATA
+// --------------------------------------------------
+
+const title = post?.seoTitle || post?.title || "Article not found";
+const description = post?.seoDescription || post?.excerpt || "";
+const image = post?.featuredImage?.url;
+
+const canonical = post
+  ? `https://venturebean.com${postPath(post.slug)}`
+  : "https://venturebean.com/";
+
+// --------------------------------------------------
+// CATEGORY & RELATED ARTICLES
+// --------------------------------------------------
+
+const category = post
+  ? (
+      ["coaching", "consulting"].find((c) =>
+        post.categorySlugs.includes(c)
+      ) ??
+      post.categorySlugs.find((c) =>
+        all.some(
+          (item) =>
+            item.slug !== post.slug &&
+            item.categorySlugs.includes(c)
+        )
+      ) ??
+      post.categorySlugs[0] ??
+      "consulting"
+    )
+  : "consulting";
+
+const related = post
+  ? all
+      .filter(
+        (item) =>
+          item.slug !== post.slug &&
+          item.categorySlugs.includes(category)
+      )
+      .slice(0, 4)
+  : [];
+
+// --------------------------------------------------
+// ARTICLE CONTENT
+// --------------------------------------------------
+
+const date = post ? formatDate(post.publishedAt) : "";
+
+const contentData = post
+  ? prepareContent(post.content)
+  : { html: "", toc: [] };
+
+const content = contentData.html;
+const toc = contentData.toc;
+
+// --------------------------------------------------
+// REPORT PDF
+// --------------------------------------------------
+
+const reportPdf = post ? reportPdfOf(post) : null;
+
+const download =
+  post && reportPdf
+    ? {
+        pdf: reportPdf,
+        postId: post.id,
+        slug: post.slug,
+        title: post.title,
+      }
+    : null;
+
+// --------------------------------------------------
+// HERO IMAGE
+//
+// Retained for compatibility with the existing
+// ArticleHero and ArticleHeroMobile components.
+// --------------------------------------------------
+
 const heroCss = image
-  ? `<style>` +
-    `.vb-20312 .vb-element.vb-element-474937f:not(.vb-motion-effects-element-type-background),` +
-    `.vb-20312 .vb-element.vb-element-474937f > .vb-motion-effects-container > .vb-motion-effects-layer,` +
-    `.vb-20312 .vb-element.vb-element-bd88443:not(.vb-motion-effects-element-type-background),` +
-    `.vb-20312 .vb-element.vb-element-bd88443 > .vb-motion-effects-container > .vb-motion-effects-layer{` +
-    `background-image:url(${JSON.stringify(image)});}` +
-    `</style>`
-  : '';
+  ? `<style>
+      .vb-20312 .vb-element.vb-element-474937f:not(.vb-motion-effects-element-type-background),
+      .vb-20312 .vb-element.vb-element-474937f > .vb-motion-effects-container > .vb-motion-effects-layer,
+      .vb-20312 .vb-element.vb-element-bd88443:not(.vb-motion-effects-element-type-background),
+      .vb-20312 .vb-element.vb-element-bd88443 > .vb-motion-effects-container > .vb-motion-effects-layer {
+        background-image: url(${JSON.stringify(image)});
+      }
+    </style>`
+  : "";
 ---
 
 <Layout
   page="post"
-  title={post.seoTitle || post.title}
-  description={post.seoDescription || post.excerpt}
-  canonical={`https://venturebean.com${postPath(post.slug)}`}
+  title={title}
+  description={description}
+  canonical={canonical}
   image={image}
 >
-  <main id="content" class="site-main">
-    <Fragment set:html={heroCss} />
-    <div
-      data-vb-type="single-post"
-      data-vb-id="20312"
-      class={`vb vb-20312 vb-location-single post type-post status-publish format-standard has-post-thumbnail hentry category-${category}`}
-      data-vb-post-type="vb_library"
-    >
-      <ArticleHero title={post.title} date={date} />
-      <ArticleHeroMobile title={post.title} date={date} />
-      <ArticleBody content={content} toc={toc} download={download} />
-      <RelatedPosts related={related} category={category} />
-    </div>
+  <main id="content" class="w-full min-w-0 overflow-hidden">
+
+    {post ? (
+      <>
+        {heroCss && <Fragment set:html={heroCss} />}
+
+        <article
+          data-vb-type="single-post"
+          data-vb-id="20312"
+          data-vb-post-type="post"
+          class="vb-20312 w-full min-w-0"
+        >
+          <!-- Desktop Article Hero -->
+          <ArticleHero
+            title={post.title}
+            date={date}
+          />
+
+          <!-- Mobile Article Hero -->
+          <ArticleHeroMobile
+            title={post.title}
+            date={date}
+          />
+
+          <!-- Article Content -->
+          <ArticleBody
+            content={content}
+            toc={toc}
+            download={download}
+          />
+
+          <!-- Related Articles -->
+          {related.length > 0 && (
+            <RelatedPosts
+              related={related}
+              category={category}
+            />
+          )}
+        </article>
+      </>
+    ) : (
+      <section class="flex min-h-[55vh] items-center justify-center bg-vb-light px-6 py-16">
+        <div class="mx-auto max-w-xl text-center">
+          <p class="font-sans text-sm font-semibold uppercase tracking-widest text-vb-blue">
+            404 · Article Not Found
+          </p>
+
+          <h1 class="mt-4 font-heading text-3xl font-bold text-vb-navy sm:text-4xl">
+            This article is unavailable
+          </h1>
+
+          <p class="mt-4 font-sans text-base leading-relaxed text-vb-text">
+            The article may have been moved, unpublished, or the link may be incorrect.
+          </p>
+
+          <a
+            href="/knowledge-hub/industry-perspectives/"
+            class="mt-7 inline-flex items-center justify-center rounded-vb bg-vb-navy px-6 py-3 font-sans text-sm font-semibold text-white transition-colors hover:bg-vb-blue"
+          >
+            Explore Industry Perspectives
+          </a>
+        </div>
+      </section>
+    )}
+
   </main>
 </Layout>
