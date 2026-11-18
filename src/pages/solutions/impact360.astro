@@ -1,0 +1,85 @@
+
+---
+
+import GlobalHero from "../../components/global/global-hero.astro";
+import ChallengesWeSolve from "../../components/solutions/ChallengesWeSolve.astro";
+import Idealfor from "../../components/solutions/Idealfor.astro";
+import OutcomeSection from "../../components/solutions/OutcomeSection.astro";
+import SolutionDetails from "../../components/solutions/SolutionDetails.astro";
+import Layout from "../../layouts/Layout.astro";
+import SolutionCTA from "../../components/solutions/SolutionCTA.astro";
+
+import VBButton from "../../components/global/VBButton.astro";
+
+---
+
+<Layout page="case-studies">
+  <main id="content" class="w-full min-w-0 overflow-x-clip">
+
+    <GlobalHero
+      title="Business Consulting + Coaching + Leadership Development"
+      subtitle="Impact360"
+      image="/images/solutions/impact360.jpg"
+      showButton={false}
+    />
+
+    <Idealfor
+      idealFor={[
+        { title: "Growth-focused SMBs" },
+        { title: "Mid-sized and large organisations" },
+        { title: "Business transformation initiatives" },
+        { title: "Leadership teams driving change" },
+      ]}
+      bestSuited="The organisation requires a complete alignment of strategy, leadership, people, operations, and execution to move to the next level."
+    />
+
+    <SolutionDetails
+      challenges={[
+        "Strategy disconnected from execution",
+        "Functional silos and leadership gaps",
+        "Culture and performance misalignment",
+        "Fragmented transformation efforts",
+        "Lack of execution ownership and governance",
+      ]}
+      included={[
+        "Business and people diagnostics including Tech, Tools and Governance – Baselining",
+        "Strategy-to-execution planning – Benchmarking",
+        "Organisation and functional alignment – Action Planning",
+        "CXO and leadership coaching",
+        "Cross-functional collaboration interventions – Execution, Implementation",
+        "Transformation PMO support",
+        "Governance dashboards and quarterly reviews – Sustenance",
+      ]}
+    />
+
+    <OutcomeSection
+      heading="Outcome"
+      description="Align strategy, leadership, people, and execution to accelerate business transformation."
+      backgroundImage="/images/solutions/outcome-background.jpg"
+      outcomes={[
+        {
+          description: "Unified execution across strategy, people, operations, and leadership",
+          icon: "direction",
+        },
+        {
+          description: "Improved governance, collaboration, and organisational performance",
+          icon: "structure",
+        },
+        {
+          description: "Sustainable business transformation with measurable long-term impact",
+          icon: "growth",
+        },
+      ]}
+    />
+
+    <SolutionCTA
+      heading="Ready to Strengthen Your Organisation?"
+      description="Let's start with a simple, strategic conversation to understand what your business needs."
+      ctaLabel="Book a Discovery Call"
+      ctaHref="/contact/"
+      backLabel="Back to Solutions"
+      backHref="/solutions/"
+    />
+
+  </main>
+</Layout>

@@ -1,0 +1,272 @@
+
+---
+/**
+ * VentureBean Business Solutions
+ * Route: /solutions/
+ */
+
+import GlobalHero from "../../components/global/global-hero.astro";
+import ChallengesWeSolve from "../../components/solutions/ChallengesWeSolve.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const challenges = [
+  {
+    number: "01",
+    title: "Founder dependency and leadership overload",
+    description:
+      "Reduce dependence on founders and strengthen leadership capacity across the organisation.",
+  },
+  {
+    number: "02",
+    title: "Organisational inefficiencies affecting growth and profitability",
+    description:
+      "Address operational gaps and improve organisational effectiveness.",
+  },
+  {
+    number: "03",
+    title: "Weak operational systems, accountability and governance frameworks",
+    description:
+      "Build structured processes, accountability and governance systems.",
+  },
+  {
+    number: "04",
+    title: "Leadership capability, succession planning and team collaboration",
+    description:
+      "Develop leadership capability, prepare future leaders and align teams.",
+  },
+  {
+    number: "05",
+    title: "GCC setup, operational scaling and sustenance",
+    description:
+      "Establish and scale global capability centre operations with structured support.",
+  },
+];
+
+const solutions = [
+  {
+    number: "01",
+    name: "Launch Right",
+    category: "Business Consulting for Start-ups & Early-Stage Firms",
+    description:
+      "Build a strong start-up foundation with business strategy, operational structure, founder alignment, and scalable growth systems designed for early-stage businesses.",
+    href: "launch-right/",
+    accent: "from-vb-blue to-vb-blue-muted",
+  },
+  {
+    number: "02",
+    name: "ScaleWise",
+    category: "Business Consulting for Start-ups & Early-Stage Firms",
+    description:
+      "Scale faster with stronger business systems, process optimisation, accountability frameworks, and operational consulting for SMBs (INR 10–1000 Cr).",
+    href: "scale-wise/",
+    accent: "from-vb-navy to-vb-blue",
+  },
+  {
+    number: "03",
+    name: "LegacyNext",
+    category: "Family Business Consulting and Succession Planning",
+    description:
+      "Strengthen family businesses through governance, succession planning, and long-term business continuity with structured advisory.",
+    href: "legacy-next/",
+    accent: "from-vb-deep-blue to-vb-navy",
+  },
+  {
+    number: "04",
+    name: "LeadershipEdge",
+    category: "Leadership Development and Coaching Solutions",
+    description:
+      "Develop high-performing leaders through coaching, leadership training, team alignment and organisational capability development programs.",
+    href: "leadership-edge/",
+    accent: "from-vb-blue to-vb-blue-light",
+  },
+  {
+    number: "05",
+    name: "Impact360",
+    category:
+      "Comprehensive Business Transformation Consulting and Organisational Development",
+    description:
+      "Drive sustainable business transformation through strategy execution, operational excellence, leadership alignment, and people-focused organisational development and coaching.",
+    href: "impact360/",
+    accent: "from-vb-footer to-vb-navy",
+  },
+  {
+    number: "06",
+    name: "GCCEdge360",
+    category: "Global Capability Centre Setup & Consulting Solutions",
+    description:
+      "Build scalable Global Capability Centres with setup consulting, governance frameworks, operational support, compliance advisory and offshore capability centre solutions.",
+    href: "gcc/",
+    accent: "from-vb-dark-blue to-vb-blue",
+  },
+];
+---
+
+<Layout page="case-studies">
+  <main id="content" class="w-full min-w-0 overflow-x-clip">
+
+    <!-- HERO -->
+    <GlobalHero
+      title="Smart Growth Solutions"
+      subtitle="VENTUREBEAN Solutions"
+      description="Business consulting and leadership solutions that help organisations scale with stronger execution, aligned teams, and sustainable growth."
+      image="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794913200922-professional-services.webp"
+      showButton={false}
+    />
+
+    <!-- INTRODUCTION -->
+    <section class="bg-white py-16 md:py-20 lg:py-10">
+      <div class="mx-auto grid w-full max-w-vb gap-10 px-6 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:px-10">
+
+        <div class="lg:col-span-5">
+          <span class="font-heading text-sm font-bold uppercase tracking-[0.2em] text-vb-blue">
+            Integrated Business Solutions
+          </span>
+
+          <h2 class="mt-4 font-heading text-4xl font-bold leading-tight tracking-tight text-vb-navy md:text-5xl">
+            The Architecture of Global Scale
+          </h2>
+        </div>
+
+        <div class="lg:col-span-7 lg:pt-8">
+          <p class="text-lg leading-relaxed text-vb-text md:text-xl">
+            This brings together VentureBean’s integrated business consulting,
+            leadership coaching, organisational development and transformation
+            solutions created for start-ups, SMBs, family businesses, founders,
+            leadership teams, and corporates.
+          </p>
+
+          <p class="mt-6 text-base leading-relaxed text-vb-text md:text-lg">
+            Each package is built around practical business needs and combines
+            strategy, people development, operational improvement, governance,
+            with Tech / Tools and execution support into structured engagements
+            that deliver measurable outcomes.
+          </p>
+
+          <a
+            href="/reach-us/"
+            class="mt-8 inline-flex items-center gap-3 font-heading font-bold text-vb-blue transition-colors hover:text-vb-navy"
+          >
+            Book a Discovery Call
+            <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <ChallengesWeSolve />
+
+    <!-- SOLUTIONS -->
+    <section class="bg-white py-16 md:py-20 lg:py-10">
+      <div class="mx-auto w-full max-w-vb px-6 sm:px-8 lg:px-10">
+
+        <div class="mb-12 flex flex-col justify-between gap-6 md:mb-14 md:flex-row md:items-end">
+          <div class="max-w-3xl">
+
+            <h2 class="mt-4 font-heading text-4xl font-bold leading-tight text-vb-navy md:text-5xl">
+              Our Solutions
+            </h2>
+
+            <p class="mt-5 text-lg leading-relaxed text-vb-text">
+              Tailored framework for every stage of the business lifecycle.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {solutions.map((solution) => (
+            <article
+              class="group flex h-full flex-col overflow-hidden rounded-vb-lg border border-vb-blue-soft bg-white transition-all duration-300 hover:-translate-y-1 hover:border-vb-blue/40 hover:shadow-vb-card"
+            >
+
+              <!-- Solution Header -->
+              <div
+                class={`relative flex min-h-[100px] items-end overflow-hidden bg-gradient-to-br ${solution.accent} p-7 md:p-8`}
+              >
+                <span class="pointer-events-none absolute -right-5 -top-6 font-heading text-[180px] font-bold leading-none text-white/[0.08]">
+                  {solution.number}
+                </span>
+
+                <div class="relative">
+
+                  <h3 class="mt-3 font-heading text-3xl font-bold !text-white md:text-4xl">
+                    {solution.name}
+                  </h3>
+                </div>
+              </div>
+
+              <!-- Solution Content -->
+              <div class="flex flex-1 flex-col p-7 md:p-8">
+                <p class="font-heading text-[20px] font-semibold leading-[1.2] text-vb-navy">
+                  {solution.category}
+                </p>
+
+                <p class="mt-5 flex-1 text-base leading-relaxed text-vb-text text-[14px]">
+                  {solution.description}
+                </p>
+
+                <a
+                  href={solution.href}
+                  class="mt-8 inline-flex items-center justify-between border-t border-vb-blue-soft pt-5 font-heading font-bold text-vb-navy transition-colors group-hover:text-vb-blue"
+                >
+                  Learn More
+
+                  <span class="flex size-9 items-center justify-center rounded-full bg-vb-blue-soft text-vb-blue transition-all duration-300 group-hover:bg-vb-blue group-hover:text-white">
+                    →
+                  </span>
+                </a>
+              </div>
+
+            </article>
+          ))}
+        </div>
+
+        <!-- Supporting Note -->
+        <div class="mt-12 rounded-vb-lg bg-vb-light px-7 py-8 md:px-10 md:py-10">
+          <p class="max-w-5xl text-base leading-relaxed text-vb-text md:text-lg">
+            Every engagement is customised based on your business goals,
+            operational priorities, leadership requirements, and growth stage.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="relative isolate overflow-hidden bg-vb-navy py-16 text-white md:py-24 lg:py-28">
+      <div class="pointer-events-none absolute -right-32 -top-40 -z-10 size-[500px] rounded-full border border-white/10"></div>
+      <div class="pointer-events-none absolute -right-16 -top-24 -z-10 size-[350px] rounded-full border border-white/10"></div>
+
+      <div class="mx-auto flex w-full max-w-vb flex-col gap-10 px-6 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
+
+        <div class="max-w-3xl">
+          <span class="font-heading text-sm font-bold uppercase tracking-[0.2em] text-vb-blue-light">
+            Let's Build What's Next
+          </span>
+
+          <h2 class="mt-4 font-heading text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
+            Ready to Scale with Clarity and Structure?
+          </h2>
+
+          <p class="mt-6 text-lg leading-relaxed text-white/75">
+            Partner with VentureBean to strengthen leadership, improve
+            operational efficiency, scale sustainably, and build a
+            future-ready organisation.
+          </p>
+        </div>
+
+        <div class="shrink-0">
+          <a
+            href="/contact-us/"
+            class="inline-flex items-center gap-4 rounded-vb bg-white px-8 py-4 font-heading font-bold text-vb-navy transition-all duration-300 hover:-translate-y-1 hover:bg-vb-blue-soft focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            Book a Discovery Discussion
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</Layout>

@@ -1,3 +1,4 @@
+
 @import "tailwindcss";
 
 @theme {
@@ -23,7 +24,7 @@
   --color-vb-footer-subtle: #AAA6C4;
   --color-vb-footer-accent: #8FA9FF;
 
-  /* Legacy VentureBean brand colors */
+  /* Legacy VentureBean Brand Colors */
   --color-vb-brown: #733416;
   --color-vb-deep-blue: #100057;
   --color-vb-dark-blue: #00053F;
@@ -43,7 +44,7 @@
      LAYOUT
   ======================================== */
 
-  --container-vb: 1600px;
+  --container-vb: 1400px;
 
   /* ========================================
      BORDER RADIUS
@@ -75,6 +76,7 @@
     background-color: #FFFFFF;
   }
 
+  /* Headings */
   h1,
   h2,
   h3,
@@ -87,18 +89,31 @@
     color: var(--color-vb-navy);
   }
 
+  /* Images */
   img {
+    display: block;
     max-width: 100%;
+    height: auto;
   }
 
+  /* Links */
   a {
+    text-decoration: none;
     text-underline-offset: 3px;
   }
 
+  /* Form Controls */
   button,
   input,
   textarea,
   select {
     font-family: var(--font-sans);
+  }
+
+  /* Consistent sizing */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 }

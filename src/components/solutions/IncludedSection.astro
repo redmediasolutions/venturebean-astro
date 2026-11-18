@@ -1,0 +1,86 @@
+
+---
+interface IncludedCategory {
+  category: string;
+  image: string;
+  imageAlt?: string;
+  items: string[];
+}
+
+interface Props {
+  heading?: string;
+  categories: IncludedCategory[];
+}
+
+const {
+  heading = "What's Included",
+  categories,
+} = Astro.props;
+---
+
+<section class="w-full bg-[#EEEEEE] py-7 md:py-9 lg:py-10">
+  <div class="mx-auto w-full max-w-vb px-6 sm:px-8 lg:px-12">
+
+    <!-- Section Heading -->
+    <h2 class="mb-5 font-heading text-2xl font-bold leading-tight text-vb-navy md:mb-6 md:text-3xl">
+      {heading}
+    </h2>
+
+    <!-- Category Panels -->
+    <div class="flex flex-col gap-3 md:gap-4">
+
+      {categories.map((category: IncludedCategory) => (
+        <article class="grid grid-cols-1 overflow-hidden bg-white sm:grid-cols-[180px_minmax(0,1fr)] lg:grid-cols-[220px_minmax(0,1fr)]">
+
+          <!-- Category Image -->
+<div class="group relative isolate min-h-[190px] self-stretch overflow-hidden bg-vb-navy sm:min-h-[220px]">
+
+  <!-- Background Image -->
+  <div
+    class="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
+    style={`background-image: url("${category.image}")`}
+    role="img"
+    aria-label={category.imageAlt || category.category}
+  ></div>
+
+  <!-- Image Overlay -->
+  <div class="absolute inset-0 -z-0 bg-gradient-to-t from-vb-navy/75 via-vb-navy/35 to-vb-navy/30"></div>
+
+  <!-- Category Title -->
+  <div class="absolute inset-0 z-10 flex items-center justify-center p-4">
+  <h3 class="font-heading text-3xl font-bold !text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.85)] md:text-4xl">
+    {category.category}
+  </h3>
+</div>
+
+</div>
+
+          <!-- Category Checklist -->
+          <div class="flex items-center px-5 py-5 sm:px-7 sm:py-6 lg:px-9 lg:py-7">
+
+            <ul class="flex w-full flex-col gap-2">
+              {category.items.map((item: string) => (
+                <li class="flex items-start gap-2.5">
+
+                  <!-- Hollow Circle -->
+                  <span
+                    aria-hidden="true"
+                    class="mt-[5px] h-[13px] w-[13px] shrink-0 rounded-full border-[2px] border-[#414141]"
+                  ></span>
+
+                  <span class="font-sans text-sm font-semibold leading-snug text-[#383838] md:text-[15px]">
+                    {item}
+                  </span>
+
+                </li>
+              ))}
+            </ul>
+
+          </div>
+
+        </article>
+      ))}
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,67 @@
+
+---
+type ButtonSize = "sm" | "md" | "lg";
+
+interface Props {
+  href: string;
+  label?: string;
+  invert?: boolean;
+  size?: ButtonSize;
+  arrow?: boolean;
+  class?: string;
+  target?: "_blank" | "_self";
+}
+
+const props = Astro.props as Props;
+
+const href = props.href;
+const label = props.label;
+const invert = props.invert ?? false;
+const size: ButtonSize = props.size ?? "md";
+const arrow = props.arrow ?? true;
+const className = props.class ?? "";
+const target = props.target ?? "_self";
+
+const sizeClasses: Record<ButtonSize, string> = {
+  sm: "px-4 py-2 text-sm gap-2",
+  md: "px-6 py-3 text-sm md:text-base gap-2.5",
+  lg: "px-7 py-3.5 text-base gap-3",
+};
+
+const colorClasses = invert
+  ? "!bg-white !text-vb-navy hover:bg-vb-blue-soft"
+  : "!bg-vb-navy !text-white hover:bg-vb-blue";
+---
+
+<a
+  href={href}
+  target={target}
+  rel={target === "_blank" ? "noopener noreferrer" : undefined}
+  class:list={[
+    "group inline-flex items-center justify-center rounded-vb font-sans font-semibold !no-underline shadow-sm transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vb-blue",
+    sizeClasses[size],
+    colorClasses,
+    className,
+  ]}
+>
+  {label && <span>{label}</span>}
+  {!label && <slot />}
+
+  {arrow && (
+    <svg
+      class="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M4 10H16M16 10L10 4M16 10L10 16"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  )}
+</a>

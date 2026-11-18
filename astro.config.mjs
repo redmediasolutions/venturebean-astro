@@ -26,6 +26,7 @@ export default defineConfig({
     // Case Studies
     '/coaching-case-studies/': '/case-studies/coaching/',
     '/consulting-case-studies/': '/case-studies/consulting/',
+    '/reach-us/': '/contact-us/',
   },
 
   build: {

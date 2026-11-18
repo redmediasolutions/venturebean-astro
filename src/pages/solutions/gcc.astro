@@ -1,0 +1,196 @@
+
+---
+
+import GlobalHero from "../../components/global/global-hero.astro";
+import ChallengesWeSolve from "../../components/solutions/ChallengesWeSolve.astro";
+import Idealfor from "../../components/solutions/Idealfor.astro";
+import OutcomeSection from "../../components/solutions/OutcomeSection.astro";
+import SolutionDetails from "../../components/solutions/SolutionDetails.astro";
+import Layout from "../../layouts/Layout.astro";
+import SolutionCTA from "../../components/solutions/SolutionCTA.astro";
+import BestSuitedWhen from "../../components/solutions/BestSuitedWhen.astro";
+import ChallengesSection from "../../components/solutions/ChallengesSection.astro";
+import IncludedSection from "../../components/solutions/IncludedSection.astro";
+import EnhancementsOutcome from "../../components/solutions/EnhancementsOutcome.astro";
+
+
+
+
+import VBButton from "../../components/global/VBButton.astro";
+
+---
+
+<Layout page="case-studies">
+  <main id="content" class="w-full min-w-0 overflow-x-clip">
+
+    <GlobalHero
+      title="Global Capability Centres"
+      subtitle="GCCEdge360"
+      buttonHref="/contact/"
+      image="/images/solutions/impact360.jpg"
+      description="GCCEdge360 is designed for organisations building or expanding Global Capability Centres and requiring structured support across setup, operations, people, governance, compliance, technology enablement, and execution. The solution helps businesses establish scalable GCC structures, improve operational efficiency, strengthen leadership alignment, and build high-performing capability centres that support long-term business growth and operational excellence."
+      showButton={true}
+
+    />
+
+    <Idealfor
+      idealFor={[
+        { title: "Organisations establishing GCCs" },
+        { title: "Businesses expanding GCC operations" },
+        { title: "Companies building offshore capability centres" },
+        { title: "Global organisations setting up operations in India" },
+      ]}
+    />
+
+<BestSuitedWhen
+  items={[
+    "The organisation is planning GCC setup, expansion, or operational scaling",
+    "Leadership teams require structured GCC execution and operational support",
+    "The business needs support with GCC governance, compliance, and operating models",
+    "Teams are facing challenges in hiring, operational alignment, or process standardisation",
+    "Expansion plans require scalable systems, operational visibility, and execution discipline",
+  ]}
+/>
+
+
+<ChallengesSection
+  items={[
+    {
+      title: "Navigating GCC setup, legal, and compliance requirements",
+      icon: "legal",
+    },
+    {
+      title: "Delays in operational readiness and execution planning",
+      icon: "calendar",
+    },
+    {
+      title: "Challenges in hiring and retaining skilled GCC talent",
+      icon: "talent",
+    },
+    {
+      title: "Lack of structured operational systems and governance frameworks",
+      icon: "systems",
+    },
+    {
+      title: "Weak reporting structures and limited performance visibility",
+      icon: "reporting",
+    },
+    {
+      title: "Leadership bandwidth constraints during GCC expansion",
+      icon: "leadership",
+    },
+    {
+      title: "Misalignment between GCC operations and headquarters expectations",
+      icon: "alignment",
+    },
+    {
+      title: "Difficulties in building scalable and sustainable GCC operations",
+      icon: "scalable",
+    },
+  ]}
+/>
+
+
+<IncludedSection
+  categories={[
+    {
+      category: "People",
+      image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794984678978-9280aae5e3f2a988430e12b10a2f534bf9a4807b-2560x1726-1.webp",
+      imageAlt: "People and leadership development",
+      items: [
+        "GCC talent acquisition and onboarding support",
+        "KPI, KRA, and OKR-based performance management frameworks",
+        "Leadership and team capability development pathways",
+        "Employee engagement and retention initiatives",
+        "Fractional CXO and operational leadership support",
+        "Team structure and workforce planning advisory",
+      ],
+    },
+    {
+      category: "Process",
+      image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794984767588-process-gcc.jpg",
+      imageAlt: "Business processes and operational planning",
+      items: [
+        "GCC business planning and execution readiness support",
+        "SOPs, workflows, operational playbooks, and policy frameworks",
+        "Operational review systems and governance structures",
+        "MIS dashboards and reporting mechanisms",
+        "Role clarity and accountability frameworks",
+        "Process optimisation and operational efficiency support",
+      ],
+    },
+    {
+      category: "Technology",
+      image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794984834242-tech.webp",
+      imageAlt: "Technology and digital systems",
+      items: [
+        "CRM, ERP, and HRMS advisory for GCC operations",
+        "Technology stack evaluation and implementation guidance",
+        "Process automation recommendations",
+        "Reporting and operational dashboard support",
+        "Workflow and collaboration tool advisory",
+      ],
+    },
+    {
+      category: "Governance",
+      image: "https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1794984911198-solutions01.jpg",
+      imageAlt: "Corporate governance and compliance",
+      items: [
+        "GCC company incorporation and market entry advisory",
+        "Legal, regulatory and compliance support",
+        "Governance and review frameworks",
+        "Risk management and internal control systems",
+        "Performance review and operational governance cadence",
+        "Operational oversight and leadership review mechanisms",
+      ],
+    },
+  ]}
+/>
+
+<EnhancementsOutcome
+  backgroundImage="/images/solutions/outcome-background.jpg"
+  enhancements={[
+    {
+      title: "First 90-day GCC operational transition support",
+      icon: "transition",
+    },
+    {
+      title: "Local vendor, partner and EOR ecosystem setup",
+      icon: "ecosystem",
+    },
+    {
+      title: "Founding team and leadership coaching",
+      icon: "coaching",
+    },
+    {
+      title: "GCC culture integration and alignment support",
+      icon: "culture",
+    },
+    {
+      title: "Quarterly GCC operational health assessments",
+      icon: "assessment",
+    },
+    {
+      title: "Strategic advisory retainers for long-term expansion support",
+      icon: "advisory",
+    },
+  ]}
+  outcomeDescription="Build scalable, high-performing GCC operations with confidence and control."
+  outcomes={[
+    "Operationally stable GCCs with strong governance and compliance",
+    "Scalable systems, capable leadership, and execution excellence",
+    "Greater visibility, reduced risk, and long-term operational sustainability",
+  ]}
+/>
+
+    <SolutionCTA
+      heading="Ready to Strengthen Your Organisation?"
+      description="Let's start with a simple, strategic conversation to understand what your business needs."
+      ctaLabel="Book a Discovery Call"
+      ctaHref="/contact-us/"
+      backLabel="Back to Solutions"
+      backHref="/solutions/"
+    />
+
+  </main>
+</Layout>
