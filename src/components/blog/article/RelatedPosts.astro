@@ -1,12 +1,6 @@
-
 ---
-/**
- * Continue reading:
- * Displays up to 4 more articles from the same category.
- */
-
-import type { BlogPost } from '../../../lib/posts';
-import PostCard from '../PostCard.astro';
+import type { BlogPost } from "../../../lib/posts";
+import PostCard from "../PostCard.astro";
 
 interface Props {
   related: BlogPost[];
@@ -14,27 +8,28 @@ interface Props {
 }
 
 const { related, category } = Astro.props;
+const posts: BlogPost[] = related.slice(0, 4);
 ---
 
-{related.length > 0 && (
-  <section class="w-full bg-vb-light px-6 py-10 sm:px-8 md:py-12 lg:py-16">
+{posts.length > 0 && (
+  <section class="w-full bg-vb-light px-5 py-9 sm:px-8 md:py-11 lg:py-12">
     <div class="mx-auto w-full max-w-vb">
 
-      <div class="mb-7 flex items-center justify-between">
-        <h2 class="font-heading text-2xl font-bold text-vb-navy sm:text-3xl">
+      <!-- Section heading -->
+      <div class="mb-6">
+        <h2 class="font-heading text-2xl font-bold leading-tight text-vb-navy sm:text-3xl">
           Continue Reading
         </h2>
+        <p class="mt-1 font-sans text-sm text-vb-text">
+          Explore more articles in this category.
+        </p>
       </div>
 
-      <div
-        class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
-        role="list"
-      >
-        {related.slice(0, 4).map((post: BlogPost) => (
-          <div role="listitem" class="min-w-0">
-            <PostCard post={post} category={category} />
-          </div>
-        ))}
+      <!-- Related articles -->
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+       {posts.map((post: BlogPost) => (
+  <PostCard post={post} category={category} />
+))}
       </div>
 
     </div>

@@ -1,0 +1,253 @@
+
+---
+interface FlowStep {
+  title: string;
+  description: string;
+  accent: "green" | "navy" | "blue" | "orange";
+}
+
+interface Props {
+  title?: string;
+  paragraphs: string[];
+  steps?: FlowStep[];
+}
+
+const {
+  title = "How It Comes Together",
+  paragraphs,
+  steps = [
+    {
+      title: "People execute",
+      description: "processes",
+      accent: "green",
+    },
+    {
+      title: "Processes are",
+      description: "enabled by technology",
+      accent: "navy",
+    },
+    {
+      title: "Technology",
+      description: "provides insight for governance",
+      accent: "blue",
+    },
+    {
+      title: "Governance",
+      description: "reinforces accountability",
+      accent: "orange",
+    },
+  ],
+} = Astro.props as Props;
+
+const accentClasses: Record<FlowStep["accent"], string> = {
+  green: "flow-step--green",
+  navy: "flow-step--navy",
+  blue: "flow-step--blue",
+  orange: "flow-step--orange",
+};
+---
+
+<section class="pptg-flow-section">
+  <div class="pptg-flow-card">
+
+    <!-- Heading and introduction -->
+    <div class="pptg-flow-header">
+      <h2 class="font-roboto-slab text-3xl font-bold text-vb-deep-blue sm:text-4xl">
+        {title}
+      </h2>
+
+      <div class="pptg-flow-description font-sans text-base leading-relaxed text-vb-text sm:text-lg">
+        {paragraphs.map((paragraph: string) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+
+    <!-- Connected process steps -->
+    <div class="pptg-flow-steps">
+      {steps.map((step, index) => (
+        <>
+          <div class:list={[
+            "pptg-flow-step",
+            accentClasses[step.accent],
+          ]}>
+            <div class="font-sans text-lg font-bold leading-relaxed text-[#383838]">
+              {step.title}
+              <br />
+              {step.description}
+            </div>
+          </div>
+
+          {index < steps.length - 1 && (
+            <div class="pptg-flow-arrow" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                class="size-8"
+              >
+                <path
+                  d="M4 12h15m-6-6 6 6-6 6"
+                  stroke="currentColor"
+                  stroke-width="2.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          )}
+        </>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .pptg-flow-section {
+    width: 100%;
+    padding: 28px 24px;
+    background: #eeeeee;
+  }
+
+  .pptg-flow-card {
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+    padding: 32px 40px 48px;
+    border-radius: 16px;
+    background: #fafafa;
+  }
+
+  /* Header */
+
+  .pptg-flow-header {
+    text-align: center;
+  }
+
+  .pptg-flow-description {
+    display: grid;
+    gap: 16px;
+    margin-top: 10px;
+  }
+
+  .pptg-flow-description p {
+    margin: 0;
+  }
+
+  /* Process flow */
+
+  .pptg-flow-steps {
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1fr) auto
+      minmax(0, 1fr) auto
+      minmax(0, 1fr) auto
+      minmax(0, 1fr);
+    align-items: center;
+    gap: 24px;
+    max-width: 1250px;
+    margin: 68px auto 0;
+  }
+
+  .pptg-flow-step {
+    display: flex;
+    min-height: 160px;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border: 3px solid;
+    border-radius: 12px;
+    background: #ffffff;
+    text-align: left;
+  }
+
+  .flow-step--green {
+    border-color: #438f54;
+  }
+
+  .flow-step--navy {
+    border-color: #101044;
+  }
+
+  .flow-step--blue {
+    border-color: #4791fa;
+  }
+
+  .flow-step--orange {
+    border-color: #87401f;
+  }
+
+  .pptg-flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #100057;
+  }
+
+  /* Tablet */
+
+  @media (max-width: 1100px) {
+    .pptg-flow-card {
+      padding: 30px 24px 36px;
+    }
+
+    .pptg-flow-steps {
+      gap: 12px;
+      margin-top: 44px;
+    }
+
+    .pptg-flow-step {
+      min-height: 135px;
+      padding: 16px;
+    }
+
+    .pptg-flow-step > div {
+      font-size: 15px;
+    }
+
+    .pptg-flow-arrow svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  /* Mobile */
+
+  @media (max-width: 767px) {
+    .pptg-flow-section {
+      padding: 20px 14px;
+    }
+
+    .pptg-flow-card {
+      padding: 26px 18px 30px;
+      border-radius: 12px;
+    }
+
+    .pptg-flow-description {
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .pptg-flow-steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      max-width: 320px;
+      margin-top: 30px;
+    }
+
+    .pptg-flow-step {
+      min-height: 100px;
+      justify-content: flex-start;
+      padding: 20px 24px;
+    }
+
+    .pptg-flow-arrow {
+      transform: rotate(90deg);
+    }
+
+    .pptg-flow-arrow svg {
+      width: 25px;
+      height: 25px;
+    }
+  }
+</style>

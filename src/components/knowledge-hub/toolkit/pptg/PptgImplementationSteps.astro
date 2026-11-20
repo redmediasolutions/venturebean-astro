@@ -1,0 +1,199 @@
+
+---
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle: string;
+  description: string;
+  steps: Step[];
+  closingText?: string;
+}
+
+const {
+  title = "How VentureBean Applies the PPTG Framework",
+  subtitle,
+  description,
+  steps,
+  closingText,
+} = Astro.props as Props;
+---
+
+<section class="pptg-implementation">
+  <div class="pptg-implementation__inner">
+
+    <!-- Heading -->
+    <header class="pptg-implementation__header">
+      <h2 class="font-roboto-slab text-3xl font-bold leading-tight text-vb-deep-blue sm:text-4xl">
+        {title}
+      </h2>
+
+      <p class="mt-6 font-sans text-base font-bold leading-relaxed text-vb-text sm:text-lg">
+        {subtitle}
+      </p>
+
+      <p class="mt-4 font-sans text-base leading-relaxed text-vb-text sm:text-lg">
+        {description}
+      </p>
+    </header>
+
+    <!-- Numbered steps -->
+    <div class="pptg-implementation__steps">
+      {steps.map((step) => (
+        <article class="pptg-implementation__step">
+          <span class="pptg-implementation__number font-sans">
+            {step.number}
+          </span>
+
+          <div class="pptg-implementation__step-content">
+            <h3 class="font-heading text-lg font-bold text-vb-navy sm:text-xl">
+              {step.title}
+            </h3>
+
+            <p class="mt-2 font-sans text-sm font-semibold leading-relaxed text-vb-text sm:text-base">
+              {step.description}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Closing statement -->
+    {closingText && (
+      <p class="pptg-implementation__closing font-sans text-base leading-relaxed text-vb-text sm:text-lg">
+        {closingText}
+      </p>
+    )}
+
+  </div>
+</section>
+
+<style>
+  .pptg-implementation {
+    width: 100%;
+    padding: 42px 28px;
+    background: #eeeeee;
+  }
+
+  .pptg-implementation__inner {
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+  }
+
+  /* Header */
+
+  .pptg-implementation__header {
+    text-align: center;
+  }
+
+  /* Step cards */
+
+  .pptg-implementation__steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .pptg-implementation__step {
+    position: relative;
+    display: flex;
+    min-height: 210px;
+    align-items: flex-start;
+    background: #ffffff;
+  }
+
+  .pptg-implementation__number {
+    position: absolute;
+    top: -20px;
+    left: 68px;
+    display: flex;
+    width: 68px;
+    height: 68px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: #08063e;
+    color: #ffffff;
+    font-size: 23px;
+    font-weight: 600;
+  }
+
+  .pptg-implementation__step-content {
+    width: 100%;
+    padding: 86px 34px 28px;
+  }
+
+  /* Closing text */
+
+  .pptg-implementation__closing {
+    margin: 34px 0 0;
+    text-align: center;
+  }
+
+  /* Tablet */
+
+  @media (max-width: 1024px) {
+    .pptg-implementation {
+      padding: 36px 22px;
+    }
+
+    .pptg-implementation__steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px 20px;
+      margin-top: 48px;
+    }
+
+    .pptg-implementation__step {
+      min-height: 180px;
+    }
+
+    .pptg-implementation__number {
+      left: 28px;
+      width: 56px;
+      height: 56px;
+    }
+
+    .pptg-implementation__step-content {
+      padding: 68px 24px 24px;
+    }
+  }
+
+  /* Mobile */
+
+  @media (max-width: 640px) {
+    .pptg-implementation {
+      padding: 32px 16px;
+    }
+
+    .pptg-implementation__steps {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 44px;
+    }
+
+    .pptg-implementation__step {
+      min-height: 145px;
+    }
+
+    .pptg-implementation__number {
+      left: 20px;
+      width: 48px;
+      height: 48px;
+      font-size: 18px;
+    }
+
+    .pptg-implementation__step-content {
+      padding: 62px 22px 22px;
+    }
+
+    .pptg-implementation__closing {
+      margin-top: 26px;
+    }
+  }
+</style>

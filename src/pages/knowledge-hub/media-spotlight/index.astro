@@ -1,24 +1,38 @@
 ---
 /**
- * Media Spotlight page (Knowledge Hub → Media Spotlight) → /knowledge-hub/media-spotlight/
- * Each section lives in src/components/knowledge-hub/media-spotlight/.
+ * Media Spotlight page (Knowledge Hub → Media Spotlight)
+ * Route: /knowledge-hub/media-spotlight/
+ *
+ * Each section lives in:
+ * src/components/knowledge-hub/media-spotlight/
+ *
+ * Render on request so newly published Content Manager posts
+ * appear without requiring a rebuild.
  */
-export const prerender = false; // Rendered on request (Cloudflare), so new Content Manager posts appear straight away
+export const prerender = false;
 
-import Layout from '../../../layouts/Layout.astro';
-import HeroSlider from '../../../components/knowledge-hub/media-spotlight/HeroSlider.astro';
-import MediaTabs from '../../../components/knowledge-hub/media-spotlight/MediaTabs.astro';
-import StayConnected from '../../../components/knowledge-hub/media-spotlight/StayConnected.astro';
+import Layout from "../../../layouts/Layout.astro";
+import HeroSlider from "../../../components/knowledge-hub/media-spotlight/HeroSlider.astro";
+import MediaTabs from "../../../components/knowledge-hub/media-spotlight/MediaTabs.astro";
+import StayConnected from "../../../components/knowledge-hub/media-spotlight/StayConnected.astro";
+import GlobalHero from "../../../components/global/global-hero.astro";
 ---
 
 <Layout page="media-spotlight">
-  <main id="content" class="site-main post-24126 page type-page status-publish hentry">
-    <div class="page-content">
-      <div data-vb-type="site-page" data-vb-id="24126" class="vb vb-24126" data-vb-post-type="page">
-        <HeroSlider />
-        <MediaTabs />
-        <StayConnected />
-      </div>
-    </div>
+  <main
+    id="content"
+    class="w-full min-w-0 overflow-hidden bg-white"
+  >
+<GlobalHero
+      title="Media Spotlight"
+      subtitle="Knowledge Hub"
+      description="Explore our visual journey through photos and videos showcasing VentureBean's events, innovations, and impact in the global business ecosystem."
+      image="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1795102571496-about-us.webp"
+      showButton={true}
+      buttonText="Book a Discovery Call"
+    />
+
+  <MediaTabs />
+    <StayConnected />
   </main>
 </Layout>

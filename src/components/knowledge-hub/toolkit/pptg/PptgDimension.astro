@@ -1,0 +1,309 @@
+
+---
+type Accent = "green" | "navy" | "violet" | "orange";
+
+interface Props {
+  number: string;
+  title: string;
+  subtitle: string;
+  heading: string;
+  paragraphs: string[];
+  outcomes: string[];
+  accent?: Accent;
+}
+
+const props = Astro.props as Props;
+
+const {
+  number,
+  title,
+  subtitle,
+  heading,
+  paragraphs,
+  outcomes,
+  accent = "navy",
+} = props;
+
+const accentStyles: Record<Accent, string> = {
+  green: "border-green-600",
+  navy: "border-vb-navy",
+  violet: "border-violet-700",
+  orange: "border-orange-700",
+};
+---
+
+<section class="pptg-dimension-section">
+  <article class="pptg-dimension" data-accent={accent}>
+
+    <!-- LEFT: DIMENSION INTRODUCTION -->
+    <div class="pptg-dimension__intro">
+      <p class="font-heading text-sm font-bold uppercase tracking-wide text-vb-navy">
+        Dimension {number}
+      </p>
+
+      <h2 class="pptg-dimension__title font-heading text-vb-deep-blue">
+        {title}
+      </h2>
+
+      <div class:list={[
+        "pptg-dimension__subtitle",
+        accentStyles[accent],
+      ]}>
+        <p class="font-sans text-base font-semibold leading-relaxed text-vb-text sm:text-lg">
+          {subtitle}
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT: DIMENSION CONTENT -->
+    <div class="pptg-dimension__content">
+      <h3 class="font-heading text-xl font-bold leading-snug text-vb-navy sm:text-2xl">
+        {heading}
+      </h3>
+
+      <div class="pptg-dimension__paragraphs font-sans text-sm leading-relaxed text-vb-text sm:text-base">
+        {paragraphs.map((paragraph: string) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+
+      {outcomes.length > 0 && (
+        <div class="pptg-dimension__outcomes">
+          <h4 class="font-heading text-lg font-bold text-vb-deep-blue sm:text-xl">
+            What this enables
+          </h4>
+
+          <div class="pptg-dimension__outcome-grid">
+            {outcomes.map((outcome: string) => (
+              <div class="pptg-dimension__outcome">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  class="size-6 shrink-0 text-green-700"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9.5"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  />
+                  <path
+                    d="m7.5 12 3 3 6-6"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+
+                <p class="font-sans text-sm leading-relaxed text-vb-navy sm:text-base">
+                  {outcome}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </article>
+</section>
+
+<style>
+  .pptg-dimension-section {
+    width: 100%;
+    padding: 28px 24px;
+    background: #eeeeee;
+  }
+
+  .pptg-dimension {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.34fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 32px;
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+  }
+
+  .pptg-dimension > * {
+    min-width: 0;
+  }
+
+  /* Left introduction */
+
+  .pptg-dimension__intro {
+    padding-top: 12px;
+  }
+
+  .pptg-dimension__title {
+    margin: 10px 0 16px;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .pptg-dimension__subtitle {
+    border-left-width: 5px;
+    border-left-style: solid;
+    padding: 20px 22px;
+    background: #ffffff;
+  }
+
+  .pptg-dimension__subtitle p {
+    margin: 0;
+  }
+
+  /* Right content card */
+
+  .pptg-dimension__content {
+    min-width: 0;
+    padding: 28px 32px;
+    border: 1px solid #d0d0d0;
+    border-radius: 12px;
+    background: #ffffff;
+  }
+
+  .pptg-dimension__paragraphs {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .pptg-dimension__paragraphs p {
+    margin: 0;
+  }
+
+  /* Outcomes */
+
+  .pptg-dimension__outcomes {
+    margin-top: 28px;
+  }
+
+  .pptg-dimension__outcomes h4 {
+    margin: 0 0 14px;
+  }
+
+  .pptg-dimension__outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .pptg-dimension__outcome {
+    display: flex;
+    min-height: 120px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    background: #f1f1f1;
+  }
+
+  .pptg-dimension__outcome svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
+  .pptg-dimension__outcome p {
+    margin: 12px 0 0;
+  }
+
+  /* Accent borders */
+
+  .pptg-dimension[data-accent="green"] .pptg-dimension__subtitle {
+    border-left-color: #58ad6b;
+  }
+
+  .pptg-dimension[data-accent="navy"] .pptg-dimension__subtitle {
+    border-left-color: var(--color-vb-navy);
+  }
+
+  .pptg-dimension[data-accent="violet"] .pptg-dimension__subtitle {
+    border-left-color: #7137a5;
+  }
+
+  .pptg-dimension[data-accent="orange"] .pptg-dimension__subtitle {
+    border-left-color: #a34b20;
+  }
+
+  /* Tablet */
+
+  @media (max-width: 1024px) {
+    .pptg-dimension-section {
+      padding: 24px 20px;
+    }
+
+    .pptg-dimension {
+      grid-template-columns: minmax(190px, 0.35fr) minmax(0, 1fr);
+      gap: 22px;
+    }
+
+    .pptg-dimension__content {
+      padding: 24px;
+    }
+
+    .pptg-dimension__outcome-grid {
+      gap: 10px;
+    }
+
+    .pptg-dimension__outcome {
+      padding: 14px;
+    }
+  }
+
+  /* Mobile */
+
+  @media (max-width: 767px) {
+    .pptg-dimension-section {
+      padding: 22px 16px;
+    }
+
+    .pptg-dimension {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .pptg-dimension__intro {
+      padding-top: 0;
+    }
+
+    .pptg-dimension__title {
+      margin: 6px 0 12px;
+      font-size: 30px;
+    }
+
+    .pptg-dimension__subtitle {
+      padding: 16px 18px;
+    }
+
+    .pptg-dimension__content {
+      padding: 22px 18px;
+      border-radius: 10px;
+    }
+
+    .pptg-dimension__paragraphs {
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .pptg-dimension__outcomes {
+      margin-top: 24px;
+    }
+
+    .pptg-dimension__outcome-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .pptg-dimension__outcome {
+      min-height: auto;
+      padding: 14px;
+    }
+
+    .pptg-dimension__outcome p {
+      margin-top: 8px;
+    }
+  }
+</style>

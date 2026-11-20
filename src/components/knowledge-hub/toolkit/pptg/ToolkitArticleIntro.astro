@@ -1,0 +1,21 @@
+
+---import VbButton from '../../../global/VBButton.astro';
+
+
+interface Props {
+  backHref?: string;
+  backLabel?: string;
+}
+
+---
+
+<section class="w-full bg-[#eeeeee] px-5 pb-12 pt-12 sm:px-8 sm:pb-12 sm:pt-16 lg:px-12 lg:pb-12 lg:pt-[88px]">
+  <div class="mx-auto w-full max-w-vb">
+    <div class="mt-3 rounded-xl border border-[#d0d0d0] bg-white px-6 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-10">
+      <div class="space-y-4 font-sans text-base leading-relaxed text-[#383838] sm:text-lg">
+        <slot />
+      </div>
+    </div>
+
+  </div>
+</section>
