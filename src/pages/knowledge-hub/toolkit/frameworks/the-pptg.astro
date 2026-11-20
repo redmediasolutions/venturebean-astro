@@ -1,0 +1,220 @@
+
+---
+import GlobalHero from "../../../../components/global/global-hero.astro";
+import PptgDimension from "../../../../components/knowledge-hub/toolkit/pptg/PptgDimension.astro";
+import PptgHowItComesTogether from "../../../../components/knowledge-hub/toolkit/pptg/PptgHowItComesTogether.astro";
+import PptgImplementationSteps from "../../../../components/knowledge-hub/toolkit/pptg/PptgImplementationSteps.astro";
+import ToolkitArticleIntro from "../../../../components/knowledge-hub/toolkit/pptg/ToolkitArticleIntro.astro";
+import PptgGrowthCTA from "../../../../components/knowledge-hub/toolkit/pptg/PptgGrowthCTA.astro";
+import Layout from "../../../../layouts/Layout.astro";
+---
+
+<Layout page="case-studies">
+  <main id="content" class="w-full min-w-0 overflow-hidden bg-white">
+
+    <!-- =====================================================
+         1. HERO
+    ====================================================== -->
+
+    <GlobalHero
+      title="The PPTG Framework"
+      subtitle="PROPRIETARY METHODOLOGY"
+      description="The operating system that helps organisations build disciplined execution and achieve sustainable growth."
+      image="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1795108908064-foundation.webp"
+      showButton={false}
+    />
+
+    <!-- =====================================================
+         2. ARTICLE INTRODUCTION - GREY
+    ====================================================== -->
+
+    <section class="w-full bg-[#eeeeee]">
+      <ToolkitArticleIntro>
+        <p>
+          Sustainable growth is built deliberately. The PPTG Framework is
+          VentureBean’s operating system for building organisations that
+          scale with control, clarity, and confidence. It aligns People,
+          Process, Technology, and Governance into a unified execution
+          system so that strategy translates into daily decisions and
+          measurable results.
+        </p>
+
+        <p>
+          By integrating these four dimensions, the PPTG Framework helps
+          organisations shift from fragmented effort and reactive
+          management to consistent, repeatable, and scalable performance.
+        </p>
+      </ToolkitArticleIntro>
+    </section>
+
+    <!-- =====================================================
+         3. FRAMEWORK DIAGRAM - WHITE
+    ====================================================== -->
+
+    <section class="w-full bg-white px-5 py-10 sm:px-8 sm:py-14 lg:py-16">
+      <div class="mx-auto w-full max-w-vb">
+        <img
+          src="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1795109541900-pptg-image.webp"
+          alt="The four pillars of the PPTG Framework: People, Process, Technology and Governance"
+          width="800"
+          height="600"
+          loading="lazy"
+          decoding="async"
+          class="mx-auto h-auto w-full max-w-[800px] object-contain"
+        />
+      </div>
+    </section>
+
+    <!-- =====================================================
+         4. FOUR DIMENSIONS - GREY
+    ====================================================== -->
+
+    <section class="w-full bg-[#eeeeee] px-5 py-10 sm:px-8 sm:py-14 lg:py-16">
+      <div class="mx-auto w-full max-w-vb space-y-10 lg:space-y-12">
+
+        <!-- PEOPLE -->
+
+        <PptgDimension
+          number="01"
+          title="People"
+          accent="green"
+          subtitle="Organisations grow faster when roles, accountability, and capability are aligned with business outcomes."
+          heading="People who are accountable, capable, and aligned."
+          paragraphs={[
+            "Growth accelerates when people understand their responsibilities and recognise how their work contributes to enterprise performance. Within the PPTG Framework, every critical role is defined through decision authority, accountability, and measurable outcomes.",
+            "Capabilities are aligned with the organisation’s current stage of growth and its future direction rather than past success. Performance is reviewed against outcomes, capability gaps are addressed intentionally, and roles evolve as the business scales to preserve clarity and accountability."
+          ]}
+          outcomes={[
+            "Clear accountability across teams",
+            "Reduced dependency on individuals",
+            "Leadership attention directed toward outcomes rather than operational disruption"
+          ]}
+        />
+
+        <!-- PROCESS -->
+
+        <PptgDimension
+          number="02"
+          title="Process"
+          accent="navy"
+          subtitle="Organisations scale effectively when execution is supported by clearly defined and measurable workflows."
+          heading="Execution that is repeatable, predictable, and scalable."
+          paragraphs={[
+            "Execution becomes dependable when processes are designed with clarity and discipline.",
+            "The PPTG Framework defines core workflows from start to finish, with clear inputs, decision points, and outputs. Execution is measured through indicators such as cycle time, quality, and throughput, enabling leaders to identify constraints early and respond with precision.",
+            "Processes are refined continuously to simplify execution, remove ambiguity, and improve speed and consistency without introducing unnecessary complexity."
+          ]}
+          outcomes={[
+            "Consistent delivery under pressure",
+            "Faster execution with fewer errors",
+            "Sustainable scale without operational friction"
+          ]}
+        />
+
+        <!-- TECHNOLOGY -->
+
+        <PptgDimension
+          number="03"
+          title="Technology"
+          accent="violet"
+          subtitle="Technology creates value when it strengthens visibility, improves decisions, and supports execution."
+          heading="Visibility, insight, and decisions that move the business forward."
+          paragraphs={[
+            "Technology must serve execution rather than distract from it.",
+            "Within the PPTG Framework, tools are selected and implemented to support people and process, improve transparency, and provide reliable real-time insight. Adoption, data quality, and usability are monitored continuously to ensure technology delivers measurable business value.",
+            "When technology is aligned with execution, leaders gain visibility into performance as it happens. Decisions are guided by evidence rather than assumption, allowing action to be taken with speed and confidence."
+          ]}
+          outcomes={[
+            "Real-time visibility into performance",
+            "Faster and more informed decisions",
+            "Systems that strengthen execution across the organisation"
+          ]}
+        />
+
+        <!-- GOVERNANCE -->
+
+        <PptgDimension
+          number="04"
+          title="Governance"
+          accent="orange"
+          subtitle="Strong governance creates decision discipline and keeps organisational performance aligned over time."
+          heading="Discipline, control, and momentum as the organisation grows."
+          paragraphs={[
+            "Sustainable growth depends on structured oversight and disciplined decision-making.",
+            "The PPTG Framework establishes clear decision rights, structured review forums, and performance tracking against meaningful business metrics. Reviews are designed to generate insight, strengthen accountability, and drive action.",
+            "As organisations grow, governance provides the discipline required to manage risk, maintain alignment, and identify execution drift before it affects results. Leaders know when to intervene, where to adjust, and how to keep performance on track."
+          ]}
+          outcomes={[
+            "Timely and informed decisions",
+            "Early visibility into risks and execution gaps",
+            "Performance consistency as the organisation scales"
+          ]}
+        />
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         5. HOW IT COMES TOGETHER - WHITE
+    ====================================================== -->
+
+    <section class="w-full bg-white">
+      <PptgHowItComesTogether
+        paragraphs={[
+          "Growth becomes controlled when every dimension of execution works as one connected system. The PPTG Framework operates as an integrated model.",
+          "People execute clearly defined processes. Processes are supported by aligned technology. Technology provides insight for governance. Governance reinforces accountability and keeps execution focused.",
+          "When these dimensions operate in alignment, organisations move from reacting to challenges toward managing growth with structure and confidence. This is how VentureBean helps leaders build operating models that adapt, scale, and deliver results consistently."
+        ]}
+      />
+    </section>
+
+    <!-- =====================================================
+         6. IMPLEMENTATION - GREY
+    ====================================================== -->
+
+    <section class="w-full bg-[#eeeeee]">
+      <PptgImplementationSteps
+        subtitle="The framework provides a structured way to identify execution gaps and build stronger systems"
+        description="VentureBean applies the PPTG Framework through a disciplined process that helps organisations strengthen execution and prepare for sustainable growth."
+        steps={[
+          {
+            number: "1",
+            title: "Assessing",
+            description: "Assessing each dimension against current business performance."
+          },
+          {
+            number: "2",
+            title: "Identifying",
+            description: "Identifying gaps that restrict execution or growth."
+          },
+          {
+            number: "3",
+            title: "Prioritising",
+            description: "Prioritising improvements with measurable impact."
+          },
+          {
+            number: "4",
+            title: "Assigning",
+            description: "Assigning ownership and reviewing progress consistently."
+          }
+        ]}
+        closingText="Applied consistently, the framework becomes an ongoing management system rather than a one-time assessment."
+      />
+    </section>
+
+    <!-- =====================================================
+         7. FINAL CTA - WHITE
+    ====================================================== -->
+
+    <section class="w-full bg-white">
+      <PptgGrowthCTA
+        description="If your organisation is experiencing operational friction, inconsistent execution, or leadership bottlenecks, the underlying issue is often structural rather than strategic."
+        question="Ready to see where your growth system is breaking down and how to fix it?"
+        buttonLabel="Book a Session"
+        buttonHref="/contact-us/"
+        closingText="Gain a clear view of where execution is breaking down, identify the priorities that matter most, and establish the systems required to scale with confidence."
+      />
+    </section>
+
+  </main>
+</Layout>
