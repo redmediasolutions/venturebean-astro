@@ -1,64 +1,247 @@
 ---
 /**
- * Toolkit page (Knowledge Hub → Toolkit): the Frameworks / Assessment tabs.
+ * Toolkit tabs:
+ * Frameworks / Readiness Check Survey
  */
-import FrameworksTab from './FrameworksTab.astro';
-import AssessmentsTab from './AssessmentsTab.astro';
+import FrameworksTab from "./FrameworksTab.astro";
+import AssessmentsTab from "./AssessmentsTab.astro";
+
+const tabs = [
+  { id: "frameworks", label: "Frameworks" },
+];
 ---
 
-<div
-  class="vb-element vb-element-7e70442 e-con-full e-flex e-con e-parent"
-  data-id="7e70442"
-  data-element_type="container"
-  data-e-type="container"
->
-  <div
-    class="vb-element vb-element-b940213 e-n-tabs-mobile vb-widget vb-widget-n-tabs"
-    data-id="b940213"
-    data-element_type="widget"
-    data-e-type="widget"
-    data-settings={'{"tabs_justify_horizontal":"start","horizontal_scroll":"disable"}'}
-    data-widget_type="nested-tabs.default"
-  >
-    <div class="vb-widget-container">
+<section class="toolkit-tabs-section w-full bg-white px-5 py-8 sm:px-8 md:py-10">
+  <div class="mx-auto w-full max-w-vb">
+
+    <!-- Tab navigation -->
+    <div
+      class="toolkit-tabs-nav"
+      role="tablist"
+      aria-label="Toolkit categories"
+    >
+      {tabs.map((tab, index) => (
+        <button
+          id={`toolkit-tab-${tab.id}`}
+          type="button"
+          role="tab"
+          aria-selected={index === 0 ? "true" : "false"}
+          aria-controls={`toolkit-panel-${tab.id}`}
+          tabindex={index === 0 ? 0 : -1}
+          data-toolkit-tab={tab.id}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Tab panels -->
+    <div class="toolkit-tabs-content">
+
       <div
-        class="e-n-tabs"
-        data-widget-number="194249235"
-        aria-label="Tabs. Open items with Enter or Space, close with Escape and navigate using the Arrow keys."
+        id="toolkit-panel-frameworks"
+        role="tabpanel"
+        aria-labelledby="toolkit-tab-frameworks"
+        data-toolkit-panel="frameworks"
+        tabindex="0"
       >
-        <div class="e-n-tabs-heading" role="tablist">
-          <button
-            id="e-n-tab-title-1942492351"
-            data-tab-title-id="e-n-tab-title-1942492351"
-            class="e-n-tab-title"
-            aria-selected="true"
-            data-tab-index="1"
-            role="tab"
-            tabindex="0"
-            aria-controls="e-n-tab-content-1942492351"
-            style="--n-tabs-title-order: 1;"
-          >
-            <span class="e-n-tab-title-text"> Frameworks </span>
-          </button>
-          <button
-            id="dontshow"
-            data-tab-title-id="e-n-tab-title-1942492352"
-            class="e-n-tab-title"
-            aria-selected="false"
-            data-tab-index="2"
-            role="tab"
-            tabindex="-1"
-            aria-controls="e-n-tab-content-1942492352"
-            style="--n-tabs-title-order: 2;"
-          >
-            <span class="e-n-tab-title-text"> Readiness Check Survey </span>
-          </button>
-        </div>
-        <div class="e-n-tabs-content">
-          <FrameworksTab />
-          <AssessmentsTab />
-        </div>
+        <FrameworksTab />
       </div>
+
+      <div
+        id="toolkit-panel-readiness"
+        role="tabpanel"
+        aria-labelledby="toolkit-tab-readiness"
+        data-toolkit-panel="readiness"
+        tabindex="0"
+        hidden
+      >
+        <AssessmentsTab />
+      </div>
+
     </div>
   </div>
-</div>
+</section>
+
+<style>
+  /* Navigation */
+  .toolkit-tabs-section .toolkit-tabs-nav {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 32px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-bottom: 1px solid #e5e7eb !important;
+  }
+
+  /* Tab buttons */
+  .toolkit-tabs-section .toolkit-tabs-nav button[data-toolkit-tab] {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 54px !important;
+    margin: 0 !important;
+    padding: 14px 4px !important;
+
+    background: transparent !important;
+    border: 0 !important;
+    border-bottom: 3px solid transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+
+    color: #626575 !important;
+    font-family: "League Spartan", sans-serif !important;
+    font-size: 19px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    letter-spacing: normal !important;
+    text-align: center !important;
+    text-transform: none !important;
+    text-decoration: none !important;
+
+    cursor: pointer !important;
+    transition: color 180ms ease, border-color 180ms ease !important;
+  }
+
+  /* Active tab */
+  .toolkit-tabs-section .toolkit-tabs-nav button[data-toolkit-tab][aria-selected="true"] {
+    color: #3155A4 !important;
+    border-bottom-color: #3155A4 !important;
+  }
+
+  /* Hover */
+  .toolkit-tabs-section .toolkit-tabs-nav button[data-toolkit-tab]:hover {
+    color: #3155A4 !important;
+    background: transparent !important;
+  }
+
+  /* Keyboard focus */
+  .toolkit-tabs-section .toolkit-tabs-nav button[data-toolkit-tab]:focus-visible {
+    outline: 2px solid #3155A4 !important;
+    outline-offset: -2px !important;
+  }
+
+  /* Content */
+  .toolkit-tabs-section .toolkit-tabs-content {
+    width: 100% !important;
+    padding-top: 28px !important;
+  }
+
+  .toolkit-tabs-section [data-toolkit-panel][hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 640px) {
+    .toolkit-tabs-section .toolkit-tabs-nav {
+      gap: 22px !important;
+    }
+
+    .toolkit-tabs-section .toolkit-tabs-nav button[data-toolkit-tab] {
+      min-height: 48px !important;
+      padding: 12px 2px !important;
+      font-size: 17px !important;
+    }
+
+    .toolkit-tabs-section .toolkit-tabs-content {
+      padding-top: 22px !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toolkit-tabs-section .toolkit-tabs-nav button[data-toolkit-tab] {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  function initializeToolkitTabs() {
+    const tabButtons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>(
+        ".toolkit-tabs-section [data-toolkit-tab]"
+      )
+    );
+
+    const panels = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".toolkit-tabs-section [data-toolkit-panel]"
+      )
+    );
+
+    if (!tabButtons.length || !panels.length) return;
+
+    const activateTab = (tabId: string, focus = false) => {
+      tabButtons.forEach((button) => {
+        const isActive = button.dataset.toolkitTab === tabId;
+
+        button.setAttribute("aria-selected", String(isActive));
+        button.tabIndex = isActive ? 0 : -1;
+      });
+
+      panels.forEach((panel) => {
+        panel.hidden = panel.dataset.toolkitPanel !== tabId;
+      });
+
+      if (focus) {
+        tabButtons
+          .find((button) => button.dataset.toolkitTab === tabId)
+          ?.focus();
+      }
+    };
+
+    tabButtons.forEach((button, index) => {
+      if (button.dataset.tabsBound === "true") return;
+      button.dataset.tabsBound = "true";
+
+      button.addEventListener("click", () => {
+        const tabId = button.dataset.toolkitTab;
+        if (tabId) activateTab(tabId);
+      });
+
+      button.addEventListener("keydown", (event) => {
+        let nextIndex = index;
+
+        switch (event.key) {
+          case "ArrowRight":
+            nextIndex = (index + 1) % tabButtons.length;
+            break;
+
+          case "ArrowLeft":
+            nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+            break;
+
+          case "Home":
+            nextIndex = 0;
+            break;
+
+          case "End":
+            nextIndex = tabButtons.length - 1;
+            break;
+
+          default:
+            return;
+        }
+
+        event.preventDefault();
+
+        const nextTab = tabButtons[nextIndex];
+        if (nextTab.dataset.toolkitTab) {
+          activateTab(nextTab.dataset.toolkitTab, true);
+        }
+      });
+    });
+  }
+
+  initializeToolkitTabs();
+  document.addEventListener("astro:page-load", initializeToolkitTabs);
+</script>

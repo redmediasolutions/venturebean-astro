@@ -12,7 +12,7 @@
   margin-bottom: 0px;
 }/* End custom CSS */
 /* Start custom CSS for container, class: .vb-element-e0fd014 */#side-bar {
-    width: 30%;
+    width: 100%;
     padding-right: 30px;
     position: sticky;
     top: 130px;

@@ -1,45 +1,69 @@
+
 ---
 /**
- * One article card (Insights tabs, "Continue reading" on an article).
- * Same markup as the cards on the WordPress site, so the saved CSS applies.
+ * Article card used in Insights tabs and "Continue Reading".
  */
-import { postPath, type BlogPost } from '../../lib/posts';
-import { excerptOf, formatDate } from '../../lib/article';
+import type { BlogPost } from "../../lib/posts";
+import { excerptOf, formatDate } from "../../lib/article";
 
 interface Props {
   post: BlogPost;
   category: string;
 }
 
-const { post, category } = Astro.props;
+const { post } = Astro.props;
+
 const href = `/knowledge-hub/insights/${post.slug}/`;
 const date = formatDate(post.publishedAt);
 const img = post.featuredImage;
 ---
 
 <article
-  class={`vb-post vb-grid-item post type-post status-publish format-standard has-post-thumbnail hentry category-${category}`}
-  role="listitem"
+  class="flex h-full flex-col overflow-hidden rounded-vb-lg border border-gray-200 bg-white shadow-vb-card transition-shadow duration-200 hover:shadow-lg"
 >
-  <div class="vb-post__card">
-    {
-      img && (
-        <a class="vb-post__thumbnail__link" href={href} tabindex="-1">
-          <div class="vb-post__thumbnail">
-            <img loading="lazy" decoding="async" src={img.url} alt={img.alt} />
-          </div>
-        </a>
-      )
-    }
-    <div class="vb-post__text">
-      <h3 class="vb-post__title"><a href={href}>{post.title}</a></h3>
-      <div class="vb-post__excerpt"><p>{excerptOf(post)}</p></div>
-      <div class="vb-post__read-more-wrapper">
-        <a class="vb-post__read-more" href={href} aria-label={`Read more about ${post.title}`} tabindex="-1"
-          >Read More »</a
-        >
-      </div>
+  {img && (
+    <a
+      href={href}
+      class="block aspect-[16/9] w-full overflow-hidden bg-vb-light"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <img
+        loading="lazy"
+        decoding="async"
+        src={img.url}
+        alt={img.alt}
+        class="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+      />
+    </a>
+  )}
+
+  <div class="flex flex-1 flex-col p-5 sm:p-6">
+    <h3 class="font-heading text-xl font-bold leading-snug text-vb-navy">
+      <a href={href} class="transition-colors hover:text-vb-blue !no-underline !text-vb-navy !text-[20px]">
+        {post.title}
+      </a>
+    </h3>
+
+    <div class="mt-3 flex-1 font-sans text-sm leading-relaxed text-vb-text">
+      <p>{excerptOf(post)}</p>
     </div>
-    <div class="vb-post__meta-data">{date && <span class="vb-post-date">{date}</span>}</div>
+
+    <div class="mt-5 flex items-center justify-between gap-4 border-t border-gray-100 pt-4">
+      {date && (
+        <time class="font-sans text-xs text-vb-text">
+          {date}
+        </time>
+      )}
+
+      <a
+        href={href}
+        class="inline-flex shrink-0 items-center gap-1 font-sans text-sm font-semibold !text-vb-blue transition-colors hover:text-vb-navy !no-underline"
+        aria-label={`Read more about ${post.title}`}
+      >
+        Read More
+        <span aria-hidden="true">»</span>
+      </a>
+    </div>
   </div>
 </article>

@@ -1,0 +1,62 @@
+
+---import VbBackbutton from '../../../global/VBBackbutton.astro';
+
+
+interface Props {
+  title?: string;
+  description: string;
+  question: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+  closingText: string;
+  backHref?: string;
+}
+
+const {
+  title = "Build a Growth System That Performs Under Pressure",
+  description,
+  question,
+  buttonLabel = "Book a Session",
+  buttonHref = "/contact-us/",
+  closingText,
+  backHref = "/knowledge-hub/toolkit/",
+} = Astro.props as Props;
+---
+
+<section class="w-full bg-white px-5 pb-3 pt-12 sm:px-8 sm:pt-16 lg:pt-20">
+  <div class="mx-auto w-full max-w-5xl text-center">
+
+    <h2 class="font-roboto-slab text-4xl font-bold leading-[1.08] text-vb-deep-blue sm:text-5xl lg:text-6xl">
+      {title}
+    </h2>
+
+    <p class="mx-auto mt-6 max-w-5xl font-sans text-base font-semibold leading-relaxed text-vb-text sm:text-lg">
+      {description}
+    </p>
+
+    <h3 class="mt-5 font-sans text-base font-bold leading-relaxed text-vb-text sm:text-lg">
+      {question}
+    </h3>
+
+    <a
+      href={buttonHref}
+      class="mt-8 inline-flex min-h-12 items-center justify-center border border-black bg-black px-6 py-3 font-sans text-base font-bold text-white no-underline transition-colors hover:border-vb-blue hover:bg-vb-blue focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-vb-blue sm:mt-10 sm:min-h-[60px]"
+    >
+      {buttonLabel}
+    </a>
+
+    <p class="mx-auto mt-6 max-w-5xl font-sans text-base font-semibold leading-relaxed text-vb-text sm:mt-7 sm:text-lg">
+      {closingText}
+    </p>
+
+  </div>
+
+  <div class="mx-auto mt-24 w-full max-w-vb sm:mt-32 lg:mt-44">
+    <VbBackbutton
+      href={backHref}
+      label="Back to Toolkit"
+      variant="light"
+      size="lg"
+    />
+  </div>
+</section>

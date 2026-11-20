@@ -76,7 +76,6 @@
     background-color: #FFFFFF;
   }
 
-  /* Headings */
   h1,
   h2,
   h3,
@@ -89,20 +88,17 @@
     color: var(--color-vb-navy);
   }
 
-  /* Images */
   img {
     display: block;
     max-width: 100%;
     height: auto;
   }
 
-  /* Links */
   a {
     text-decoration: none;
     text-underline-offset: 3px;
   }
 
-  /* Form Controls */
   button,
   input,
   textarea,
@@ -110,10 +106,220 @@
     font-family: var(--font-sans);
   }
 
-  /* Consistent sizing */
   *,
   *::before,
   *::after {
     box-sizing: border-box;
+  }
+}
+
+/* ========================================
+   BLOG ARTICLE LAYOUT
+======================================== */
+
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  width: 100%;
+  gap: 2.5rem;
+}
+
+.article-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .article-layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    column-gap: 48px;
+  }
+
+  .article-sidebar {
+    position: sticky;
+    top: 112px;
+    width: 320px;
+  }
+}
+
+/* ========================================
+   BLOG ARTICLE CONTENT
+======================================== */
+
+.article-content {
+  max-width: 900px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.article-content h2 {
+  font-size: 1.55rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+
+.article-content h3 {
+  font-size: 1.3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.65rem;
+}
+
+.article-content p {
+  margin-bottom: 1rem;
+}
+
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  color: var(--color-vb-navy);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.3;
+  scroll-margin-top: 120px;
+}
+
+.article-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+.article-content h3 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.4rem;
+}
+
+.article-content h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+}
+
+.article-content p {
+  margin-bottom: 1.25rem;
+}
+
+.article-content ul,
+.article-content ol {
+  margin: 1rem 0 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.article-content ul {
+  list-style: disc;
+}
+
+.article-content ol {
+  list-style: decimal;
+}
+
+.article-content li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.article-content a {
+  color: var(--color-vb-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.article-content a:hover {
+  color: var(--color-vb-navy);
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-vb-lg);
+}
+
+.article-content blockquote {
+  margin: 1.5rem 0;
+  border-left: 4px solid var(--color-vb-blue);
+  padding: 0.75rem 1.25rem;
+  background: var(--color-vb-blue-soft);
+  color: var(--color-vb-navy);
+}
+
+.article-content table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.article-content th,
+.article-content td {
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.article-content th {
+  background: var(--color-vb-blue-soft);
+  color: var(--color-vb-navy);
+  font-weight: 700;
+}
+
+/* ========================================
+   ARTICLE TABLE OF CONTENTS
+======================================== */
+
+.article-sidebar details {
+  width: 100%;
+  min-width: 0;
+}
+
+.article-sidebar summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  cursor: pointer;
+  list-style: none;
+}
+
+.article-sidebar summary::-webkit-details-marker {
+  display: none;
+}
+
+.article-sidebar summary i {
+  flex-shrink: 0;
+}
+
+.article-sidebar details > div {
+  width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.article-sidebar details a {
+  overflow-wrap: anywhere;
+}
+
+/* ========================================
+   MOBILE ARTICLE TYPOGRAPHY
+======================================== */
+
+@media (max-width: 640px) {
+  .article-content {
+    font-size: 0.9375rem;
+  }
+
+  .article-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .article-content h3 {
+    font-size: 1.25rem;
   }
 }

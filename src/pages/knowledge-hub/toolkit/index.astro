@@ -1,26 +1,40 @@
 ---
 /**
- * Toolkit page (Knowledge Hub → Toolkit) → /knowledge-hub/toolkit/
- * Each section lives in src/components/knowledge-hub/toolkit123/.
+ * Toolkit page (Knowledge Hub → Toolkit)
+ * Route: /knowledge-hub/toolkit/
+ *
+ * Sections:
+ * - HeroSlider
+ * - ToolkitHeadingMobile
+ * - ToolkitHeading
+ * - ToolkitTabs
+ *
+ * Render on request so newly published Content Manager posts
+ * appear without requiring a rebuild.
  */
-export const prerender = false; // Rendered on request (Cloudflare), so new Content Manager posts appear straight away
+export const prerender = false;
 
-import Layout from '../../../layouts/Layout.astro';
-import HeroSlider from '../../../components/knowledge-hub/toolkit/HeroSlider.astro';
-import ToolkitHeadingMobile from '../../../components/knowledge-hub/toolkit/ToolkitHeadingMobile.astro';
-import ToolkitHeading from '../../../components/knowledge-hub/toolkit/ToolkitHeading.astro';
-import ToolkitTabs from '../../../components/knowledge-hub/toolkit/ToolkitTabs.astro';
+import Layout from "../../../layouts/Layout.astro";
+import HeroSlider from "../../../components/knowledge-hub/toolkit/HeroSlider.astro";
+import ToolkitHeadingMobile from "../../../components/knowledge-hub/toolkit/ToolkitHeadingMobile.astro";
+import ToolkitHeading from "../../../components/knowledge-hub/toolkit/ToolkitHeading.astro";
+import ToolkitTabs from "../../../components/knowledge-hub/toolkit/ToolkitTabs.astro";
+import GlobalHero from "../../../components/global/global-hero.astro";
 ---
 
 <Layout page="toolkit">
-  <main id="content" class="site-main post-24863 page type-page status-publish hentry">
-    <div class="page-content">
-      <div data-vb-type="site-page" data-vb-id="24863" class="vb vb-24863" data-vb-post-type="page">
-        <HeroSlider />
-        <ToolkitHeadingMobile />
-        <ToolkitHeading />
-        <ToolkitTabs />
-      </div>
-    </div>
+  <main
+    id="content"
+    class="w-full min-w-0 overflow-hidden bg-white"
+  >
+    <GlobalHero
+      title="Toolkit"
+      subtitle="Knowledge Hub"
+      description="Your central repository for strategic insights, market analysis, and expert articles on industry trends."
+      image="https://redmediaassets.s3.ap-south-1.amazonaws.com/venturebean/media/2026/11/1795102571496-about-us.webp"
+      showButton={true}
+      buttonText="Reach us"
+    />
+    <ToolkitTabs />
   </main>
 </Layout>

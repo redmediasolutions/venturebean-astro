@@ -1,102 +1,116 @@
 ---
 /**
- * Media Spotlight → Publications: one card per post in the "Media Spotlight"
- * category of the Content Manager (newest first).
+ * Media Spotlight → Publications
  *
- * The card opens the post's "Link" custom field (link_url): the press article,
- * PDF or post on another site. Image = featured image, date = publish date.
- * If the Content Manager has no posts here, the saved cards (children) show.
+ * Displays Content Manager posts in newest-first order.
+ * Card link: Link custom field, falling back to the post URL.
+ * Image: Featured image.
+ * Date: Publish date.
+ *
+ * Saved cards supplied through the default slot are displayed
+ * when no Content Manager posts are available.
  */
-import { getSectionPosts, linkOf, postPath } from '../../../lib/posts';
-import { formatDate } from '../../../lib/article';
-import { linkTarget } from './link-target';
 
-const posts = await getSectionPosts('publications');
+import { getSectionPosts, linkOf, postPath } from "../../../lib/posts";
+import { formatDate } from "../../../lib/article";
+import { linkTarget } from "./link-target";
+
+const posts = await getSectionPosts("publications");
+
 const cards = (posts ?? []).map((post) => {
-  const href = linkOf(post) ?? (post.content.trim() ? postPath(post.slug) : undefined);
-  return { post, href, ...linkTarget(href), date: formatDate(post.publishedAt), image: post.featuredImage?.url };
+  const href =
+    linkOf(post) ??
+    (post.content.trim() ? postPath(post.slug) : undefined);
+
+  return {
+    post,
+    href,
+    ...linkTarget(href),
+    date: formatDate(post.publishedAt),
+    image: post.featuredImage?.url,
+  };
 });
 ---
 
 {
-  posts ? (
-    cards.map(({ post, href, target, rel, date, image }) => (
-      <div
-        data-vb-type="loop-item"
-        data-vb-id="24249"
-        class={`vb vb-24249 e-loop-item e-loop-item-${post.id} post type-post status-publish format-standard has-post-thumbnail hentry category-media-spotlight`}
-        data-vb-post-type="vb_library"
-      >
-        <div
-          class="vb-element vb-element-0c5aae4 e-con-full e-flex e-con e-parent"
-          data-id="0c5aae4"
-          data-element_type="container"
-          data-e-type="container"
-        >
-          <a
-            class="vb-element vb-element-8376f13 e-con-full e-flex e-con e-child"
-            data-id="8376f13"
-            data-element_type="container"
-            data-e-type="container"
-            href={href}
-            target={target}
-            rel={rel}
-            aria-label={post.title}
-            style={image ? `background-image:url(${JSON.stringify(image)})` : undefined}
-          />
-          <div
-            class="vb-element vb-element-92ee2dd vb-widget vb-widget-theme-post-title vb-page-title vb-widget-heading"
-            data-id="92ee2dd"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="theme-post-title.default"
-          >
-            <div class="vb-widget-container">
-              <h2 class="vb-heading-title vb-size-default">
-                <a href={href} target={target} rel={rel}>
+  cards.length > 0 ? (
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
+      {cards.map(({ post, href, target, rel, date, image }) => (
+        <article class="group flex h-full flex-col overflow-hidden rounded-vb-lg border border-gray-100 bg-white shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-vb-card">
+
+          <!-- Featured image -->
+          {href ? (
+            <a
+              href={href}
+              target={target}
+              rel={rel}
+              aria-label={post.title}
+              class="block overflow-hidden"
+              tabindex="-1"
+            >
+              {image ? (
+                <img
+                  src={image}
+                  alt=""
+                  loading="lazy"
+                  class="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                />
+              ) : (
+                <div class="flex aspect-[16/9] w-full items-center justify-center bg-vb-blue-soft">
+                  <span class="font-heading text-lg font-semibold text-vb-blue">
+                    VentureBean
+                  </span>
+                </div>
+              )}
+            </a>
+          ) : (
+            image ? (
+              <img
+                src={image}
+                alt=""
+                loading="lazy"
+                class="aspect-[16/9] w-full object-cover"
+              />
+            ) : (
+              <div class="flex aspect-[16/9] w-full items-center justify-center bg-vb-blue-soft">
+                <span class="font-heading text-lg font-semibold text-vb-blue">
+                  VentureBean
+                </span>
+              </div>
+            )
+          )}
+
+          <!-- Card content -->
+          <div class="flex flex-1 flex-col p-5 sm:p-6">
+            <h3 class="font-heading text-xl !font-semibold leading-snug text-vb-navy sm:text-2xl">
+              {href ? (
+                <a
+                  href={href}
+                  target={target}
+                  rel={rel}
+                  class="transition-colors hover:text-vb-blue !no-underline !text-vb-navy !text-[20px]"
+                >
                   {post.title}
                 </a>
-              </h2>
-            </div>
-          </div>
-          <div
-            class="vb-element vb-element-eff1d91 vb-widget__width-initial vb-widget-divider--view-line vb-widget vb-widget-divider"
-            data-id="eff1d91"
-            data-element_type="widget"
-            data-e-type="widget"
-            data-widget_type="divider.default"
-          >
-            <div class="vb-widget-container">
-              <div class="vb-divider">
-                <span class="vb-divider-separator" />
+              ) : (
+                post.title
+              )}
+            </h3>
+
+            <div class="my-4 h-px w-1/2 bg-gray-200" />
+
+            {date && (
+              <div class="mt-auto flex items-center gap-2 font-sans text-xs text-vb-text">
+                <i class="fas fa-calendar text-gray-400" aria-hidden="true" />
+                <time datetime={post.publishedAt?.toISOString()}>
+  {date}
+</time>
               </div>
-            </div>
+            )}
           </div>
-          {date && (
-            <div
-              class="vb-element vb-element-7e8cabc vb-widget vb-widget-post-info"
-              data-id="7e8cabc"
-              data-element_type="widget"
-              data-e-type="widget"
-              data-widget_type="post-info.default"
-            >
-              <div class="vb-widget-container">
-                <ul class="vb-inline-items vb-icon-list-items vb-post-info">
-                  <li class="vb-icon-list-item vb-repeater-item-ceb5d03 vb-inline-item" itemprop="datePublished">
-                    <span class="vb-icon-list-icon">
-                      <i aria-hidden="true" class="fas fa-calendar" />
-                    </span>
-                    <span class="vb-icon-list-text vb-post-info__item vb-post-info__item--type-date">
-                      <time>{date}</time>
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    ))
+        </article>
+      ))}
+    </div>
   ) : (
     <slot />
   )

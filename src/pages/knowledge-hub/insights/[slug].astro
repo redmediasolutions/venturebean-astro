@@ -1,10 +1,11 @@
 ---
 /**
- * Blog article → /<slug>/  (same addresses as on WordPress)
- * One page per published Coaching, Consulting, Industry Perspectives and
- * Framework (Toolkit) post in the Content Manager.
- * The pieces are in src/components/blog/article/.
+ * Blog article → /<slug>/
+ *
+ * Handles published Coaching, Consulting, Industry Perspectives
+ * and Framework (Toolkit) posts from the Content Manager.
  */
+
 export const prerender = false;
 
 import Layout from '../../../layouts/Layout.astro';
@@ -12,19 +13,20 @@ import ArticleHero from '../../../components/blog/article/ArticleHero.astro';
 import ArticleHeroMobile from '../../../components/blog/article/ArticleHeroMobile.astro';
 import ArticleBody from '../../../components/blog/article/ArticleBody.astro';
 import RelatedPosts from '../../../components/blog/article/RelatedPosts.astro';
+
 import {
   getPostBySlug,
   getArticlePosts,
   postPath,
   reportPdfOf,
-  type BlogPost,
 } from '../../../lib/posts';
+
 import { formatDate, prepareContent } from '../../../lib/article';
 
-// 1. Read the slug from the incoming URL parameter
+// Read the slug from the incoming URL.
 const { slug } = Astro.params;
 
-// Reserved static slugs already handled by distinct pages
+// Reserved static routes handled by separate pages.
 const reserved = new Set([
   'about-us',
   'business-consulting',
@@ -47,49 +49,56 @@ if (!slug || reserved.has(slug)) {
   return Astro.redirect('/404');
 }
 
-// 2. Fetch target post directly (1 read from Firestore or memory cache)
+// Fetch the requested article.
 const post = await getPostBySlug(slug);
 
 if (!post) {
   return Astro.redirect('/404');
 }
 
+// Prepare article content and table of contents.
 const { html: content, toc } = prepareContent(post.content);
 
-// 3. Determine category for "Continue reading" section
-const postCategorySlugs = post.categorySlugs.map((s) => s.toLowerCase().trim());
+// Determine the category for related articles.
+const postCategorySlugs = post.categorySlugs.map((s) =>
+  s.toLowerCase().trim()
+);
+
 const category =
-  ['coaching', 'consulting'].find((c) => postCategorySlugs.includes(c)) ??
+  ['coaching', 'consulting'].find((c) =>
+    postCategorySlugs.includes(c)
+  ) ??
   postCategorySlugs[0] ??
   'consulting';
 
-// 4. Fetch related articles (reads from the 60-second in-memory cache)
+// Fetch related articles from the same category.
 const all = (await getArticlePosts()) ?? [];
+
 const related = all
   .filter(
     (p) =>
       p.slug !== post.slug &&
-      p.categorySlugs.some((s) => s.toLowerCase().trim() === category)
+      p.categorySlugs.some(
+        (s) => s.toLowerCase().trim() === category
+      )
   )
   .slice(0, 4);
 
+// Article metadata.
 const date = formatDate(post.publishedAt);
 const reportPdf = reportPdfOf(post);
+
 const download = reportPdf
-  ? { pdf: reportPdf, postId: post.id, slug: post.slug, title: post.title }
+  ? {
+      pdf: reportPdf,
+      postId: post.id,
+      slug: post.slug,
+      title: post.title,
+    }
   : null;
 
-// Featured image styling for the header background
+// Featured image.
 const image = post.featuredImage?.url;
-const heroCss = image
-  ? `<style>` +
-    `.vb-20312 .vb-element.vb-element-474937f:not(.vb-motion-effects-element-type-background),` +
-    `.vb-20312 .vb-element.vb-element-474937f > .vb-motion-effects-container > .vb-motion-effects-layer,` +
-    `.vb-20312 .vb-element.vb-element-bd88443:not(.vb-motion-effects-element-type-background),` +
-    `.vb-20312 .vb-element.vb-element-bd88443 > .vb-motion-effects-container > .vb-motion-effects-layer{` +
-    `background-image:url(${JSON.stringify(image)});}` +
-    `</style>`
-  : '';
 ---
 
 <Layout
@@ -99,18 +108,30 @@ const heroCss = image
   canonical={`https://venturebean.com${postPath(post.slug)}`}
   image={image}
 >
-  <main id="content" class="site-main">
-    <Fragment set:html={heroCss} />
-    <div
-      data-vb-type="single-post"
-      data-vb-id="20312"
-      class={`vb vb-20312 vb-location-single post type-post status-publish format-standard has-post-thumbnail hentry category-${category}`}
-      data-vb-post-type="vb_library"
-    >
-      <ArticleHero title={post.title} date={date} />
-      <ArticleHeroMobile title={post.title} date={date} />
-      <ArticleBody content={content} toc={toc} download={download} />
-      <RelatedPosts related={related} category={category} />
-    </div>
+  <main
+    id="content"
+    class="w-full min-w-0 overflow-hidden bg-white"
+    style={image ? `--article-hero-image: url("${image}")` : undefined}
+  >
+    <ArticleHero
+      title={post.title}
+      date={date}
+    />
+
+    <ArticleHeroMobile
+      title={post.title}
+      date={date}
+    />
+
+    <ArticleBody
+      content={content}
+      toc={toc}
+      download={download}
+    />
+
+    <RelatedPosts
+      related={related}
+      category={category}
+    />
   </main>
 </Layout>
