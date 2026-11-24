@@ -111,7 +111,7 @@ if (image) {
     <Header />
     <slot />
     <Footer />
-    <template id="vb-popups"><Popups /></template>
+    <template id="vb-popups"><Popups /><slot name="popups" /></template>
     <ChatWidget />
     <script src="../scripts/site.js"></script>
   </body>
